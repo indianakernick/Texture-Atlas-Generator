@@ -33,6 +33,7 @@
 		45A628AB1EC455E000F5022B /* write atlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628A61EC455E000F5022B /* write atlas.cpp */; };
 		45A628AE1EC4583000F5022B /* pack rects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628AC1EC4583000F5022B /* pack rects.cpp */; };
 		45A628B21EC45D8400F5022B /* rects from images.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628B01EC45D8400F5022B /* rects from images.cpp */; };
+		45B5E6661EF6597C00A6A3E2 /* atlasgen in CopyFiles */ = {isa = PBXBuildFile; fileRef = 451876A01EAAF80500A8AA13 /* atlasgen */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,6 +44,16 @@
 			dstSubfolderSpec = 0;
 			files = (
 				451876B11EAAF89300A8AA13 /* atlasgen in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		45B5E6651EF6596A00A6A3E2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "~/Dev/Projects/C++/Texture Atlas Generator";
+			dstSubfolderSpec = 0;
+			files = (
+				45B5E6661EF6597C00A6A3E2 /* atlasgen in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +264,7 @@
 				4518769C1EAAF80500A8AA13 /* Sources */,
 				4518769D1EAAF80500A8AA13 /* Frameworks */,
 				4518769E1EAAF80500A8AA13 /* CopyFiles */,
+				45B5E6651EF6596A00A6A3E2 /* CopyFiles */,
 			);
 			buildRules = (
 			);

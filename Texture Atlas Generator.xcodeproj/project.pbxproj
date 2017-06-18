@@ -12,7 +12,6 @@
 		451876B71EAAFB7B00A8AA13 /* stb_image_write.c in Sources */ = {isa = PBXBuildFile; fileRef = 451876B61EAAFB7B00A8AA13 /* stb_image_write.c */; };
 		451876B91EAAFB8900A8AA13 /* stb_image.c in Sources */ = {isa = PBXBuildFile; fileRef = 451876B81EAAFB8900A8AA13 /* stb_image.c */; };
 		451876BB1EAAFB9900A8AA13 /* stb_rect_pack.c in Sources */ = {isa = PBXBuildFile; fileRef = 451876BA1EAAFB9900A8AA13 /* stb_rect_pack.c */; };
-		451876BE1EAAFC2700A8AA13 /* libyaml-cpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 451876BD1EAAFC2700A8AA13 /* libyaml-cpp.a */; };
 		451876DE1EAD900500A8AA13 /* libfreetype.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 451876DD1EAD900500A8AA13 /* libfreetype.6.dylib */; };
 		451877011EADBAF200A8AA13 /* image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451876F51EADBAF200A8AA13 /* image.cpp */; };
 		451877021EADBAF200A8AA13 /* load images.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451876F71EADBAF200A8AA13 /* load images.cpp */; };
@@ -34,6 +33,7 @@
 		45A628AE1EC4583000F5022B /* pack rects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628AC1EC4583000F5022B /* pack rects.cpp */; };
 		45A628B21EC45D8400F5022B /* rects from images.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628B01EC45D8400F5022B /* rects from images.cpp */; };
 		45B5E6661EF6597C00A6A3E2 /* atlasgen in CopyFiles */ = {isa = PBXBuildFile; fileRef = 451876A01EAAF80500A8AA13 /* atlasgen */; };
+		45B5E6681EF65B0D00A6A3E2 /* libyaml-cpp.0.5.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B5E6671EF65B0D00A6A3E2 /* libyaml-cpp.0.5.3.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -68,7 +68,6 @@
 		451876B61EAAFB7B00A8AA13 /* stb_image_write.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_image_write.c; sourceTree = "<group>"; };
 		451876B81EAAFB8900A8AA13 /* stb_image.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_image.c; sourceTree = "<group>"; };
 		451876BA1EAAFB9900A8AA13 /* stb_rect_pack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_rect_pack.c; sourceTree = "<group>"; };
-		451876BD1EAAFC2700A8AA13 /* libyaml-cpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libyaml-cpp.a"; path = "../../../../../../../../../usr/local/lib/libyaml-cpp.a"; sourceTree = "<group>"; };
 		451876DD1EAD900500A8AA13 /* libfreetype.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreetype.6.dylib; path = ../../../../../../../../../usr/local/Cellar/freetype/2.7.1/lib/libfreetype.6.dylib; sourceTree = "<group>"; };
 		451876F51EADBAF200A8AA13 /* image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = image.cpp; sourceTree = "<group>"; };
 		451876F61EADBAF200A8AA13 /* image.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = image.hpp; sourceTree = "<group>"; };
@@ -118,6 +117,7 @@
 		45A628B11EC45D8400F5022B /* rects from images.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "rects from images.hpp"; sourceTree = "<group>"; };
 		45A628B41EC67C4D00F5022B /* range.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = range.hpp; sourceTree = "<group>"; };
 		45A628B61EC6E3E000F5022B /* make range from vector.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "make range from vector.hpp"; sourceTree = "<group>"; };
+		45B5E6671EF65B0D00A6A3E2 /* libyaml-cpp.0.5.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libyaml-cpp.0.5.3.dylib"; path = "../../../../../../usr/local/Cellar/yaml-cpp/0.5.3/lib/libyaml-cpp.0.5.3.dylib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,9 +125,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45B5E6681EF65B0D00A6A3E2 /* libyaml-cpp.0.5.3.dylib in Frameworks */,
 				4518771B1EADEF6700A8AA13 /* libdocopt.dylib in Frameworks */,
 				451876DE1EAD900500A8AA13 /* libfreetype.6.dylib in Frameworks */,
-				451876BE1EAAFC2700A8AA13 /* libyaml-cpp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,9 +181,9 @@
 		451876BC1EAAFC2600A8AA13 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45B5E6671EF65B0D00A6A3E2 /* libyaml-cpp.0.5.3.dylib */,
 				4518771A1EADEF6700A8AA13 /* libdocopt.dylib */,
 				451876DD1EAD900500A8AA13 /* libfreetype.6.dylib */,
-				451876BD1EAAFC2700A8AA13 /* libyaml-cpp.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -456,6 +456,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
 					"/usr/local/Cellar/**",
+					"/usr/local/Cellar/yaml-cpp/0.5.3/lib",
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
@@ -497,6 +498,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
 					"/usr/local/Cellar/**",
+					"/usr/local/Cellar/yaml-cpp/0.5.3/lib",
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",

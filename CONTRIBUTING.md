@@ -9,6 +9,6 @@ When writing a suggestion, make it detailed. If you're suggesting a feature, try
 If you notice that something doesn't work quite right or doesn't do what you expect then open a new issue. Describe detailed steps to reproduce the problem.
 
 ## Or dive into the code
-Instructions for building the tool are in the README. Once you've made your changes, fork the repo and open a pull request with a detailed description of what you've done.
+Instructions for building the tool are in the README. Once you've made your changes, open a pull request with a detailed description of what you've done.
 
 When playing around in the code, try to match the style of the existing code as best you can. Use spaces (not tabs), curly brackets don't go to the next line, you'll figure it out!

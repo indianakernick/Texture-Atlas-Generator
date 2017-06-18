@@ -1,0 +1,532 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		451876A41EAAF80500A8AA13 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451876A31EAAF80500A8AA13 /* main.cpp */; };
+		451876B11EAAF89300A8AA13 /* atlasgen in CopyFiles */ = {isa = PBXBuildFile; fileRef = 451876A01EAAF80500A8AA13 /* atlasgen */; };
+		451876B71EAAFB7B00A8AA13 /* stb_image_write.c in Sources */ = {isa = PBXBuildFile; fileRef = 451876B61EAAFB7B00A8AA13 /* stb_image_write.c */; };
+		451876B91EAAFB8900A8AA13 /* stb_image.c in Sources */ = {isa = PBXBuildFile; fileRef = 451876B81EAAFB8900A8AA13 /* stb_image.c */; };
+		451876BB1EAAFB9900A8AA13 /* stb_rect_pack.c in Sources */ = {isa = PBXBuildFile; fileRef = 451876BA1EAAFB9900A8AA13 /* stb_rect_pack.c */; };
+		451876BE1EAAFC2700A8AA13 /* libyaml-cpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 451876BD1EAAFC2700A8AA13 /* libyaml-cpp.a */; };
+		451876DE1EAD900500A8AA13 /* libfreetype.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 451876DD1EAD900500A8AA13 /* libfreetype.6.dylib */; };
+		451877011EADBAF200A8AA13 /* image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451876F51EADBAF200A8AA13 /* image.cpp */; };
+		451877021EADBAF200A8AA13 /* load images.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451876F71EADBAF200A8AA13 /* load images.cpp */; };
+		451877031EADBAF200A8AA13 /* blit images.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451876F91EADBAF200A8AA13 /* blit images.cpp */; };
+		451877061EADBAF200A8AA13 /* write image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451876FF1EADBAF200A8AA13 /* write image.cpp */; };
+		4518770F1EADBBB400A8AA13 /* freetype error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451877091EADBBB400A8AA13 /* freetype error.cpp */; };
+		451877101EADBBB400A8AA13 /* load font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4518770C1EADBBB400A8AA13 /* load font.cpp */; };
+		451877131EADC13A00A8AA13 /* load face.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451877111EADC13A00A8AA13 /* load face.cpp */; };
+		451877191EADD90C00A8AA13 /* app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451877171EADD90C00A8AA13 /* app.cpp */; };
+		4518771B1EADEF6700A8AA13 /* libdocopt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518771A1EADEF6700A8AA13 /* libdocopt.dylib */; };
+		457DEF941EB9C170003E4275 /* user interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 457DEF921EB9C170003E4275 /* user interface.cpp */; };
+		457DEF971EB9C4C3003E4275 /* user interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 457DEF951EB9C4C3003E4275 /* user interface.cpp */; };
+		457DEF9B1EBB0F7A003E4275 /* write atlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 457DEF991EBB0F7A003E4275 /* write atlas.cpp */; };
+		457DEF9E1EBB18E3003E4275 /* write atlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 457DEF9C1EBB18E3003E4275 /* write atlas.cpp */; };
+		45A628A81EC455E000F5022B /* profiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A6289F1EC455E000F5022B /* profiler.cpp */; };
+		45A628A91EC455E000F5022B /* search dir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628A11EC455E000F5022B /* search dir.cpp */; };
+		45A628AA1EC455E000F5022B /* terminal color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628A31EC455E000F5022B /* terminal color.cpp */; };
+		45A628AB1EC455E000F5022B /* write atlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628A61EC455E000F5022B /* write atlas.cpp */; };
+		45A628AE1EC4583000F5022B /* pack rects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628AC1EC4583000F5022B /* pack rects.cpp */; };
+		45A628B21EC45D8400F5022B /* rects from images.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628B01EC45D8400F5022B /* rects from images.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4518769E1EAAF80500A8AA13 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = /usr/local/bin;
+			dstSubfolderSpec = 0;
+			files = (
+				451876B11EAAF89300A8AA13 /* atlasgen in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		451876A01EAAF80500A8AA13 /* atlasgen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = atlasgen; sourceTree = BUILT_PRODUCTS_DIR; };
+		451876A31EAAF80500A8AA13 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		451876B31EAAFB6900A8AA13 /* stb_image_write.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stb_image_write.h; sourceTree = "<group>"; };
+		451876B41EAAFB6900A8AA13 /* stb_image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
+		451876B51EAAFB6900A8AA13 /* stb_rect_pack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stb_rect_pack.h; sourceTree = "<group>"; };
+		451876B61EAAFB7B00A8AA13 /* stb_image_write.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_image_write.c; sourceTree = "<group>"; };
+		451876B81EAAFB8900A8AA13 /* stb_image.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_image.c; sourceTree = "<group>"; };
+		451876BA1EAAFB9900A8AA13 /* stb_rect_pack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_rect_pack.c; sourceTree = "<group>"; };
+		451876BD1EAAFC2700A8AA13 /* libyaml-cpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libyaml-cpp.a"; path = "../../../../../../../../../usr/local/lib/libyaml-cpp.a"; sourceTree = "<group>"; };
+		451876DD1EAD900500A8AA13 /* libfreetype.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreetype.6.dylib; path = ../../../../../../../../../usr/local/Cellar/freetype/2.7.1/lib/libfreetype.6.dylib; sourceTree = "<group>"; };
+		451876F51EADBAF200A8AA13 /* image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = image.cpp; sourceTree = "<group>"; };
+		451876F61EADBAF200A8AA13 /* image.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = image.hpp; sourceTree = "<group>"; };
+		451876F71EADBAF200A8AA13 /* load images.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "load images.cpp"; sourceTree = "<group>"; };
+		451876F81EADBAF200A8AA13 /* load images.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "load images.hpp"; sourceTree = "<group>"; };
+		451876F91EADBAF200A8AA13 /* blit images.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "blit images.cpp"; sourceTree = "<group>"; };
+		451876FA1EADBAF200A8AA13 /* blit images.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "blit images.hpp"; sourceTree = "<group>"; };
+		451876FF1EADBAF200A8AA13 /* write image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "write image.cpp"; sourceTree = "<group>"; };
+		451877001EADBAF200A8AA13 /* write image.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "write image.hpp"; sourceTree = "<group>"; };
+		451877081EADBBB400A8AA13 /* font.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = font.hpp; sourceTree = "<group>"; };
+		451877091EADBBB400A8AA13 /* freetype error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "freetype error.cpp"; sourceTree = "<group>"; };
+		4518770A1EADBBB400A8AA13 /* freetype error.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "freetype error.hpp"; sourceTree = "<group>"; };
+		4518770B1EADBBB400A8AA13 /* freetype raii.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "freetype raii.hpp"; sourceTree = "<group>"; };
+		4518770C1EADBBB400A8AA13 /* load font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "load font.cpp"; sourceTree = "<group>"; };
+		4518770D1EADBBB400A8AA13 /* load font.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "load font.hpp"; sourceTree = "<group>"; };
+		451877111EADC13A00A8AA13 /* load face.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "load face.cpp"; sourceTree = "<group>"; };
+		451877121EADC13A00A8AA13 /* load face.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "load face.hpp"; sourceTree = "<group>"; };
+		451877151EADC1D300A8AA13 /* glyph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = glyph.hpp; sourceTree = "<group>"; };
+		451877171EADD90C00A8AA13 /* app.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = app.cpp; sourceTree = "<group>"; };
+		451877181EADD90C00A8AA13 /* app.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = app.hpp; sourceTree = "<group>"; };
+		4518771A1EADEF6700A8AA13 /* libdocopt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libdocopt.dylib; path = ../../../../../../../../../usr/local/lib/libdocopt.dylib; sourceTree = "<group>"; };
+		457DEF921EB9C170003E4275 /* user interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "user interface.cpp"; sourceTree = "<group>"; };
+		457DEF931EB9C170003E4275 /* user interface.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "user interface.hpp"; sourceTree = "<group>"; };
+		457DEF951EB9C4C3003E4275 /* user interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "user interface.cpp"; sourceTree = "<group>"; };
+		457DEF961EB9C4C3003E4275 /* user interface.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "user interface.hpp"; sourceTree = "<group>"; };
+		457DEF991EBB0F7A003E4275 /* write atlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "write atlas.cpp"; sourceTree = "<group>"; };
+		457DEF9A1EBB0F7A003E4275 /* write atlas.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "write atlas.hpp"; sourceTree = "<group>"; };
+		457DEF9C1EBB18E3003E4275 /* write atlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "write atlas.cpp"; sourceTree = "<group>"; };
+		457DEF9D1EBB18E3003E4275 /* write atlas.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "write atlas.hpp"; sourceTree = "<group>"; };
+		457DEFCF1EBDBCD3003E4275 /* types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
+		45A6288A1EC055F200F5022B /* face.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = face.hpp; sourceTree = "<group>"; };
+		45A6289D1EC455E000F5022B /* math.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = math.hpp; sourceTree = "<group>"; };
+		45A6289E1EC455E000F5022B /* move only.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "move only.hpp"; sourceTree = "<group>"; };
+		45A6289F1EC455E000F5022B /* profiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = profiler.cpp; sourceTree = "<group>"; };
+		45A628A01EC455E000F5022B /* profiler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = profiler.hpp; sourceTree = "<group>"; };
+		45A628A11EC455E000F5022B /* search dir.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "search dir.cpp"; sourceTree = "<group>"; };
+		45A628A21EC455E000F5022B /* search dir.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "search dir.hpp"; sourceTree = "<group>"; };
+		45A628A31EC455E000F5022B /* terminal color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "terminal color.cpp"; sourceTree = "<group>"; };
+		45A628A41EC455E000F5022B /* terminal color.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "terminal color.hpp"; sourceTree = "<group>"; };
+		45A628A51EC455E000F5022B /* vector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vector.hpp; sourceTree = "<group>"; };
+		45A628A61EC455E000F5022B /* write atlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "write atlas.cpp"; sourceTree = "<group>"; };
+		45A628A71EC455E000F5022B /* write atlas.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "write atlas.hpp"; sourceTree = "<group>"; };
+		45A628AC1EC4583000F5022B /* pack rects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "pack rects.cpp"; sourceTree = "<group>"; };
+		45A628AD1EC4583000F5022B /* pack rects.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "pack rects.hpp"; sourceTree = "<group>"; };
+		45A628AF1EC4588600F5022B /* types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
+		45A628B01EC45D8400F5022B /* rects from images.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "rects from images.cpp"; sourceTree = "<group>"; };
+		45A628B11EC45D8400F5022B /* rects from images.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "rects from images.hpp"; sourceTree = "<group>"; };
+		45A628B41EC67C4D00F5022B /* range.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = range.hpp; sourceTree = "<group>"; };
+		45A628B61EC6E3E000F5022B /* make range from vector.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "make range from vector.hpp"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4518769D1EAAF80500A8AA13 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4518771B1EADEF6700A8AA13 /* libdocopt.dylib in Frameworks */,
+				451876DE1EAD900500A8AA13 /* libfreetype.6.dylib in Frameworks */,
+				451876BE1EAAFC2700A8AA13 /* libyaml-cpp.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		451876971EAAF80500A8AA13 = {
+			isa = PBXGroup;
+			children = (
+				451876A21EAAF80500A8AA13 /* Texture Atlas Generator */,
+				451876A11EAAF80500A8AA13 /* Products */,
+				451876BC1EAAFC2600A8AA13 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		451876A11EAAF80500A8AA13 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				451876A01EAAF80500A8AA13 /* atlasgen */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		451876A21EAAF80500A8AA13 /* Texture Atlas Generator */ = {
+			isa = PBXGroup;
+			children = (
+				45A6289C1EC4558500F5022B /* Utils */,
+				451876F41EADBA1B00A8AA13 /* Font */,
+				451876F31EADB97600A8AA13 /* Image */,
+				451876B21EAAFB0900A8AA13 /* Libraries */,
+				451877171EADD90C00A8AA13 /* app.cpp */,
+				451877181EADD90C00A8AA13 /* app.hpp */,
+				451876A31EAAF80500A8AA13 /* main.cpp */,
+			);
+			path = "Texture Atlas Generator";
+			sourceTree = "<group>";
+		};
+		451876B21EAAFB0900A8AA13 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				451876B61EAAFB7B00A8AA13 /* stb_image_write.c */,
+				451876B31EAAFB6900A8AA13 /* stb_image_write.h */,
+				451876B81EAAFB8900A8AA13 /* stb_image.c */,
+				451876B41EAAFB6900A8AA13 /* stb_image.h */,
+				451876BA1EAAFB9900A8AA13 /* stb_rect_pack.c */,
+				451876B51EAAFB6900A8AA13 /* stb_rect_pack.h */,
+			);
+			path = Libraries;
+			sourceTree = "<group>";
+		};
+		451876BC1EAAFC2600A8AA13 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4518771A1EADEF6700A8AA13 /* libdocopt.dylib */,
+				451876DD1EAD900500A8AA13 /* libfreetype.6.dylib */,
+				451876BD1EAAFC2700A8AA13 /* libyaml-cpp.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		451876F31EADB97600A8AA13 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				451876F51EADBAF200A8AA13 /* image.cpp */,
+				451876F61EADBAF200A8AA13 /* image.hpp */,
+				45A628B01EC45D8400F5022B /* rects from images.cpp */,
+				45A628B11EC45D8400F5022B /* rects from images.hpp */,
+				451876F71EADBAF200A8AA13 /* load images.cpp */,
+				451876F81EADBAF200A8AA13 /* load images.hpp */,
+				451876F91EADBAF200A8AA13 /* blit images.cpp */,
+				451876FA1EADBAF200A8AA13 /* blit images.hpp */,
+				451876FF1EADBAF200A8AA13 /* write image.cpp */,
+				451877001EADBAF200A8AA13 /* write image.hpp */,
+				457DEF9C1EBB18E3003E4275 /* write atlas.cpp */,
+				457DEF9D1EBB18E3003E4275 /* write atlas.hpp */,
+				457DEF921EB9C170003E4275 /* user interface.cpp */,
+				457DEF931EB9C170003E4275 /* user interface.hpp */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		451876F41EADBA1B00A8AA13 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				457DEFCF1EBDBCD3003E4275 /* types.hpp */,
+				451877081EADBBB400A8AA13 /* font.hpp */,
+				45A6288A1EC055F200F5022B /* face.hpp */,
+				451877151EADC1D300A8AA13 /* glyph.hpp */,
+				451877091EADBBB400A8AA13 /* freetype error.cpp */,
+				4518770A1EADBBB400A8AA13 /* freetype error.hpp */,
+				4518770B1EADBBB400A8AA13 /* freetype raii.hpp */,
+				4518770C1EADBBB400A8AA13 /* load font.cpp */,
+				4518770D1EADBBB400A8AA13 /* load font.hpp */,
+				451877111EADC13A00A8AA13 /* load face.cpp */,
+				451877121EADC13A00A8AA13 /* load face.hpp */,
+				457DEF991EBB0F7A003E4275 /* write atlas.cpp */,
+				457DEF9A1EBB0F7A003E4275 /* write atlas.hpp */,
+				457DEF951EB9C4C3003E4275 /* user interface.cpp */,
+				457DEF961EB9C4C3003E4275 /* user interface.hpp */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		45A6289C1EC4558500F5022B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				45A6289D1EC455E000F5022B /* math.hpp */,
+				45A6289E1EC455E000F5022B /* move only.hpp */,
+				45A628A11EC455E000F5022B /* search dir.cpp */,
+				45A628A21EC455E000F5022B /* search dir.hpp */,
+				45A628A51EC455E000F5022B /* vector.hpp */,
+				45A628AF1EC4588600F5022B /* types.hpp */,
+				45A628A61EC455E000F5022B /* write atlas.cpp */,
+				45A628A71EC455E000F5022B /* write atlas.hpp */,
+				45A628AC1EC4583000F5022B /* pack rects.cpp */,
+				45A628AD1EC4583000F5022B /* pack rects.hpp */,
+				45A628A31EC455E000F5022B /* terminal color.cpp */,
+				45A628A41EC455E000F5022B /* terminal color.hpp */,
+				45A6289F1EC455E000F5022B /* profiler.cpp */,
+				45A628A01EC455E000F5022B /* profiler.hpp */,
+				45A628B41EC67C4D00F5022B /* range.hpp */,
+				45A628B61EC6E3E000F5022B /* make range from vector.hpp */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4518769F1EAAF80500A8AA13 /* atlasgen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 451876A71EAAF80500A8AA13 /* Build configuration list for PBXNativeTarget "atlasgen" */;
+			buildPhases = (
+				4518769C1EAAF80500A8AA13 /* Sources */,
+				4518769D1EAAF80500A8AA13 /* Frameworks */,
+				4518769E1EAAF80500A8AA13 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = atlasgen;
+			productName = "Texture Atlas Generator";
+			productReference = 451876A01EAAF80500A8AA13 /* atlasgen */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		451876981EAAF80500A8AA13 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Indi Kernick";
+				TargetAttributes = {
+					4518769F1EAAF80500A8AA13 = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 4518769B1EAAF80500A8AA13 /* Build configuration list for PBXProject "Texture Atlas Generator" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 451876971EAAF80500A8AA13;
+			productRefGroup = 451876A11EAAF80500A8AA13 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4518769F1EAAF80500A8AA13 /* atlasgen */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4518769C1EAAF80500A8AA13 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				451876BB1EAAFB9900A8AA13 /* stb_rect_pack.c in Sources */,
+				451877021EADBAF200A8AA13 /* load images.cpp in Sources */,
+				45A628AB1EC455E000F5022B /* write atlas.cpp in Sources */,
+				457DEF9E1EBB18E3003E4275 /* write atlas.cpp in Sources */,
+				451877101EADBBB400A8AA13 /* load font.cpp in Sources */,
+				45A628B21EC45D8400F5022B /* rects from images.cpp in Sources */,
+				45A628A91EC455E000F5022B /* search dir.cpp in Sources */,
+				451877031EADBAF200A8AA13 /* blit images.cpp in Sources */,
+				4518770F1EADBBB400A8AA13 /* freetype error.cpp in Sources */,
+				451877131EADC13A00A8AA13 /* load face.cpp in Sources */,
+				457DEF941EB9C170003E4275 /* user interface.cpp in Sources */,
+				451876A41EAAF80500A8AA13 /* main.cpp in Sources */,
+				457DEF971EB9C4C3003E4275 /* user interface.cpp in Sources */,
+				451877191EADD90C00A8AA13 /* app.cpp in Sources */,
+				457DEF9B1EBB0F7A003E4275 /* write atlas.cpp in Sources */,
+				45A628A81EC455E000F5022B /* profiler.cpp in Sources */,
+				45A628AA1EC455E000F5022B /* terminal color.cpp in Sources */,
+				451877011EADBAF200A8AA13 /* image.cpp in Sources */,
+				451876B71EAAFB7B00A8AA13 /* stb_image_write.c in Sources */,
+				451876B91EAAFB8900A8AA13 /* stb_image.c in Sources */,
+				451877061EADBAF200A8AA13 /* write image.cpp in Sources */,
+				45A628AE1EC4583000F5022B /* pack rects.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		451876A51EAAF80500A8AA13 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		451876A61EAAF80500A8AA13 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		451876A81EAAF80500A8AA13 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_WARN_ASSIGN_ENUM = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = NO;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					ENABLE_PROFILER,
+					DEBUG,
+				);
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
+				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
+				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					"/usr/local/Cellar/freetype/**",
+					"/usr/local/Cellar/yaml-cpp/**",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					"/usr/local/Cellar/**",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wall",
+					"-Wextra",
+					"-Weffc++",
+					"-Wpedantic",
+					"-Wextra-semi",
+					"-std=c++1z",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		451876A91EAAF80500A8AA13 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_WARN_ASSIGN_ENUM = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = NO;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					ENABLE_PROFILER,
+					RELEASE,
+				);
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
+				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
+				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					"/usr/local/Cellar/freetype/**",
+					"/usr/local/Cellar/yaml-cpp/**",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					"/usr/local/Cellar/**",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wall",
+					"-Wextra",
+					"-Weffc++",
+					"-Wpedantic",
+					"-Wextra-semi",
+					"-std=c++1z",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4518769B1EAAF80500A8AA13 /* Build configuration list for PBXProject "Texture Atlas Generator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				451876A51EAAF80500A8AA13 /* Debug */,
+				451876A61EAAF80500A8AA13 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		451876A71EAAF80500A8AA13 /* Build configuration list for PBXNativeTarget "atlasgen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				451876A81EAAF80500A8AA13 /* Debug */,
+				451876A91EAAF80500A8AA13 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 451876981EAAF80500A8AA13 /* Project object */;
+}

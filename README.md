@@ -2,10 +2,7 @@
 A command-line tool for packing spritesheets and creating bitmap fonts
 
 ## What does it do?
-This tool can be used to pack images into a spritesheet and produce a YAML based atlas describing the spritesheet. This tool can also be used to create bitmap fonts by opening a TTF file, packing glyphs into an image and describing the glyphs in a YAML document. A full list of up-to-date options can be obtained by downloading and installing the executable and running it without arguments.
-
-## Download the precompiled executable
-Download the excecutable and put it in this directory `/usr/local/bin/`. Call `atlasgen` from the command-line (without arguments) to get the full list of options available.
+This tool can be used to pack images into a spritesheet and produce a YAML based atlas describing the spritesheet. This tool can also be used to create bitmap fonts by opening a TTF file, packing glyphs into an image and describing the glyphs in a YAML document. A full list of up-to-date options can be found in [app.cpp](https://github.com/Kerndog73/Texture-Atlas-Generator/blob/master/Texture%20Atlas%20Generator/app.cpp)
 
 ## Or download the Xcode project
 1. Download the project.

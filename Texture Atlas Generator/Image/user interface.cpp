@@ -27,7 +27,7 @@ void createImageAtlas(
 
   std::remove((output + ".png").c_str());
   std::vector<std::string> paths(findFiles(input, extIsImage));
-  std::vector<Image> images = loadImages(findFiles(input, extIsImage));
+  std::vector<Image> images = loadImages(paths);
   if (whitepixel != NO_WHITE_PIXEL) {
     const SizePx size = 1 + whitepixel * 2;
     images.emplace_back(size, size, images.back().format, 255);

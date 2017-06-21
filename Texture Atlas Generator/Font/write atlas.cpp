@@ -38,7 +38,7 @@ void writeMetrics(YAML::Emitter &emitter, const std::vector<GlyphMetrics> &metri
   emitter << YAML::EndSeq;
 }
 
-void writeGlyphs(YAML::Emitter &emitter, Range<const RectPx *> rects) {
+void writeGlyphs(YAML::Emitter &emitter, const Range<const RectPx *> rects) {
   emitter << YAML::BeginSeq;
   for (auto r = rects.cbegin(); r != rects.cend(); r++) {
     if (r->s.x == 0 || r->s.y == 0) {
@@ -101,7 +101,7 @@ void writeAtlas(
   const std::string &output,
   const std::vector<Face> &faces,
   const std::vector<RectPx> &rects,
-  SizePx texSize
+  const SizePx texSize
 ) {
   PROFILE(writeAtlas(Font));
   

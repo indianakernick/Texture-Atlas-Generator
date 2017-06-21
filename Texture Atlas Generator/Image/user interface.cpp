@@ -20,13 +20,13 @@
 void createImageAtlas(
   const std::string &input,
   const std::string &output,
-  SizePx whitepixel,
-  SizePx sep
+  const SizePx whitepixel,
+  const SizePx sep
 ) {
   PROFILE(createImageAtlas);
 
   std::remove((output + ".png").c_str());
-  std::vector<std::string> paths(findFiles(input, extIsImage));
+  const std::vector<std::string> paths(findFiles(input, extIsImage));
   std::vector<Image> images = loadImages(paths);
   if (whitepixel != NO_WHITE_PIXEL) {
     const SizePx size = 1 + whitepixel * 2;

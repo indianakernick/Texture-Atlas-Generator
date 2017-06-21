@@ -443,8 +443,8 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
-					"/usr/local/Cellar/**",
-					"/usr/local/Cellar/yaml-cpp/0.5.3/lib",
+					"/usr/local/Cellar/freetype/**",
+					"/usr/local/Cellar/yaml-cpp/**",
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
@@ -485,8 +485,8 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
-					"/usr/local/Cellar/**",
-					"/usr/local/Cellar/yaml-cpp/0.5.3/lib",
+					"/usr/local/Cellar/freetype/**",
+					"/usr/local/Cellar/yaml-cpp/**",
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",

@@ -10,7 +10,7 @@
 #include <iostream>
 #include "profiler.hpp"
 
-int main(int argc, const char * argv[]) {
+int main(int argc, const char *argv[]) {
   const std::vector<std::string> args(argv, argv + argc);
   #if RELEASE
   try {
@@ -23,6 +23,7 @@ int main(int argc, const char * argv[]) {
     return EXIT_FAILURE;
   }
   #else
+  //In debug builds, the debugger will pause at the site of an uncaught exception
   runApp(args);
   #endif
   

@@ -16,10 +16,6 @@
 FormatError::FormatError()
   : std::runtime_error("Cannot blit images of different formats") {}
 
-// Arial ASCII 1000pt
-//   this 26.87ms
-//   prev 75.95ms
-//   this is 182% faster than prev
 void blit(Image &dst, const Image &src, const PosPx2 srcPos) {
   assert(dst.format == src.format);
   
@@ -38,11 +34,11 @@ void blit(Image &dst, const Image &src, const PosPx2 srcPos) {
   }
 }
 
-Image makeBlitDst(SizePx length, Image::Format format) {
+Image makeBlitDst(const SizePx length, const Image::Format format) {
   return {length, length, format, 0};
 }
 
-void blitImages(Image &image, Range<const Image *> images, Range<const RectPx *> rects) {
+void blitImages(Image &image, const Range<const Image *> images, const Range<const RectPx *> rects) {
   assert(images.size() == rects.size());
   
   PROFILE(blitImages);
@@ -53,13 +49,9 @@ void blitImages(Image &image, Range<const Image *> images, Range<const RectPx *>
     return;
   }
   
-  const Image::Format frontFormat = images.front().format;
-  if (image.format != frontFormat) {
-    throw FormatError();
-  }
-  
-  for (const Image *i = images.cbegin() + 1; i != images.cend(); i++) {
-    if (i->format != frontFormat) {
+  const Image::Format imageFormat = image.format;
+  for (const Image *i = images.cbegin(); i != images.cend(); i++) {
+    if (i->format != imageFormat) {
       throw FormatError();
     }
   }

@@ -137,7 +137,7 @@ Image convertBitmap(FT_Bitmap &bitmap) {
   }
 }
 
-Face loadFace(const Font &font, const FaceSize &size, CodePointRange range) {
+Face loadFace(const Font &font, const FaceSize &size, const CodePointRange range) {
   PROFILE(loadFace);
   
   std::cout << "Rendering glyphs\n";

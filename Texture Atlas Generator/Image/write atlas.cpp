@@ -22,7 +22,7 @@ void writeImages(
   YAML::Emitter &emitter,
   const std::vector<std::string> &paths,
   const std::vector<RectPx> &rects,
-  bool hasWhitepixel
+  const bool hasWhitepixel
 ) {
   assert(paths.size() == rects.size() - hasWhitepixel);
 
@@ -43,8 +43,8 @@ void writeAtlas(
   const std::string &output,
   const std::vector<std::string> &paths,
   const std::vector<RectPx> &rects,
-  SizePx size,
-  bool hasWhitepixel
+  const SizePx size,
+  const bool hasWhitepixel
 ) {
   PROFILE(writeAtlas(Image));
 

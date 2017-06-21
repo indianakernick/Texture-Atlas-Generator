@@ -83,12 +83,12 @@ public:
     return mEnd;
   }
   
-  reference front() {
+  reference front() const {
     static_assert(LEAST_INPUT);
     return *mBegin;
   }
   
-  reference back() {
+  reference back() const {
     static_assert(LEAST_BI_DIR);
     if (RANDOM_ACCESS) {
       return *(mEnd - 1);
@@ -112,7 +112,7 @@ public:
     mEnd = mBegin + newSize;
   }
   
-  reference operator[](const difference_type i) {
+  reference operator[](const difference_type i) const {
     if (RANDOM_ACCESS) {
       return *(mBegin + i);
     } else {
@@ -122,7 +122,7 @@ public:
     }
   }
   
-  reference at(const difference_type i) {
+  reference at(const difference_type i) const {
     if (RANDOM_ACCESS) {
       iterator iter = mBegin + i;
       if (mBegin <= iter && iter < mEnd) {
@@ -177,6 +177,7 @@ public:
   size_t size() const {
     return static_cast<size_t>(mEnd - mBegin);
   }
+  
 private:
   value_type mBegin;
   value_type mEnd;

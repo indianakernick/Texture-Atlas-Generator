@@ -22,8 +22,8 @@ void createFontAtlas(
   const std::string &input,
   const std::string &output,
   const std::vector<FaceSize> &sizes,
-  CodePointRange range,
-  SizePx sep
+  const CodePointRange range,
+  const SizePx sep
 ) {
   PROFILE(createFontAtlas);
   
@@ -37,10 +37,8 @@ void createFontAtlas(
   
   const SizePx length = packRects(rects, sep);
   Image::Format format = Image::Format::GREY;
-  if (faces.size()) {
-    if (faces.front().glyphs.size()) {
-      format = faces.front().glyphs.front().format;
-    }
+  if (faces.size() && faces.front().glyphs.size()) {
+    format = faces.front().glyphs.front().format;
   }
   Image image = makeBlitDst(length, format);
   

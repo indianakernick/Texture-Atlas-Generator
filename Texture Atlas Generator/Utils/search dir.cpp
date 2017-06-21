@@ -27,7 +27,7 @@ bool extIsImage(const StringView ext) {
   });
 }
 
-StringView getExt(StringView path) {
+StringView getExt(const StringView path) {
   const size_t lastDot = path.find_last_of('.');
   if (lastDot >= path.size() - 1) {
     return {"", 0};
@@ -36,7 +36,7 @@ StringView getExt(StringView path) {
   }
 }
 
-std::vector<std::string> findFiles(const std::string &path, SearchPred pred) {
+std::vector<std::string> findFiles(const std::string &path, const SearchPred pred) {
   std::cout << "Searching directory \"" << path << "\"\n";
   
   std::vector<std::string> files;

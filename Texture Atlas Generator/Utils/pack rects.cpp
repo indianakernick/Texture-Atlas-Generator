@@ -17,9 +17,9 @@
 RectPackError::RectPackError()
   : std::runtime_error("Failed to pack rectangles") {}
 
-SizePx calcArea(const std::vector<RectPx> &rects, SizePx sep) {
+SizePx calcArea(const std::vector<RectPx> &rects, const SizePx sep) {
   SizePx area = 0;
-  for (auto i = rects.cbegin(); i != rects.cend(); i++) {
+  for (auto i = rects.cbegin(); i != rects.cend(); ++i) {
     area += (i->s.x + sep) * (i->s.y + sep);
   }
   return area;
@@ -35,61 +35,51 @@ SizePx calcLength(SizePx area) {
   }
 }
 
-std::vector<stbrp_rect> fillLibRects(const std::vector<RectPx> &rects, SizePx sep) {
+std::vector<stbrp_rect> fillStbRects(const std::vector<RectPx> &rects, const SizePx sep) {
   PROFILE(fillRects);
   
-  std::vector<stbrp_rect> libRects(rects.size());
+  std::vector<stbrp_rect> stbRects(rects.size());
   
   for (size_t i = 0; i != rects.size(); i++) {
-    libRects[i].id = static_cast<int>(i);
-    libRects[i].w = static_cast<stbrp_coord>(rects[i].s.x + sep);
-    libRects[i].h = static_cast<stbrp_coord>(rects[i].s.y + sep);
-    libRects[i].was_packed = 0;
+    stbRects[i].id = static_cast<int>(i);
+    stbRects[i].w = static_cast<stbrp_coord>(rects[i].s.x + sep);
+    stbRects[i].h = static_cast<stbrp_coord>(rects[i].s.y + sep);
+    stbRects[i].was_packed = 0;
   }
   
-  return libRects;
-}
-
-void checkAllRectsPacked(const std::vector<stbrp_rect> &rects) {
-  PROFILE(checkAllRectsPacked);
-
-  for (size_t r = 0; r != rects.size(); r++) {
-    if (rects[r].was_packed == 0) {
-      throw RectPackError();
-    }
-  }
+  return stbRects;
 }
 
 std::vector<stbrp_rect> packRects(
   const std::vector<RectPx> &rects,
-  SizePx length,
-  SizePx sep
+  const SizePx length,
+  const SizePx sep
 ) {
   PROFILE(packRects helper);
 
-  std::vector<stbrp_node> libNodes(length);
-  std::vector<stbrp_rect> libRects = fillLibRects(rects, sep);
+  std::vector<stbrp_node> stbNodes(length);
+  std::vector<stbrp_rect> stbRects = fillStbRects(rects, sep);
   
   stbrp_context ctx;
-  stbrp_init_target(&ctx, length, length, libNodes.data(), static_cast<int>(libNodes.size()));
-  stbrp_pack_rects(&ctx, libRects.data(), static_cast<int>(libRects.size()));
+  stbrp_init_target(&ctx, length, length, stbNodes.data(), static_cast<int>(stbNodes.size()));
+  if (stbrp_pack_rects(&ctx, stbRects.data(), static_cast<int>(stbRects.size())) == 0) {
+    throw RectPackError();
+  }
   
-  checkAllRectsPacked(libRects);
-  
-  return libRects;
+  return stbRects;
 }
 
-SizePx packRects(std::vector<RectPx> &rects, SizePx sep) {
+SizePx packRects(std::vector<RectPx> &rects, const SizePx sep) {
   PROFILE(packRects);
 
   std::cout << "Packing rectangles\n";
   
   const SizePx length = calcLength(calcArea(rects, sep));
-  std::vector<stbrp_rect> libRects = packRects(rects, length, sep);
+  std::vector<stbrp_rect> stbRects = packRects(rects, length, sep);
   
   for (size_t i = 0; i != rects.size(); i++) {
-    rects[i].p.x = libRects[i].x;
-    rects[i].p.y = libRects[i].y;
+    rects[i].p.x = stbRects[i].x;
+    rects[i].p.y = stbRects[i].y;
   }
   
   return length;

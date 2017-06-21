@@ -1,4 +1,7 @@
 # Texture-Atlas-Generator
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1f48977e74514538bae8de37cb04d063)](https://www.codacy.com/app/kerndog73/Texture-Atlas-Generator?utm_source=github.com&utm_medium=referral&utm_content=Kerndog73/Texture-Atlas-Generator&utm_campaign=badger)
+
 A command-line tool for packing spritesheets and creating bitmap fonts
 
 ## What does it do?

@@ -13,6 +13,9 @@
 #include <string>
 #include "../Utils/types.hpp"
 
+void defaultDelete(void *);
+void noDelete(void *);
+
 class Image {
 public:
   using Deleter = void (*)(void *);

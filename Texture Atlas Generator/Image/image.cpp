@@ -20,6 +20,8 @@ void defaultDelete(void *ptr) {
   std::free(ptr);
 }
 
+void noDelete(void *) {}
+
 //stb_image_write calls realloc on the pointer stored in the image
 //so the memory has to be allocated with malloc
 

@@ -10,9 +10,11 @@
 
 #include "freetype error.hpp"
 #include FT_GLYPH_H
+#include <cmath>
 #include <iostream>
 #include "../Utils/math.hpp"
 #include "../Utils/profiler.hpp"
+#include "../Image/blit images.hpp"
 
 GlyphLoadError::GlyphLoadError(CodePoint c, const char *what)
   : std::runtime_error("Error loading glyph " + std::to_string(c) + ": " + what) {}
@@ -98,6 +100,25 @@ public:
   const char *what;
 };
 
+uint32_t BGRAtoRGBA(const uint32_t pixel) {
+  float r = ((pixel >> 8) & 255) / 255.0f;
+  float g = ((pixel >> 16) & 255) / 255.0f;
+  float b = (pixel >> 24) / 255.0f;
+  const float a = (pixel & 255) / 255.0f;
+  r /= a;
+  g /= a;
+  b /= a;
+  r = std::pow(r, 2.2f);
+  g = std::pow(g, 2.2f);
+  b = std::pow(b, 2.2f);
+  uint32_t out = 0;
+  out |= static_cast<uint32_t>(r * 255.0f) << 24;
+  out |= static_cast<uint32_t>(g * 255.0f) << 16;
+  out |= static_cast<uint32_t>(b * 255.0f) << 8;
+  out |= pixel & 255;
+  return out;
+}
+
 Image convertBitmap(FT_Bitmap &bitmap) {
   PROFILE(convertBitmap);
   if (bitmap.pixel_mode == FT_PIXEL_MODE_GRAY) {
@@ -117,21 +138,18 @@ Image convertBitmap(FT_Bitmap &bitmap) {
       PROFILE(copy);
       
       Image image(bitmap.width, bitmap.rows, Image::Format::GREY);
+      const Image glyphImage(bitmap.width, bitmap.rows, Image::Format::GREY, bitmap.buffer, noDelete);
       
-      const ptrdiff_t dstPitch = image.s.x;
-      const ptrdiff_t srcPitch = bitmap.pitch;
-      const size_t width = image.s.x;
-      uint8_t *dstRow = image.data.get();
-      const uint8_t *srcRow = bitmap.buffer;
-      
-      for (SizePx y = 0; y != image.s.y; y++) {
-        std::memcpy(dstRow, srcRow, width);
-        dstRow += dstPitch;
-        srcRow += srcPitch;
-      }
+      blit(image, glyphImage);
       
       return image;
     }
+  } else if (bitmap.pixel_mode == FT_PIXEL_MODE_BGRA) {
+    PROFILE(Color);
+    
+    Image image(bitmap.width, bitmap.rows, Image::Format::RGB_ALPHA);
+    convert(image, bitmap.pitch, bitmap.width, bitmap.rows, bitmap.buffer, BGRAtoRGBA);
+    return image;
   } else {
     throw BitmapConvertError("Glyph is in unsupported format");
   }

@@ -30,7 +30,7 @@ void createFontAtlas(
   const Font font = loadFont(input);
   std::vector<Face> faces;
   std::vector<RectPx> rects;
-  for (auto s = sizes.cbegin(); s != sizes.cend(); s++) {
+  for (auto s = sizes.cbegin(); s != sizes.cend(); ++s) {
     faces.push_back(loadFace(font, *s, range));
     rectsFromImages(faces.back().glyphs, rects);
   }
@@ -43,16 +43,10 @@ void createFontAtlas(
   Image image = makeBlitDst(length, format);
   
   Range<const RectPx *> rectsRange(nullptr, rects.data());
-  for (auto f = faces.cbegin(); f != faces.cend(); f++) {
+  for (auto f = faces.cbegin(); f != faces.cend(); ++f) {
     rectsRange.begin(rectsRange.end());
     rectsRange.size(f->glyphs.size());
-    if (f->glyphs.size()) {
-      blitImages(
-        image,
-        makeRange(f->glyphs),
-        rectsRange
-      );
-    }
+    blitImages(image, makeRange(f->glyphs), rectsRange);
   }
   
   writeImage(output + ".png", image);

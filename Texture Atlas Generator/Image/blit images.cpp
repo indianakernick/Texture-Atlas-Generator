@@ -17,9 +17,11 @@ FormatError::FormatError()
   : std::runtime_error("Cannot blit images of different formats") {}
 
 void blit(Image &dst, const Image &src, const PosPx2 srcPos) {
-  assert(dst.format == src.format);
-  
   PROFILE(blit);
+  
+  if (dst.format != src.format) {
+    throw FormatError();
+  }
 
   const ptrdiff_t dstPitch = dst.s.x * dst.format;
   const ptrdiff_t srcPitch = src.s.x * src.format;
@@ -33,6 +35,38 @@ void blit(Image &dst, const Image &src, const PosPx2 srcPos) {
     srcRow += srcPitch;
   }
 }
+
+template <typename UnsignedInt>
+void convert(
+  Image &dst,
+  const ptrdiff_t srcPitch,
+  const size_t width,
+  const size_t height,
+  const uint8_t *src,
+  const Converter<UnsignedInt> converter
+) {
+  static_assert(std::is_unsigned<UnsignedInt>::value);
+
+  PROFILE()
+  
+  assert(dst.format == sizeof(UnsignedInt));
+  
+  const ptrdiff_t srcPitchMinusWidth = srcPitch / sizeof(UnsignedInt) - width;
+  UnsignedInt *dstRow = reinterpret_cast<UnsignedInt *>(dst.data.get());
+  const UnsignedInt *srcRow = reinterpret_cast<const UnsignedInt *>(src);
+  
+  for (size_t y = 0; y != height; y++) {
+    const UnsignedInt *end = srcRow + width;
+    while (srcRow != end) {
+      *dstRow = converter(*srcRow);
+      dstRow++;
+      srcRow++;
+    }
+    srcRow += srcPitchMinusWidth;
+  }
+}
+
+template void convert<uint32_t>(Image &, ptrdiff_t, size_t, size_t, const uint8_t *, Converter<uint32_t>);
 
 Image makeBlitDst(const SizePx length, const Image::Format format) {
   return {length, length, format, 0};

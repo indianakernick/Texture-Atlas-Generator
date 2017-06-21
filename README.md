@@ -17,4 +17,4 @@ This tool can be used to pack images into a spritesheet and produce a YAML based
 6. To check that the tool was installed correctly, go back to the terminal and type `atlasgen`
 
 ## How do I contribute?
-Check out [CONTRIBUTING.md](CONTRIBUTING.md) to see what you can do. Then see if  therse an item in the [ROAD_MAP.md](ROAD_MAP.md) that you can complete.
+Check out [CONTRIBUTING.md](CONTRIBUTING.md) to see what you can do. Then see if  there's an item in the [ROAD_MAP.md](ROAD_MAP.md) that you can complete.

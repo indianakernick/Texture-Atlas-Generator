@@ -47,7 +47,7 @@
       selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/indikernick/Dev/Projects/C++/Game Engine/Game Engine/Resources"
+      customWorkingDirectory = "/Users/indikernick/Desktop"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
@@ -64,16 +64,8 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "font -f Fonts/Arial.ttf -p8 -p12 -p16 -p20 -p24 -p28 -p32 -p36 -p40 -o Fonts/arial"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "font -f Fonts/Consolas.ttf -p8 -p12 -p16 -p20 -p24 -p28 -p32 -p36 -p40 -o Fonts/consolas"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "font -f Fonts/Zapfino.ttf -p8 -p12 -p16 -p20 -p24 -p28 -p32 -p36 -p40 -o Fonts/zapfino"
-            isEnabled = "NO">
+            argument = "font --font=&quot;Apple Color Emoji.ttc&quot; -p24 -F128512 -L128591 -o Arial"
+            isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

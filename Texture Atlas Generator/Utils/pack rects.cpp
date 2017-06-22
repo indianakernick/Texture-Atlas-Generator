@@ -74,6 +74,10 @@ SizePx packRects(std::vector<RectPx> &rects, const SizePx sep) {
 
   std::cout << "Packing rectangles\n";
   
+  if (rects.size() == 0) {
+    return 0;
+  }
+  
   const SizePx length = calcLength(calcArea(rects, sep));
   std::vector<stbrp_rect> stbRects = packRects(rects, length, sep);
   

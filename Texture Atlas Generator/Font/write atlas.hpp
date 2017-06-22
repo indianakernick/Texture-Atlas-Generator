@@ -15,6 +15,8 @@ void writeAtlas(
   const std::string &,
   const std::vector<Face> &,
   const std::vector<RectPx> &,
+  const std::vector<RectPx> &,
+  SizePx,
   SizePx
 );
 

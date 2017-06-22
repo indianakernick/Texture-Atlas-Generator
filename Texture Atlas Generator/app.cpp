@@ -26,8 +26,8 @@ Options:
   -o --output=path            Path to output file without an extension          [default: output]
   -x --dpi_x=int              Horizontal DPI                                    [default: 96]
   -y --dpi_y=int              Vertical DPI                                      [default: 96]
-  -F --first=codepoint        ASCII Codepoint of the first character            [default: 32]
-  -L --last=codepoint         ASCII Codepoint of the last character             [default: 126]
+  -F --first=codepoint        Codepoint of the first character                  [default: 32]
+  -L --last=codepoint         Codepoint of the last character                   [default: 126]
 )";
 
 ArgError::ArgError()
@@ -78,8 +78,8 @@ CodePointRange getCodepointRange(std::map<std::string, docopt::value> &options) 
     throw InvalidArgVal("first and last");
   }
   return {
-    first < ' ' ? ' ' : first,
-    static_cast<CodePoint>(last == 127 ? 127 : last + 1)
+    first,
+    last + 1
   };
 }
 

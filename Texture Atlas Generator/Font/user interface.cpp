@@ -18,6 +18,20 @@
 #include "../Image/rects from images.hpp"
 #include "../Utils/make range from vector.hpp"
 
+template <std::vector<Image> Face::*GLYPHS>
+void blitGlyphs(const std::vector<Face> &faces, Image &dst, const std::vector<RectPx> &rects) {
+  if (dst.s.x == 0 || dst.s.y == 0) {
+    return;
+  }
+  
+  Range<const RectPx *> rectsRange(nullptr, rects.data());
+  for (auto f = faces.cbegin(); f != faces.cend(); ++f) {
+    rectsRange.begin(rectsRange.end());
+    rectsRange.size(((*f).*GLYPHS).size());
+    blitImages(dst, makeRange(((*f).*GLYPHS)), rectsRange);
+  }
+}
+
 void createFontAtlas(
   const std::string &input,
   const std::string &output,
@@ -27,30 +41,36 @@ void createFontAtlas(
 ) {
   PROFILE(createFontAtlas);
   
+  if (sizes.size() == 0 || range.size() == 0) {
+    return;
+  }
+  
   const Font font = loadFont(input);
   std::vector<Face> faces;
-  std::vector<RectPx> rects;
+  std::vector<RectPx> greyRects;
+  std::vector<RectPx> colorRects;
   for (auto s = sizes.cbegin(); s != sizes.cend(); ++s) {
     faces.push_back(loadFace(font, *s, range));
-    rectsFromImages(faces.back().glyphs, rects);
+    rectsFromImages(faces.back().greyGlyphs, greyRects);
+    rectsFromImages(faces.back().colorGlyphs, colorRects);
   }
   
-  const SizePx length = packRects(rects, sep);
-  Image::Format format = Image::Format::GREY;
-  if (faces.size() && faces.front().glyphs.size()) {
-    format = faces.front().glyphs.front().format;
-  }
-  Image image = makeBlitDst(length, format);
+  const SizePx greyLength = packRects(greyRects, sep);
+  Image greyDst = makeBlitDst(greyLength, Image::Format::GREY);
   
-  Range<const RectPx *> rectsRange(nullptr, rects.data());
-  for (auto f = faces.cbegin(); f != faces.cend(); ++f) {
-    rectsRange.begin(rectsRange.end());
-    rectsRange.size(f->glyphs.size());
-    blitImages(image, makeRange(f->glyphs), rectsRange);
-  }
+  const SizePx colorLength = packRects(colorRects, sep);
+  Image colorDst = makeBlitDst(colorLength, Image::Format::RGB_ALPHA);
   
-  writeImage(output + ".png", image);
-  writeAtlas(output + ".atlas", faces, rects, length);
+  blitGlyphs<&Face::greyGlyphs>(faces, greyDst, greyRects);
+  blitGlyphs<&Face::colorGlyphs>(faces, colorDst, colorRects);
+  
+  if (greyDst.s.x && greyDst.s.y) {
+    writeImage(output + "_grey.png", greyDst);
+  }
+  if (colorDst.s.x && colorDst.s.y) {
+    writeImage(output + "_color.png", colorDst);
+  }
+  writeAtlas(output + ".atlasf", faces, greyRects, colorRects, greyLength, colorLength);
 }
 
 #undef CHECK_NODE

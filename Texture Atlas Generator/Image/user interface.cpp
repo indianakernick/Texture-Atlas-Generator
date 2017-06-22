@@ -35,5 +35,5 @@ void createImageAtlas(
   std::vector<RectPx> rects = rectsFromImages(images);
   const SizePx length = packRects(rects, sep);
   writeImage(output + ".png", makeAndBlit(images, rects, length));
-  writeAtlas(output + ".atlas", paths, rects, length, whitepixel != NO_WHITE_PIXEL);
+  writeAtlas(output + ".atlasi", paths, rects, length, whitepixel != NO_WHITE_PIXEL);
 }

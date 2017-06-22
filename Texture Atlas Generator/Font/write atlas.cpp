@@ -55,18 +55,26 @@ void writeGlyphs(YAML::Emitter &emitter, const Range<const RectPx *> rects) {
   emitter << YAML::EndSeq;
 }
 
-void writeFaces(YAML::Emitter &emitter, const std::vector<Face> &faces, const std::vector<RectPx> &rects) {
-  Range<const RectPx *> rectsRange(nullptr, rects.data());
+void writeFaces(
+  YAML::Emitter &emitter,
+  const std::vector<Face> &faces,
+  const std::vector<RectPx> &greyRects,
+  const std::vector<RectPx> &colorRects
+) {
+  Range<const RectPx *> greyRectsRange(nullptr, greyRects.data());
+  Range<const RectPx *> colorRectsRange(nullptr, colorRects.data());
   
   emitter << YAML::BeginSeq;
   for (auto f = faces.cbegin(); f != faces.cend(); f++) {
-    rectsRange.begin(rectsRange.end());
-    rectsRange.size(f->glyphs.size());
+    greyRectsRange.begin(greyRectsRange.end());
+    greyRectsRange.size(f->greyGlyphs.size());
+    colorRectsRange.begin(colorRectsRange.end());
+    colorRectsRange.size(f->colorGlyphs.size());
     
     emitter <<
       YAML::BeginMap <<
         YAML::Key << "range" << YAML::Value << YAML::Flow << YAML::BeginSeq <<
-          static_cast<int64_t>(f->range.begin()) << static_cast<int64_t>(f->range.end()) <<
+          f->range.begin() << f->range.end() <<
         YAML::EndSeq <<
         YAML::Key << "points" << YAML::Value << f->size.points <<
         YAML::Key << "font metrics" << YAML::Value;
@@ -79,9 +87,14 @@ void writeFaces(YAML::Emitter &emitter, const std::vector<Face> &faces, const st
     writeMetrics(emitter, f->glyphMetrics);
     
     emitter <<
-      YAML::Key << "glyphs" << YAML::Value;
+      YAML::Key << "grey glyphs" << YAML::Value;
     
-    writeGlyphs(emitter, rectsRange);
+    writeGlyphs(emitter, greyRectsRange);
+    
+    emitter <<
+      YAML::Key << "color glyphs" << YAML::Value;
+    
+    writeGlyphs(emitter, colorRectsRange);
     
     if (f->kerning.size()) {
       emitter <<
@@ -100,8 +113,10 @@ void writeFaces(YAML::Emitter &emitter, const std::vector<Face> &faces, const st
 void writeAtlas(
   const std::string &output,
   const std::vector<Face> &faces,
-  const std::vector<RectPx> &rects,
-  const SizePx texSize
+  const std::vector<RectPx> &greyRects,
+  const std::vector<RectPx> &colorRects,
+  const SizePx greyTexSize,
+  const SizePx colorTexSize
 ) {
   PROFILE(writeAtlas(Font));
   
@@ -114,12 +129,15 @@ void writeAtlas(
   
   emitter << YAML::BeginDoc << YAML::BeginMap <<
     YAML::Key << "type" << YAML::Value << "font" <<
-    YAML::Key << "size" << YAML::Value << YAML::Flow << YAML::BeginSeq <<
-      texSize << texSize <<
+    YAML::Key << "grey size" << YAML::Value << YAML::Flow << YAML::BeginSeq <<
+      greyTexSize << greyTexSize <<
+    YAML::EndSeq <<
+    YAML::Key << "color size" << YAML::Value << YAML::Flow << YAML::BeginSeq <<
+      colorTexSize << colorTexSize <<
     YAML::EndSeq <<
     YAML::Key << "faces" << YAML::Value;
   
-  writeFaces(emitter, faces, rects);
+  writeFaces(emitter, faces, greyRects, colorRects);
   
   emitter << YAML::EndMap << YAML::EndDoc;
   

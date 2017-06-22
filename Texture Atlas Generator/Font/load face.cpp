@@ -101,22 +101,21 @@ public:
 };
 
 uint32_t BGRAtoRGBA(const uint32_t pixel) {
-  float r = ((pixel >> 8) & 255) / 255.0f;
-  float g = ((pixel >> 16) & 255) / 255.0f;
-  float b = (pixel >> 24) / 255.0f;
-  const float a = (pixel & 255) / 255.0f;
+  union Pixel {
+    uint32_t d;
+    uint8_t c[4];
+  } p = {pixel};
+  float r = p.c[2] / 255.0f;
+  float g = p.c[1] / 255.0f;
+  float b = p.c[0] / 255.0f;
+  const float a = p.c[3] / 255.0f;
   r /= a;
   g /= a;
   b /= a;
-  r = std::pow(r, 2.2f);
-  g = std::pow(g, 2.2f);
-  b = std::pow(b, 2.2f);
-  uint32_t out = 0;
-  out |= static_cast<uint32_t>(r * 255.0f) << 24;
-  out |= static_cast<uint32_t>(g * 255.0f) << 16;
-  out |= static_cast<uint32_t>(b * 255.0f) << 8;
-  out |= pixel & 255;
-  return out;
+  p.c[0] = r * 255.0f;
+  p.c[1] = g * 255.0f;
+  p.c[2] = b * 255.0f;
+  return p.d;
 }
 
 Image convertBitmap(FT_Bitmap &bitmap) {
@@ -155,6 +154,11 @@ Image convertBitmap(FT_Bitmap &bitmap) {
   }
 }
 
+//the squared distance between points
+int distSquared(const tvec2<int> a, const tvec2<int> b) {
+  return (a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y);
+}
+
 Face loadFace(const Font &font, const FaceSize &size, const CodePointRange range) {
   PROFILE(loadFace);
   
@@ -162,13 +166,39 @@ Face loadFace(const Font &font, const FaceSize &size, const CodePointRange range
 
   std::vector<GlyphMetrics> metrics;
   std::vector<Image> images;
+  std::vector<Image> colorImages;
   metrics.reserve(range.size());
   images.reserve(range.size());
+  colorImages.reserve(range.size());
   
-  CHECK_FT_ERROR(FT_Set_Char_Size(font, 0, size.points * 64, size.dpi.x, size.dpi.y));
+  CHECK_FT_ERROR(FT_Select_Charmap(font, FT_ENCODING_UNICODE));
+  
+  if (font->num_fixed_sizes) {
+    const tvec2<int> ppem = {
+      (size.points * size.dpi.x / 72.0f) * 64.0f,
+      (size.points * size.dpi.y / 72.0f) * 64.0f
+    };
+    size_t closestIndex = -1;
+    int closestDist = std::numeric_limits<int>::max();
+    const size_t numSizes = font->num_fixed_sizes;
+    for (size_t i = 0; i != numSizes; i++) {
+      const tvec2<int> thisPPEM = {
+        font->available_sizes[i].x_ppem,
+        font->available_sizes[i].y_ppem
+      };
+      const int distance = distSquared(ppem, thisPPEM);
+      if (distance < closestDist) {
+        closestDist = distance;
+        closestIndex = i;
+      }
+    }
+    CHECK_FT_ERROR(FT_Select_Size(font, static_cast<int>(closestIndex)));
+  } else {
+    CHECK_FT_ERROR(FT_Set_Char_Size(font, 0, size.points * 64, size.dpi.x, size.dpi.y));
+  }
   
   for (CodePoint c = range.begin(); c != range.end(); c++) {
-    CHECK_FT_ERROR(FT_Load_Char(font, c, FT_LOAD_RENDER));
+    CHECK_FT_ERROR(FT_Load_Char(font, c, FT_LOAD_RENDER | FT_LOAD_COLOR));
 
     if (font->glyph->format != FT_GLYPH_FORMAT_BITMAP) {
       throw GlyphLoadError(c, "Glyph is in unsupported format");
@@ -176,7 +206,13 @@ Face loadFace(const Font &font, const FaceSize &size, const CodePointRange range
 
     metrics.push_back(getGlyphMetrics(font->glyph->metrics));
     try {
-      images.push_back(convertBitmap(font->glyph->bitmap));
+      if (font->glyph->bitmap.pixel_mode == FT_PIXEL_MODE_GRAY) {
+        images.push_back(convertBitmap(font->glyph->bitmap));
+      } else if (font->glyph->bitmap.pixel_mode == FT_PIXEL_MODE_BGRA) {
+        colorImages.push_back(convertBitmap(font->glyph->bitmap));
+      } else {
+        throw BitmapConvertError("Glyph is unsupported format");
+      }
     } catch (BitmapConvertError &e) {
       throw GlyphLoadError(c, e.what);
     }
@@ -186,6 +222,7 @@ Face loadFace(const Font &font, const FaceSize &size, const CodePointRange range
     getKerning(font, range),
     std::move(metrics),
     std::move(images),
+    std::move(colorImages),
     getFontMetrics(font),
     size,
     range

@@ -47,7 +47,7 @@ void convert(
 ) {
   static_assert(std::is_unsigned<UnsignedInt>::value);
 
-  PROFILE()
+  PROFILE(Convert and copy);
   
   assert(dst.format == sizeof(UnsignedInt));
   
@@ -67,6 +67,24 @@ void convert(
 }
 
 template void convert<uint32_t>(Image &, ptrdiff_t, size_t, size_t, const uint8_t *, Converter<uint32_t>);
+
+template <typename UnsignedInt>
+void convert(Image &dst, const Converter<UnsignedInt> converter) {
+  static_assert(std::is_unsigned<UnsignedInt>::value);
+  
+  PROFILE(Convert in place);
+  
+  assert(dst.format == sizeof(UnsignedInt));
+  
+  UnsignedInt *dstPx = reinterpret_cast<UnsignedInt *>(dst.data.get());
+  UnsignedInt * const dstEnd = reinterpret_cast<UnsignedInt *>(dst.data.get()) + dst.s.x * dst.s.y;
+  
+  for (; dstPx != dstEnd; dstPx++) {
+    *dstPx = converter(*dstPx);
+  }
+}
+
+template void convert<uint32_t>(Image &, Converter<uint32_t>);
 
 Image makeBlitDst(const SizePx length, const Image::Format format) {
   return {length, length, format, 0};

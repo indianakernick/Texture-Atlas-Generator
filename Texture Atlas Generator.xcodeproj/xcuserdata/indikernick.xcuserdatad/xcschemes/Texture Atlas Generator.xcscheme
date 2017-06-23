@@ -64,7 +64,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "font --font=&quot;Apple Color Emoji.ttc&quot; -p24 -F128512 -L128591 -o Arial"
+            argument = "font --font=&quot;Apple Color Emoji.ttc&quot; -p100 -F128512 -L128591 -o Scaled_Emoji"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

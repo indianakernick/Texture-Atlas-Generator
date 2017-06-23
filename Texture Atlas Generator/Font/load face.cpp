@@ -113,47 +113,38 @@ uint32_t BGRAtoRGBA(const uint32_t pixel) {
   return out.d;
 }
 
+Image transferGreyBitmap(FT_Bitmap &bitmap) {
+  PROFILE(Transfer grey bitmap)
+  
+  assert(bitmap.pixel_mode == FT_PIXEL_MODE_GRAY);
+  
+  assert(static_cast<int>(bitmap.width) == bitmap.pitch);
+  Image image(
+    bitmap.width,
+    bitmap.rows,
+    Image::Format::GREY,
+    bitmap.buffer,
+    std::free
+  );
+  //Image takes ownership of the FT_Bitmap
+  bitmap.buffer = nullptr;
+  
+  return image;
+}
+
 Image convertBitmap(FT_Bitmap &bitmap, const tvec2<float> scale) {
   PROFILE(convertBitmap);
-  if (bitmap.pixel_mode == FT_PIXEL_MODE_GRAY) {
-    assert(scale.x == 1.0f);
-    assert(scale.y == 1.0f);
-    if (static_cast<int>(bitmap.width) == bitmap.pitch) {
-      Image image(
-        bitmap.width,
-        bitmap.rows,
-        Image::Format::GREY,
-        bitmap.buffer,
-        std::free
-      );
-      //Image takes ownership of the FT_Bitmap
-      bitmap.buffer = nullptr;
-      
-      return image;
-    } else {
-      PROFILE(copy);
-      
-      Image image(bitmap.width, bitmap.rows, Image::Format::GREY);
-      const Image glyphImage(bitmap.width, bitmap.rows, Image::Format::GREY, bitmap.buffer, noDelete);
-      blit(image, glyphImage);
-      
-      return image;
-    }
-  } else if (bitmap.pixel_mode == FT_PIXEL_MODE_BGRA) {
+  
+  if (bitmap.pixel_mode == FT_PIXEL_MODE_BGRA) {
     PROFILE(Color);
     
     Image image(bitmap.width, bitmap.rows, Image::Format::RGB_ALPHA);
     convert(image, bitmap.pitch, bitmap.width, bitmap.rows, bitmap.buffer, BGRAtoRGBA);
     
-    return resizePremulSRGB(image, {image.s.x * scale.x, image.s.y * scale.y});;
+    return resizePremulSRGB(image, {image.s.x * scale.x, image.s.y * scale.y});
   } else {
     throw BitmapConvertError("Glyph is in unsupported format");
   }
-}
-
-//the squared distance between points
-int distSquared(const tvec2<int> a, const tvec2<int> b) {
-  return (a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y);
 }
 
 tvec2<float> setCharSize(const Font &font, const FaceSize &size) {
@@ -203,24 +194,26 @@ Face loadFace(const Font &font, const FaceSize &size, const CodePointRange range
   const tvec2<float> bitmapScale = setCharSize(font, size);
   
   for (CodePoint c = range.begin(); c != range.end(); c++) {
-    CHECK_FT_ERROR(FT_Load_Char(font, c, FT_LOAD_RENDER | FT_LOAD_COLOR));
+    CHECK_FT_ERROR(FT_Load_Char(font, c, FT_LOAD_COLOR));
 
-    if (font->glyph->format != FT_GLYPH_FORMAT_BITMAP) {
-      throw GlyphLoadError(c, "Glyph is in unsupported format");
+    if (font->glyph->format == FT_GLYPH_FORMAT_OUTLINE) {
+      CHECK_FT_ERROR(FT_Render_Glyph(font->glyph, FT_RENDER_MODE_NORMAL));
+      images.push_back(transferGreyBitmap(font->glyph->bitmap));
+    } else if (font->glyph->format == FT_GLYPH_FORMAT_BITMAP) {
+      try {
+        if (font->glyph->bitmap.pixel_mode == FT_PIXEL_MODE_BGRA) {
+          colorImages.push_back(convertBitmap(font->glyph->bitmap, bitmapScale));
+        } else {
+          throw BitmapConvertError("Glyph is in an unsupported format");
+        }
+      } catch (BitmapConvertError &e) {
+        throw GlyphLoadError(c, e.what);
+      }
+    } else {
+      throw GlyphLoadError(c, "Glyph is in an unsupported format");
     }
 
     metrics.push_back(getGlyphMetrics(font->glyph->metrics));
-    try {
-      if (font->glyph->bitmap.pixel_mode == FT_PIXEL_MODE_GRAY) {
-        images.push_back(convertBitmap(font->glyph->bitmap, bitmapScale));
-      } else if (font->glyph->bitmap.pixel_mode == FT_PIXEL_MODE_BGRA) {
-        colorImages.push_back(convertBitmap(font->glyph->bitmap, bitmapScale));
-      } else {
-        throw BitmapConvertError("Glyph is unsupported format");
-      }
-    } catch (BitmapConvertError &e) {
-      throw GlyphLoadError(c, e.what);
-    }
   }
   
   return {

@@ -16,7 +16,7 @@
 std::unique_ptr<uint8_t[]> temp = std::make_unique<uint8_t[]>(RESIZE_TEMP_SIZE);
 
 Image resizePremulSRGB(const Image &image, const SizePx2 newSize) {
-  PROFILE(Resize image);
+  PROFILE(Resize color image);
   
   assert(image.format == Image::Format::RGB_ALPHA);
   
@@ -29,8 +29,30 @@ Image resizePremulSRGB(const Image &image, const SizePx2 newSize) {
     3,//alpha_channel
     STBIR_FLAG_ALPHA_PREMULTIPLIED,//flags
     STBIR_EDGE_ZERO,
-    STBIR_FILTER_CATMULLROM,
+    STBIR_FILTER_DEFAULT,
     STBIR_COLORSPACE_SRGB,
+    temp.get()
+  );
+  
+  return newImage;
+}
+
+Image resize(const Image &image, const SizePx2 newSize) {
+  PROFILE(Resize grey image);
+  
+  assert(image.format == Image::Format::GREY);
+  
+  Image newImage(newSize.x, newSize.y, Image::Format::GREY);
+  
+  stbir_resize_uint8_generic(
+    image.data.get(), image.s.x, image.s.y, 0,
+    newImage.data.get(), newImage.s.x, newImage.s.y, 0,
+    1,//num_channels
+    STBIR_ALPHA_CHANNEL_NONE,//alpha_channel
+    0,//flags
+    STBIR_EDGE_ZERO,
+    STBIR_FILTER_DEFAULT,
+    STBIR_COLORSPACE_LINEAR,
     temp.get()
   );
   

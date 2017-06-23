@@ -23,4 +23,10 @@ public:
   T y = 0;
 };
 
+///The squared distance between points
+template <typename T>
+T distSquared(const tvec2<T> a, const tvec2<T> b) {
+  return (a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y);
+}
+
 #endif

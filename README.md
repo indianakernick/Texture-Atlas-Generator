@@ -11,6 +11,18 @@ An example of what this tool can create is a bitmap font. Here's the ASCII range
 
 ![Arial 12pt and 24pt](https://i.imgur.com/Jj55BiP.png)
 
+### List of features
+
+*  Packing images from a folder into a spritesheet
+   *  The images are idenified in the atlas as the file names of the images
+   *  A white pixel can be specified. This is a single pixel or area of pixels on the spritesheet that are white
+*  Rendering a TrueType font onto a texture
+   *  Renders scalable fonts onto a greyscale image and color emoji onto a color image
+   *  Point size, DPI and codepoint range can be specified
+   *  Bitmap fonts are scaled to the perfect size
+
+See [ROAD_MAP.md](ROAD_MAP.md) for a list of planned features.
+
 ## How do I build this on my machine?
 1. Download the project.
 2. If you don't have homebrew then `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`

@@ -24,19 +24,17 @@ points:
   - # You can provide an inclusive range of points sizes with an interval.
     # Remember the the atlas reader picks the point size closest to the desired
     # so interval usually doesn't need to be 1.
-    range: [12, 48]
+    first: 12
+    last: 48
     interval: 4
-  - # A list of point sizes can be specified as well
-    list: [12, 16, 20, 24, 28, 32, 36, 40, 44, 48]
+    
+    # You may specify any number of ranges
 
-    # You may specify any number of ranges and lists
-
-# Characters can be specified in the same ways as point sizes can be. Characters
+# Characters can be specified in the same way that point sizes can be. Characters
 # are represented as unicode code points.
 chars:
-  - # range
-    range: [65, 70]
+  - # ASCII
+    first: 32
+    last: 126
     interval: 1
-  - #list
-    list: [65, 66, 67, 68, 69, 70]
 ...

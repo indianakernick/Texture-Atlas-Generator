@@ -30,11 +30,10 @@ points:
     
     # You may specify any number of ranges
 
-# Characters can be specified in the same way that point sizes can be. Characters
-# are represented as unicode code points.
+# Characters can be specified in a similar way to point sizes but the interval is 
+# always one. Characters are represented as unicode code points.
 chars:
   - # ASCII
     first: 32
     last: 126
-    interval: 1
 ...

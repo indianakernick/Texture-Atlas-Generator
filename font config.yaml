@@ -1,0 +1,42 @@
+---
+# This can either be "font" if the atlas is a font or 
+# "images" if the atlas is a spritesheet
+job type: font
+
+# A path to the font file
+font: "Arial.ttf"
+
+# The name of the output files. In this example the output files will be named
+# "Arial.atlasf" and "Arial_grey.png"
+output: "Arial"
+
+# The number of pixels between each image. This shouldn't be necessary for fonts
+# because generally glyph images shouldn't be scaled once rendered and hinted.
+# If the glyphs are being rendered pixel perfect then this should be zero
+sep: 0
+
+# Specify the vertical and horizontal Dots-Per-Inch as the same
+dpi: 96
+# Or specify them separately
+dpi: [96, 96]
+
+points:
+  - # You can provide an inclusive range of points sizes with an interval.
+    # Remember the the atlas reader picks the point size closest to the desired
+    # so interval usually doesn't need to be 1.
+    range: [12, 48]
+    interval: 4
+  - # A list of point sizes can be specified as well
+    list: [12, 16, 20, 24, 28, 32, 36, 40, 44, 48]
+
+    # You may specify any number of ranges and lists
+
+# Characters can be specified in the same ways as point sizes can be. Characters
+# are represented as unicode code points.
+chars:
+  - # range
+    range: [65, 70]
+    interval: 1
+  - #list
+    list: [65, 66, 67, 68, 69, 70]
+...

@@ -21,17 +21,17 @@ dpi: 96
 dpi: [96, 96]
 
 points:
-  - # You can provide an inclusive range of points sizes with an interval.
+  - # You can provide an inclusive range of points sizes with a step.
     # Remember the the atlas reader picks the point size closest to the desired
-    # so interval usually doesn't need to be 1.
+    # so step usually doesn't need to be 1.
     first: 12
     last: 48
-    interval: 4
+    step: 4
     
     # You may specify any number of ranges
 
-# Characters can be specified in a similar way to point sizes but the interval is 
-# always one. Characters are represented as unicode code points.
+# Characters can be specified in a similar way to point sizes but the step is 
+# always 1. Characters are represented as unicode code points.
 chars:
   - # ASCII
     first: 32

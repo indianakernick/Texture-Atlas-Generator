@@ -113,16 +113,16 @@ uint32_t BGRAtoRGBA(const uint32_t pixel) {
   return out.d;
 }
 
-Image transferGreyBitmap(FT_Bitmap &bitmap) {
+Image moveGreyBitmap(FT_Bitmap &bitmap) {
   PROFILE(Transfer grey bitmap)
   
   assert(bitmap.pixel_mode == FT_PIXEL_MODE_GRAY);
   
-  assert(static_cast<int>(bitmap.width) == bitmap.pitch);
   Image image(
     bitmap.width,
     bitmap.rows,
     Image::Format::GREY,
+    bitmap.pitch,
     bitmap.buffer,
     std::free
   );
@@ -138,10 +138,32 @@ Image convertBitmap(FT_Bitmap &bitmap, const tvec2<float> scale) {
   if (bitmap.pixel_mode == FT_PIXEL_MODE_BGRA) {
     PROFILE(Color);
     
-    Image image(bitmap.width, bitmap.rows, Image::Format::RGB_ALPHA);
-    convert(image, bitmap.pitch, bitmap.width, bitmap.rows, bitmap.buffer, BGRAtoRGBA);
+    Image glyphImage(
+      bitmap.width,
+      bitmap.rows,
+      Image::Format::RGB_ALPHA,
+      bitmap.pitch,
+      bitmap.buffer,
+      noDelete
+    );
+    convert(glyphImage, BGRAtoRGBA);
+    const SizePx2 newSize(glyphImage.s.x * scale.x, glyphImage.s.y * scale.y);
     
-    return resizePremulSRGB(image, {image.s.x * scale.x, image.s.y * scale.y});
+    return resizePremulSRGB(glyphImage, newSize);
+  } else if (bitmap.pixel_mode == FT_PIXEL_MODE_GRAY) {
+    PROFILE(Grey);
+    
+    const Image glyphImage(
+      bitmap.width,
+      bitmap.rows,
+      Image::Format::GREY,
+      bitmap.pitch,
+      bitmap.buffer,
+      noDelete
+    );
+    const SizePx2 newSize(glyphImage.s.x * scale.x, glyphImage.s.y * scale.y);
+    
+    return resizeGrey(glyphImage, newSize);
   } else {
     throw BitmapConvertError("Glyph is in unsupported format");
   }
@@ -198,11 +220,13 @@ Face loadFace(const Font &font, const FaceSize &size, const CodePointRange range
 
     if (font->glyph->format == FT_GLYPH_FORMAT_OUTLINE) {
       CHECK_FT_ERROR(FT_Render_Glyph(font->glyph, FT_RENDER_MODE_NORMAL));
-      images.push_back(transferGreyBitmap(font->glyph->bitmap));
+      images.emplace_back(moveGreyBitmap(font->glyph->bitmap));
     } else if (font->glyph->format == FT_GLYPH_FORMAT_BITMAP) {
       try {
         if (font->glyph->bitmap.pixel_mode == FT_PIXEL_MODE_BGRA) {
-          colorImages.push_back(convertBitmap(font->glyph->bitmap, bitmapScale));
+          colorImages.emplace_back(convertBitmap(font->glyph->bitmap, bitmapScale));
+        } else if (font->glyph->bitmap.pixel_mode == FT_PIXEL_MODE_GRAY) {
+          images.emplace_back(convertBitmap(font->glyph->bitmap, bitmapScale));
         } else {
           throw BitmapConvertError("Glyph is in an unsupported format");
         }

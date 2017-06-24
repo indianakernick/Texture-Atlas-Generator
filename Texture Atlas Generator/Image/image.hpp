@@ -10,7 +10,6 @@
 #define image_image_hpp
 
 #include <memory>
-#include <string>
 #include "../Utils/types.hpp"
 
 void defaultDelete(void *);
@@ -31,11 +30,12 @@ public:
   Image() = delete;
   Image(SizePx, SizePx, Format);
   Image(SizePx, SizePx, Format, uint8_t);
-  Image(SizePx, SizePx, Format, uint8_t *, Deleter);
+  Image(SizePx, SizePx, Format, ptrdiff_t, uint8_t *, Deleter);
   
   Data data;
-  SizePx2 s;
-  Format format = Format::RGB_ALPHA;
+  ptrdiff_t pitch;                  //number of bytes between (x, y) and (x, y+1)
+  SizePx2 s;                        //area of pixels
+  Format format = Format::RGB_ALPHA;//bytes per pixel
 };
 
 #endif

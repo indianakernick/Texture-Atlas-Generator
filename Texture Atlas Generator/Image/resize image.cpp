@@ -22,39 +22,51 @@ Image resizePremulSRGB(const Image &image, const SizePx2 newSize) {
   
   Image newImage(newSize.x, newSize.y, Image::Format::RGB_ALPHA);
   
-  stbir_resize_uint8_generic(
-    image.data.get(), image.s.x, image.s.y, 0,
-    newImage.data.get(), newImage.s.x, newImage.s.y, 0,
-    4,//num_channels
-    3,//alpha_channel
-    STBIR_FLAG_ALPHA_PREMULTIPLIED,//flags
-    STBIR_EDGE_ZERO,
-    STBIR_FILTER_DEFAULT,
-    STBIR_COLORSPACE_SRGB,
-    temp.get()
-  );
+  if (newSize.x == image.s.x && newSize.y == image.s.y) {
+    blit(newImage, image);
+  } else {
+    stbir_resize_uint8_generic(
+      image.data.get(), image.s.x, image.s.y,
+      static_cast<int>(image.pitch - image.s.x * 4),//stride_in_bytes
+      newImage.data.get(), newImage.s.x, newImage.s.y,
+      static_cast<int>(newImage.pitch - newImage.s.x * 4),//stride_in_bytes
+      4,//num_channels
+      3,//alpha_channel
+      STBIR_FLAG_ALPHA_PREMULTIPLIED,//flags
+      STBIR_EDGE_ZERO,
+      STBIR_FILTER_DEFAULT,
+      STBIR_COLORSPACE_SRGB,
+      temp.get()
+    );
+  }
   
   return newImage;
 }
 
-Image resize(const Image &image, const SizePx2 newSize) {
+Image resizeGrey(const Image &image, const SizePx2 newSize) {
   PROFILE(Resize grey image);
   
   assert(image.format == Image::Format::GREY);
   
   Image newImage(newSize.x, newSize.y, Image::Format::GREY);
   
-  stbir_resize_uint8_generic(
-    image.data.get(), image.s.x, image.s.y, 0,
-    newImage.data.get(), newImage.s.x, newImage.s.y, 0,
-    1,//num_channels
-    STBIR_ALPHA_CHANNEL_NONE,//alpha_channel
-    0,//flags
-    STBIR_EDGE_ZERO,
-    STBIR_FILTER_DEFAULT,
-    STBIR_COLORSPACE_LINEAR,
-    temp.get()
-  );
+  if (newSize.x == image.s.x && newSize.y == image.s.y) {
+    blit(newImage, image);
+  } else {
+    stbir_resize_uint8_generic(
+      image.data.get(), image.s.x, image.s.y,
+      static_cast<int>(image.pitch - image.s.x),//stride_in_bytes
+      newImage.data.get(), newImage.s.x, newImage.s.y,
+      static_cast<int>(newImage.pitch - newImage.s.x),//stride_in_bytes
+      1,//num_channels
+      STBIR_ALPHA_CHANNEL_NONE,//alpha_channel
+      0,//flags
+      STBIR_EDGE_ZERO,
+      STBIR_FILTER_DEFAULT,
+      STBIR_COLORSPACE_LINEAR,
+      temp.get()
+    );
+  }
   
   return newImage;
 }

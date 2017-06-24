@@ -35,6 +35,7 @@ Image loadImage(const std::string &file) {
     static_cast<SizePx>(width),
     static_cast<SizePx>(height),
     format,
+    static_cast<ptrdiff_t>(width * format),
     data,
     stbi_image_free
   };
@@ -45,7 +46,7 @@ std::vector<Image> loadImages(const std::vector<std::string> &files) {
 
   std::vector<Image> images;
   
-  for (auto f = files.begin(); f != files.end(); f++) {
+  for (auto f = files.cbegin(); f != files.cend(); ++f) {
     try {
       images.emplace_back(loadImage(*f));
     } catch (ImageLoadError &e) {

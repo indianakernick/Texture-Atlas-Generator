@@ -23,13 +23,14 @@ void blit(Image &dst, const Image &src, const PosPx2 srcPos) {
     throw FormatError();
   }
 
-  const ptrdiff_t dstPitch = dst.s.x * dst.format;
-  const ptrdiff_t srcPitch = src.s.x * src.format;
-  const size_t width = srcPitch;
+  const ptrdiff_t dstPitch = dst.pitch;
+  const ptrdiff_t srcPitch = src.pitch;
+  const size_t width = src.s.x * src.format;
   uint8_t *dstRow = dst.data.get() + srcPos.y * dstPitch + srcPos.x * src.format;
   const uint8_t *srcRow = src.data.get();
+  const uint8_t *const srcEnd = srcRow + srcPitch * src.s.y;
   
-  for (SizePx y = 0; y != src.s.y; y++) {
+  while (srcRow != srcEnd) {
     std::memcpy(dstRow, srcRow, width);
     dstRow += dstPitch;
     srcRow += srcPitch;
@@ -37,36 +38,36 @@ void blit(Image &dst, const Image &src, const PosPx2 srcPos) {
 }
 
 template <typename UnsignedInt>
-void convert(
-  Image &dst,
-  const ptrdiff_t srcPitch,
-  const size_t width,
-  const size_t height,
-  const uint8_t *src,
-  const Converter<UnsignedInt> converter
-) {
+void convert(Image &dst, const Image &src, const Converter<UnsignedInt> converter) {
   static_assert(std::is_unsigned<UnsignedInt>::value);
 
   PROFILE(Convert and copy);
   
   assert(dst.format == sizeof(UnsignedInt));
+  assert(dst.s.x == src.s.x);
+  assert(dst.s.y == src.s.y);
   
-  const ptrdiff_t srcPitchMinusWidth = srcPitch / sizeof(UnsignedInt) - width;
-  UnsignedInt *dstRow = reinterpret_cast<UnsignedInt *>(dst.data.get());
-  const UnsignedInt *srcRow = reinterpret_cast<const UnsignedInt *>(src);
+  const ptrdiff_t dstStride = dst.pitch - dst.s.x * sizeof(UnsignedInt);
+  const ptrdiff_t srcStride = src.pitch - src.s.x * sizeof(UnsignedInt);
+  uint8_t *dstRow = dst.data.get();
+  const uint8_t *srcRow = src.data.get();
+  const ptrdiff_t srcWidth = src.s.x * sizeof(UnsignedInt);
+  const uint8_t *const srcEnd = srcRow + src.pitch * src.s.y;
   
-  for (size_t y = 0; y != height; y++) {
-    const UnsignedInt *end = srcRow + width;
+  while (srcRow != srcEnd) {
+    const uint8_t *const end = srcRow + srcWidth;
     while (srcRow != end) {
-      *dstRow = converter(*srcRow);
-      dstRow++;
-      srcRow++;
+      *reinterpret_cast<UnsignedInt *>(dstRow) =
+        converter(*reinterpret_cast<const UnsignedInt *>(srcRow));
+      dstRow += sizeof(UnsignedInt);
+      srcRow += sizeof(UnsignedInt);
     }
-    srcRow += srcPitchMinusWidth;
+    dstRow += dstStride;
+    srcRow += srcStride;
   }
 }
 
-template void convert<uint32_t>(Image &, ptrdiff_t, size_t, size_t, const uint8_t *, Converter<uint32_t>);
+template void convert<uint32_t>(Image &, const Image &, Converter<uint32_t>);
 
 template <typename UnsignedInt>
 void convert(Image &dst, const Converter<UnsignedInt> converter) {
@@ -76,11 +77,28 @@ void convert(Image &dst, const Converter<UnsignedInt> converter) {
   
   assert(dst.format == sizeof(UnsignedInt));
   
-  UnsignedInt *dstPx = reinterpret_cast<UnsignedInt *>(dst.data.get());
-  UnsignedInt * const dstEnd = reinterpret_cast<UnsignedInt *>(dst.data.get()) + dst.s.x * dst.s.y;
+  const ptrdiff_t dstStride = dst.pitch - dst.s.x * sizeof(UnsignedInt);
   
-  for (; dstPx != dstEnd; dstPx++) {
-    *dstPx = converter(*dstPx);
+  if (dstStride == 0) {
+    UnsignedInt *dstPx = reinterpret_cast<UnsignedInt *>(dst.data.get());
+    UnsignedInt *const dstEnd = reinterpret_cast<UnsignedInt *>(dst.data.get() + dst.pitch * dst.s.y);
+    while (dstPx != dstEnd) {
+      *dstPx = converter(*dstPx);
+      dstPx++;
+    }
+  } else {
+    uint8_t *dstPx = dst.data.get();
+    uint8_t *const dstEnd = dst.data.get() + dst.pitch * dst.s.y;
+    const ptrdiff_t dstWidth = dst.s.x * sizeof(UnsignedInt);
+    while (dstPx != dstEnd) {
+      const uint8_t *const end = dstPx + dstWidth;
+      while (dstPx != end) {
+        *reinterpret_cast<UnsignedInt *>(dstPx) =
+          converter(*reinterpret_cast<const UnsignedInt *>(dstPx));
+        dstPx += sizeof(UnsignedInt);
+      }
+      dstPx += dstStride;
+    }
   }
 }
 

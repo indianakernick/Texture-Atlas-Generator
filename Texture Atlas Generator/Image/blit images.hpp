@@ -25,7 +25,7 @@ using Converter = UnsignedInt(*)(const UnsignedInt);
 void blit(Image &, const Image &, PosPx2 = {0, 0});
 
 template <typename UnsignedInt>
-void convert(Image &, ptrdiff_t, size_t, size_t, const uint8_t *, Converter<UnsignedInt>);
+void convert(Image &, const Image &, Converter<UnsignedInt>);
 template <typename UnsignedInt>
 void convert(Image &, Converter<UnsignedInt>);
 

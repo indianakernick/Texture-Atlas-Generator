@@ -27,6 +27,7 @@ void noDelete(void *) {}
 
 Image::Image(const SizePx width, const SizePx height, const Format format)
   : data(defaultNew(width, height, format), defaultDelete),
+    pitch(width * format),
     s(width, height),
     format(format) {}
 
@@ -39,8 +40,10 @@ Image::Image(
   const SizePx width,
   const SizePx height,
   const Format format,
+  const ptrdiff_t pitch,
   uint8_t *const data,
   const Deleter deleter
 ) : data(data, deleter),
+    pitch(pitch),
     s(width, height),
     format(format) {}

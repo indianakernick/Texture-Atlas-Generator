@@ -46,6 +46,7 @@ Spritesheet *readAtlasFromFile(const char *path) {
   
   Spritesheet *sheet = readAtlasFromMemory(mem, fileSize);
   free(mem);
+  fclose(file);
   return sheet;
 }
 

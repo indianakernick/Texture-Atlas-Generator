@@ -20,7 +20,11 @@
 GlyphLoadError::GlyphLoadError(CodePoint c, const char *what)
   : std::runtime_error("Error loading glyph " + std::to_string(c) + ": " + what) {}
 
-std::vector<PosPx> getKerning(const Font &face, const CodePointRange range) {
+std::vector<PosPx> getKerning(
+  const Font &face,
+  const std::vector<CodePointRange> &ranges,
+  const size_t numChars
+) {
   PROFILE(getKerning);
   
   if (!FT_HAS_KERNING(face)) {
@@ -30,20 +34,22 @@ std::vector<PosPx> getKerning(const Font &face, const CodePointRange range) {
   std::cout << "Reading kerning data\n";
   
   std::vector<PosPx> kerning;
-  const CodePoint numChars = range.distance();
   kerning.reserve(numChars * numChars);
   
-  for (CodePoint l = range.begin(); l != range.end(); l++) {
-    for (CodePoint r = range.begin(); r != range.end(); r++) {
-      FT_Vector kernVec;
-      FT_Get_Kerning(
-        face,
-        FT_Get_Char_Index(face, l),
-        FT_Get_Char_Index(face, r),
-        FT_KERNING_DEFAULT,
-        &kernVec
-      );
-      kerning.push_back(static_cast<PosPx>(divRound(kernVec.x, 64)));
+  for (auto i = ranges.cbegin(); i != ranges.cend(); ++i) {
+    const CodePointRange range = *i;
+    for (CodePoint l = range.begin(); l != range.end(); l++) {
+      for (CodePoint r = range.begin(); r != range.end(); r++) {
+        FT_Vector kernVec;
+        FT_Get_Kerning(
+          face,
+          FT_Get_Char_Index(face, l),
+          FT_Get_Char_Index(face, r),
+          FT_KERNING_DEFAULT,
+          &kernVec
+        );
+        kerning.push_back(static_cast<PosPx>(divRound(kernVec.x, 64)));
+      }
     }
   }
   
@@ -201,52 +207,64 @@ tvec2<float> setCharSize(const Font &font, const FaceSize &size) {
   }
 }
 
-Face loadFace(const Font &font, const FaceSize &size, const CodePointRange range) {
+size_t countChars(const std::vector<CodePointRange> &ranges) {
+  size_t count = 0;
+  for (auto r = ranges.cbegin(); r != ranges.cend(); ++r) {
+    count += r->size();
+  }
+  return count;
+}
+
+Face loadFace(const Font &font, const FaceSize &size, const std::vector<CodePointRange> &ranges) {
   PROFILE(loadFace);
   
   std::cout << "Rendering glyphs\n";
 
+  const size_t numChars = countChars(ranges);
   std::vector<GlyphMetrics> metrics;
   std::vector<Image> images;
   std::vector<Image> colorImages;
-  metrics.reserve(range.size());
-  images.reserve(range.size());
-  colorImages.reserve(range.size());
+  metrics.reserve(numChars);
+  images.reserve(numChars);
+  colorImages.reserve(numChars);
 
   const tvec2<float> bitmapScale = setCharSize(font, size);
   
-  for (CodePoint c = range.begin(); c != range.end(); c++) {
-    CHECK_FT_ERROR(FT_Load_Char(font, c, FT_LOAD_COLOR));
+  for (auto r = ranges.cbegin(); r != ranges.cend(); ++r) {
+    const CodePoint charEnd = r->end();
+    for (CodePoint c = r->begin(); c != charEnd; c++) {
+      CHECK_FT_ERROR(FT_Load_Char(font, c, FT_LOAD_COLOR));
 
-    if (font->glyph->format == FT_GLYPH_FORMAT_OUTLINE) {
-      CHECK_FT_ERROR(FT_Render_Glyph(font->glyph, FT_RENDER_MODE_NORMAL));
-      images.emplace_back(moveGreyBitmap(font->glyph->bitmap));
-    } else if (font->glyph->format == FT_GLYPH_FORMAT_BITMAP) {
-      try {
-        if (font->glyph->bitmap.pixel_mode == FT_PIXEL_MODE_BGRA) {
-          colorImages.emplace_back(convertBitmap(font->glyph->bitmap, bitmapScale));
-        } else if (font->glyph->bitmap.pixel_mode == FT_PIXEL_MODE_GRAY) {
-          images.emplace_back(convertBitmap(font->glyph->bitmap, bitmapScale));
-        } else {
-          throw BitmapConvertError("Glyph is in an unsupported format");
+      if (font->glyph->format == FT_GLYPH_FORMAT_OUTLINE) {
+        CHECK_FT_ERROR(FT_Render_Glyph(font->glyph, FT_RENDER_MODE_NORMAL));
+        images.emplace_back(moveGreyBitmap(font->glyph->bitmap));
+      } else if (font->glyph->format == FT_GLYPH_FORMAT_BITMAP) {
+        try {
+          if (font->glyph->bitmap.pixel_mode == FT_PIXEL_MODE_BGRA) {
+            colorImages.emplace_back(convertBitmap(font->glyph->bitmap, bitmapScale));
+          } else if (font->glyph->bitmap.pixel_mode == FT_PIXEL_MODE_GRAY) {
+            images.emplace_back(convertBitmap(font->glyph->bitmap, bitmapScale));
+          } else {
+            throw BitmapConvertError("Glyph is in an unsupported format");
+          }
+        } catch (BitmapConvertError &e) {
+          throw GlyphLoadError(c, e.what);
         }
-      } catch (BitmapConvertError &e) {
-        throw GlyphLoadError(c, e.what);
+      } else {
+        throw GlyphLoadError(c, "Glyph is in an unsupported format");
       }
-    } else {
-      throw GlyphLoadError(c, "Glyph is in an unsupported format");
-    }
 
-    metrics.push_back(getGlyphMetrics(font->glyph->metrics));
+      metrics.push_back(getGlyphMetrics(font->glyph->metrics));
+    }
   }
   
   return {
-    getKerning(font, range),
+    getKerning(font, ranges, numChars),
     std::move(metrics),
     std::move(images),
     std::move(colorImages),
+    ranges,
     getFontMetrics(font),
-    size,
-    range
+    size
   };
 }

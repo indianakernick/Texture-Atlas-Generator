@@ -12,6 +12,8 @@
 template <typename T>
 class tvec2 {
 public:
+  using scalar = T;
+
   tvec2() = default;
   tvec2(const T x, const T y)
     : x(x), y(y) {}

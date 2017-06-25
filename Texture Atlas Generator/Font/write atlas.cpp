@@ -14,6 +14,18 @@
 #include "../Utils/profiler.hpp"
 #include "../Utils/write atlas.hpp"
 
+void writeRanges(YAML::Emitter &emitter, const std::vector<CodePointRange> &ranges) {
+  emitter << YAML::BeginSeq;
+  
+  for (auto r = ranges.cbegin(); r != ranges.cend(); ++r) {
+    emitter << YAML::Flow << YAML::BeginSeq <<
+      r->begin() << r->end() <<
+    YAML::EndSeq;
+  }
+  
+  emitter << YAML::EndSeq;
+}
+
 void writeFontMetrics(YAML::Emitter &emitter, const FaceMetrics &metrics) {
   emitter <<
   YAML::BeginMap <<
@@ -73,11 +85,13 @@ void writeFaces(
     
     emitter <<
       YAML::BeginMap <<
-        YAML::Key << "range" << YAML::Value << YAML::Flow << YAML::BeginSeq <<
-          f->range.begin() << f->range.end() <<
-        YAML::EndSeq <<
         YAML::Key << "points" << YAML::Value << f->size.points <<
-        YAML::Key << "font metrics" << YAML::Value;
+        YAML::Key << "ranges" << YAML::Value;
+    
+    writeRanges(emitter, f->ranges);
+    
+    emitter <<
+      YAML::Key << "font metrics" << YAML::Value;
     
     writeFontMetrics(emitter, f->faceMetrics);
     

@@ -9,16 +9,8 @@
 #ifndef image_user_interface_hpp
 #define image_user_interface_hpp
 
-#include <string>
-#include "types.hpp"
+#include <yaml-cpp/yaml.h>
 
-const SizePx NO_WHITE_PIXEL = std::numeric_limits<SizePx>::max();
-
-void createImageAtlas(
-  const std::string &,
-  const std::string &,
-  SizePx,
-  SizePx
-);
+void createImageAtlas(const YAML::Node &);
 
 #endif

@@ -17,6 +17,6 @@ public:
   GlyphLoadError(CodePoint, const char *);
 };
 
-Face loadFace(const Font &, const FaceSize &, CodePointRange);
+Face loadFace(const Font &, const FaceSize &, const std::vector<CodePointRange> &);
 
 #endif

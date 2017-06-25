@@ -33,9 +33,9 @@ struct Face {
   std::vector<GlyphMetrics> glyphMetrics;
   std::vector<Image> greyGlyphs;
   std::vector<Image> colorGlyphs;
+  std::vector<CodePointRange> ranges;
   FaceMetrics faceMetrics;
   FaceSize size;
-  CodePointRange range;
 };
 
 #endif

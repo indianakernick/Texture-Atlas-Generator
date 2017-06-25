@@ -9,15 +9,8 @@
 #ifndef font_user_interface_hpp
 #define font_user_interface_hpp
 
-#include <string>
-#include "face.hpp"
+#include <yaml-cpp/yaml.h>
 
-void createFontAtlas(
-  const std::string &,
-  const std::string &,
-  const std::vector<FaceSize> &,
-  CodePointRange,
-  SizePx
-);
+void createFontAtlas(const YAML::Node &);
 
 #endif

@@ -21,7 +21,6 @@
 		451877101EADBBB400A8AA13 /* load font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4518770C1EADBBB400A8AA13 /* load font.cpp */; };
 		451877131EADC13A00A8AA13 /* load face.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451877111EADC13A00A8AA13 /* load face.cpp */; };
 		451877191EADD90C00A8AA13 /* app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451877171EADD90C00A8AA13 /* app.cpp */; };
-		4518771B1EADEF6700A8AA13 /* libdocopt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518771A1EADEF6700A8AA13 /* libdocopt.dylib */; };
 		457DEF941EB9C170003E4275 /* user interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 457DEF921EB9C170003E4275 /* user interface.cpp */; };
 		457DEF971EB9C4C3003E4275 /* user interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 457DEF951EB9C4C3003E4275 /* user interface.cpp */; };
 		457DEF9B1EBB0F7A003E4275 /* write atlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 457DEF991EBB0F7A003E4275 /* write atlas.cpp */; };
@@ -35,6 +34,7 @@
 		45B5E6681EF65B0D00A6A3E2 /* libyaml-cpp.0.5.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B5E6671EF65B0D00A6A3E2 /* libyaml-cpp.0.5.3.dylib */; };
 		45B5E8DD1EFBBD5A00A6A3E2 /* stb_image_resize.c in Sources */ = {isa = PBXBuildFile; fileRef = 45B5E8DC1EFBBD5A00A6A3E2 /* stb_image_resize.c */; };
 		45B5E8E01EFBBE9000A6A3E2 /* resize image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B5E8DE1EFBBE9000A6A3E2 /* resize image.cpp */; };
+		45B5E8E31EFE358700A6A3E2 /* read config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B5E8E11EFE358700A6A3E2 /* read config.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -113,6 +113,8 @@
 		45B5E8DC1EFBBD5A00A6A3E2 /* stb_image_resize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_image_resize.c; sourceTree = "<group>"; };
 		45B5E8DE1EFBBE9000A6A3E2 /* resize image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "resize image.cpp"; sourceTree = "<group>"; };
 		45B5E8DF1EFBBE9000A6A3E2 /* resize image.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "resize image.hpp"; sourceTree = "<group>"; };
+		45B5E8E11EFE358700A6A3E2 /* read config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "read config.cpp"; sourceTree = "<group>"; };
+		45B5E8E21EFE358700A6A3E2 /* read config.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "read config.hpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,7 +123,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				45B5E6681EF65B0D00A6A3E2 /* libyaml-cpp.0.5.3.dylib in Frameworks */,
-				4518771B1EADEF6700A8AA13 /* libdocopt.dylib in Frameworks */,
 				451876DE1EAD900500A8AA13 /* libfreetype.6.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,6 +250,8 @@
 				45A628A01EC455E000F5022B /* profiler.hpp */,
 				45A628B41EC67C4D00F5022B /* range.hpp */,
 				45A628B61EC6E3E000F5022B /* make range from vector.hpp */,
+				45B5E8E11EFE358700A6A3E2 /* read config.cpp */,
+				45B5E8E21EFE358700A6A3E2 /* read config.hpp */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				451877101EADBBB400A8AA13 /* load font.cpp in Sources */,
 				45A628B21EC45D8400F5022B /* rects from images.cpp in Sources */,
 				45A628A91EC455E000F5022B /* search dir.cpp in Sources */,
+				45B5E8E31EFE358700A6A3E2 /* read config.cpp in Sources */,
 				451877031EADBAF200A8AA13 /* blit images.cpp in Sources */,
 				4518770F1EADBBB400A8AA13 /* freetype error.cpp in Sources */,
 				451877131EADC13A00A8AA13 /* load face.cpp in Sources */,

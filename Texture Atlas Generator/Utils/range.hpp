@@ -154,6 +154,7 @@ public:
     : mBegin(begin), mEnd(end) {
     checkValid();
   }
+  ~Range() = default;
   
   void begin(const value_type newBegin) {
     mBegin = newBegin;

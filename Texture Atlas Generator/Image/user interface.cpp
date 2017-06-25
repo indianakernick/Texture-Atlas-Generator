@@ -16,24 +16,29 @@
 #include "../Utils/profiler.hpp"
 #include "../Utils/pack rects.hpp"
 #include "../Utils/search dir.hpp"
+#include "../Utils/read config.hpp"
 
-void createImageAtlas(
-  const std::string &input,
-  const std::string &output,
-  const SizePx whitepixel,
-  const SizePx sep
-) {
+static const std::string DEFAULT_INPUT = ".";
+static const std::string DEFAULT_OUTPUT = "output";
+static const SizePx DEFAULT_SEP = 1;
+
+void createImageAtlas(const YAML::Node &config) {
   PROFILE(createImageAtlas);
+  
+  const std::string inputFolder = getOptional(config["input"], DEFAULT_INPUT);
+  const std::string outputName = getOptional(config["output"], DEFAULT_OUTPUT);
+  const SizePx sep = getOptional(config["sep"], DEFAULT_SEP);
+  const YAML::Node &whitepixelNode = config["whitepixel"];
 
-  std::remove((output + ".png").c_str());
-  const std::vector<std::string> paths(findFiles(input, extIsImage));
+  std::remove((outputName + ".png").c_str());
+  const std::vector<std::string> paths(findFiles(inputFolder, extIsImage));
   std::vector<Image> images = loadImages(paths);
-  if (whitepixel != NO_WHITE_PIXEL) {
-    const SizePx size = 1 + whitepixel * 2;
+  if (whitepixelNode) {
+    const SizePx size = 1 + whitepixelNode.as<SizePx>() * 2;
     images.emplace_back(size, size, images.back().format, 255);
   }
   std::vector<RectPx> rects = rectsFromImages(images);
   const SizePx length = packRects(rects, sep);
-  writeImage(output + ".png", makeAndBlit(images, rects, length));
-  writeAtlas(output + ".atlasi", paths, rects, length, whitepixel != NO_WHITE_PIXEL);
+  writeImage(outputName + ".png", makeAndBlit(images, rects, length));
+  writeAtlas(outputName + ".atlasi", paths, rects, length, whitepixelNode);
 }

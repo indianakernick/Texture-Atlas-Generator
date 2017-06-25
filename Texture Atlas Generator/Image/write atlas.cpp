@@ -8,36 +8,59 @@
 
 #include "write atlas.hpp"
 
-#include <fstream>
+#include <cstdio>
 #include <iostream>
 #include "../Utils/profiler.hpp"
-#include "../Utils/write atlas.hpp"
+#include <experimental/string_view>
 
-std::string getImageName(const std::string &path) {
+static const PosPx2 NO_WHITEPIXEL = {-1, -1};
+
+AtlasWriteError::AtlasWriteError(const char *msg)
+  : std::runtime_error(std::string("Failed to write atlas: ") + msg) {}
+
+AtlasWriteError::AtlasWriteError(const std::string &msg)
+  : std::runtime_error("Failed to write atlas: " + msg) {}
+
+std::experimental::string_view getImageName(const std::string &path) {
   const size_t lastSlash = path.find_last_of('/');
-  return path.substr(lastSlash + 1, path.find_last_of('.') - lastSlash - 1);
+  return {path.c_str() + lastSlash + 1, path.find_last_of('.') - lastSlash - 1};
 }
 
-void writeImages(
-  YAML::Emitter &emitter,
-  const std::vector<std::string> &paths,
-  const std::vector<RectPx> &rects,
-  const bool hasWhitepixel
-) {
-  assert(paths.size() == rects.size() - hasWhitepixel);
+using File = std::unique_ptr<std::FILE, int(*)(std::FILE *)>;
 
-  emitter << YAML::BeginMap;
-  for (size_t i = 0; i != paths.size(); i++) {
-    emitter << YAML::Key << getImageName(paths[i]) << YAML::Value <<
-      YAML::Flow << YAML::BeginSeq <<
-        rects[i].p.x <<
-        rects[i].p.y <<
-        (rects[i].p.x + rects[i].s.x - 1) <<
-        (rects[i].p.y + rects[i].s.y - 1) <<
-      YAML::EndSeq;
+File openFile(const char *path) {
+  std::FILE *const file = std::fopen(path, "wb");
+  if (file == nullptr) {
+    throw AtlasWriteError("Could not open output file");
+  } else {
+    return {file, std::fclose};
   }
-  emitter << YAML::EndMap;
 }
+
+void write(std::FILE *const file, const void *ptr, const size_t size) {
+  if (std::fwrite(ptr, size, 1, file) == 0) {
+    throw AtlasWriteError("Could not write to file");
+  }
+}
+
+PosPx2 getWhitepixel(const RectPx lastRect, const bool hasWhitepixel) {
+  if (hasWhitepixel) {
+    return {
+      lastRect.p.x + (lastRect.s.x - 1) / 2,
+      lastRect.p.y + (lastRect.s.y - 1) / 2
+    };
+  } else {
+    return NO_WHITEPIXEL;
+  }
+}
+
+/*
+0 ~ 8       Width and height of sheet
+8 ~ 16      X and Y of whitepixel
+16 ~ 20     Number of rectangles
+20 ~ 20+n*4 Rectangles X, Y, W, H
+20+n*4 +    Null-terminated ASCII string names
+*/
 
 void writeAtlas(
   const std::string &output,
@@ -46,38 +69,40 @@ void writeAtlas(
   const SizePx size,
   const bool hasWhitepixel
 ) {
-  PROFILE(writeAtlas(Image));
+  PROFILE(writeAtlas);
 
   std::cout << "Writing atlas to file \"" << output << "\"\n";
   
-  std::ofstream file(output);
-  YAML::Emitter emitter(file);
+  File file = openFile(output.c_str());
   
-  checkEmitter(emitter);
+  const SizePx2 sizeVec = {size, size};
+  write(file.get(), &sizeVec, sizeof(sizeVec));
   
-  emitter << YAML::BeginDoc << YAML::BeginMap <<
-    YAML::Key << "type" << YAML::Value << "image" <<
-    YAML::Key << "size" << YAML::Value << YAML::Flow << YAML::BeginSeq <<
-      size << size <<
-    YAML::EndSeq;
+  const PosPx2 whitepixel = getWhitepixel(rects.back(), hasWhitepixel);
+  write(file.get(), &whitepixel, sizeof(whitepixel));
   
-  if (hasWhitepixel) {
-    const PosPx2 pos = {
-      rects.back().p.x + (rects.back().s.x - 1) / 2,
-      rects.back().p.y + (rects.back().s.y - 1) / 2
-    };
-    emitter <<
-      YAML::Key << "whitepixel" << YAML::Value << YAML::Flow << YAML::BeginSeq <<
-        pos.x << pos.y <<
-      YAML::EndSeq;
+  const SizePx numSprites = static_cast<SizePx>(paths.size());
+  write(file.get(), &numSprites, sizeof(numSprites));
+  
+  write(file.get(), rects.data(), (rects.size() - hasWhitepixel) * sizeof(RectPx));
+  
+  std::vector<std::experimental::string_view> names;
+  for (auto p = paths.cbegin(); p != paths.cend(); ++p) {
+    const std::experimental::string_view name = getImageName(*p);
+    for (auto n = names.cbegin(); n != names.cend(); ++n) {
+      if (*n == name) {
+        throw AtlasWriteError("Two images have the same name \"" + name.to_string() + "\"");
+      }
+    }
+    names.push_back(name);
   }
   
-  emitter <<
-    YAML::Key << "images" << YAML::Value;
+  for (auto n = names.cbegin(); n != names.cend(); ++n) {
+    write(file.get(), n->data(), n->size());
+    if (std::fputc(0, file.get()) == EOF) {
+      throw AtlasWriteError("Could not write null terminator");
+    }
+  }
   
-  writeImages(emitter, paths, rects, hasWhitepixel);
-  
-  emitter << YAML::EndMap << YAML::EndDoc;
-  
-  checkEmitter(emitter);
+  std::fflush(file.get());
 }

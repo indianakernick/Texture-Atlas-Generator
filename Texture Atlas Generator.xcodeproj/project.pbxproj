@@ -22,7 +22,6 @@
 		45A628A81EC455E000F5022B /* profiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A6289F1EC455E000F5022B /* profiler.cpp */; };
 		45A628A91EC455E000F5022B /* search dir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628A11EC455E000F5022B /* search dir.cpp */; };
 		45A628AA1EC455E000F5022B /* terminal color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628A31EC455E000F5022B /* terminal color.cpp */; };
-		45A628AB1EC455E000F5022B /* write atlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628A61EC455E000F5022B /* write atlas.cpp */; };
 		45A628AE1EC4583000F5022B /* pack rects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628AC1EC4583000F5022B /* pack rects.cpp */; };
 		45A628B21EC45D8400F5022B /* rects from images.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628B01EC45D8400F5022B /* rects from images.cpp */; };
 		45B5E6681EF65B0D00A6A3E2 /* libyaml-cpp.0.5.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B5E6671EF65B0D00A6A3E2 /* libyaml-cpp.0.5.3.dylib */; };
@@ -75,8 +74,6 @@
 		45A628A31EC455E000F5022B /* terminal color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "terminal color.cpp"; sourceTree = "<group>"; };
 		45A628A41EC455E000F5022B /* terminal color.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "terminal color.hpp"; sourceTree = "<group>"; };
 		45A628A51EC455E000F5022B /* vector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vector.hpp; sourceTree = "<group>"; };
-		45A628A61EC455E000F5022B /* write atlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "write atlas.cpp"; sourceTree = "<group>"; };
-		45A628A71EC455E000F5022B /* write atlas.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "write atlas.hpp"; sourceTree = "<group>"; };
 		45A628AC1EC4583000F5022B /* pack rects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "pack rects.cpp"; sourceTree = "<group>"; };
 		45A628AD1EC4583000F5022B /* pack rects.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "pack rects.hpp"; sourceTree = "<group>"; };
 		45A628AF1EC4588600F5022B /* types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
@@ -189,8 +186,6 @@
 				45A628A21EC455E000F5022B /* search dir.hpp */,
 				45A628A51EC455E000F5022B /* vector.hpp */,
 				45A628AF1EC4588600F5022B /* types.hpp */,
-				45A628A61EC455E000F5022B /* write atlas.cpp */,
-				45A628A71EC455E000F5022B /* write atlas.hpp */,
 				45A628AC1EC4583000F5022B /* pack rects.cpp */,
 				45A628AD1EC4583000F5022B /* pack rects.hpp */,
 				45A628A31EC455E000F5022B /* terminal color.cpp */,
@@ -264,7 +259,6 @@
 			files = (
 				451876BB1EAAFB9900A8AA13 /* stb_rect_pack.c in Sources */,
 				451877021EADBAF200A8AA13 /* load images.cpp in Sources */,
-				45A628AB1EC455E000F5022B /* write atlas.cpp in Sources */,
 				457DEF9E1EBB18E3003E4275 /* write atlas.cpp in Sources */,
 				45A628B21EC45D8400F5022B /* rects from images.cpp in Sources */,
 				45A628A91EC455E000F5022B /* search dir.cpp in Sources */,

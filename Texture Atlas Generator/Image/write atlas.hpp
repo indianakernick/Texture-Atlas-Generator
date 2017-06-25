@@ -12,6 +12,12 @@
 #include <vector>
 #include "image.hpp"
 
+class AtlasWriteError final : public std::runtime_error {
+public:
+  explicit AtlasWriteError(const char *);
+  explicit AtlasWriteError(const std::string &);
+};
+
 void writeAtlas(
   const std::string &,
   const std::vector<std::string> &,

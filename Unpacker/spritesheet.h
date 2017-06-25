@@ -35,7 +35,7 @@ typedef struct {
 #pragma pack(1)
 typedef struct {
   PosPx2 p;
-  PosPx2 s;
+  SizePx2 s;
 } RectPx;
 #pragma pack()
 

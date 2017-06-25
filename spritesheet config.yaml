@@ -1,0 +1,20 @@
+---
+# This can either be "font" if the atlas is a font or 
+# "spritesheet" if the atlas is a spritesheet
+job type: spritesheet
+
+# A path to the folder where the images will be taken.
+input: "."
+
+# The name of the output files. In this example the output files will be named
+# "Spritesheet.atlasi" and "Spritesheet.png"
+output: "Spritesheet"
+
+# The number of pixels between each image.
+sep: 1
+
+# The whitepixel is a pixel on the image garrenteed to be #FFFFFFFF.
+# You can specify whitepixel. If no radius is provided then no whitepixel is
+# created.
+whitepixel radius: 1
+...

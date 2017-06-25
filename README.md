@@ -5,11 +5,23 @@
 A command-line tool for packing spritesheets and creating bitmap fonts
 
 ## What does it do?
-This tool can be used to pack images into a spritesheet and produce a YAML based atlas describing the spritesheet. This tool can also be used to create bitmap fonts by opening a TTF file, packing glyphs into an image and describing the glyphs in a YAML document. A full list of up-to-date options can be found in [app.cpp](Texture%20Atlas%20Generator/app.cpp)
+This tool can be used to pack images into a spritesheet and produce an atlas describing the spritesheet. This tool can also be used to create bitmap fonts by opening a TTF file, packing glyphs into an image and describing the glyphs in an atlas. The job of the tool is describe in a YAML based config file. You can see an [example of a spritesheet](spritesheet%20config.yaml) and an [example of a font](font%20config.yaml).
 
 An example of what this tool can create is a bitmap font. Here's the ASCII range of Arial at 12pt and 24pt at 96DPI. The assosiated atlas contains the bearing, advance and size of each glyph as well as the kerning table.
 
 ![Arial 12pt and 24pt](https://i.imgur.com/Jj55BiP.png)
+
+### List of features
+
+*  Packing images from a folder into a spritesheet
+   *  The images are idenified in the atlas as the file names of the images
+   *  A white pixel can be specified. This is a single pixel or area of pixels on the spritesheet that are white
+*  Rendering a TrueType font onto a texture
+   *  Renders scalable fonts onto a greyscale image and color emoji onto a color image
+   *  Point size, DPI and codepoint range can be specified
+   *  Bitmap fonts are scaled to the perfect size
+
+See [ROAD_MAP.md](ROAD_MAP.md) for a list of planned features.
 
 ## How do I build this on my machine?
 1. Download the project.

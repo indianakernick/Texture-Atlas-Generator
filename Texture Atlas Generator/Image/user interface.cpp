@@ -8,6 +8,7 @@
 
 #include "user interface.hpp"
 
+#include <yaml-cpp/yaml.h>
 #include "load images.hpp"
 #include "blit images.hpp"
 #include "write image.hpp"
@@ -16,11 +17,19 @@
 #include "../Utils/profiler.hpp"
 #include "../Utils/pack rects.hpp"
 #include "../Utils/search dir.hpp"
-#include "../Utils/read config.hpp"
 
 static const std::string DEFAULT_INPUT = ".";
 static const std::string DEFAULT_OUTPUT = "output";
 static const SizePx DEFAULT_SEP = 1;
+
+template <typename ValueType>
+ValueType getOptional(const YAML::Node &node, const ValueType &def) {
+  if (node) {
+    return node.as<ValueType>();
+  } else {
+    return def;
+  }
+}
 
 void createImageAtlas(const YAML::Node &config) {
   PROFILE(createImageAtlas);

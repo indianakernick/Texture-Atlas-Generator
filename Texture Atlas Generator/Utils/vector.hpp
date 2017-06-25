@@ -9,6 +9,7 @@
 #ifndef utils_vector_hpp
 #define utils_vector_hpp
 
+#pragma pack(1)
 template <typename T>
 class tvec2 {
 public:
@@ -24,11 +25,6 @@ public:
   T x = 0;
   T y = 0;
 };
-
-///The squared distance between points
-template <typename T>
-T distSquared(const tvec2<T> a, const tvec2<T> b) {
-  return (a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y);
-}
+#pragma pack()
 
 #endif

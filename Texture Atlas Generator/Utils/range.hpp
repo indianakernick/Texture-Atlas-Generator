@@ -12,12 +12,9 @@
 #include <iterator>
 #include <type_traits>
 
-template <typename ITER, bool = std::is_integral<ITER>::value>
-class Range;
-
 ///An iterator range
 template <typename ITER>
-class Range<ITER, false> {
+class Range {
 public:
   using iterator = ITER;
   using difference_type = typename std::iterator_traits<ITER>::difference_type;
@@ -140,54 +137,6 @@ public:
 private:
   iterator mBegin;
   iterator mEnd;
-};
-
-///An integer range
-template <typename INT>
-class Range<INT, true> {
-public:
-  using value_type = INT;
-  using difference_type = std::make_signed_t<INT>;
-  
-  Range() = delete;
-  Range(const value_type begin, const value_type end)
-    : mBegin(begin), mEnd(end) {
-    checkValid();
-  }
-  ~Range() = default;
-  
-  void begin(const value_type newBegin) {
-    mBegin = newBegin;
-    checkValid();
-  }
-  value_type begin() const {
-    return mBegin;
-  }
-  
-  void end(const value_type newEnd) {
-    mEnd = newEnd;
-    checkValid();
-  }
-  value_type end() const {
-    return mEnd;
-  }
-  
-  difference_type distance() const {
-    return mEnd - mBegin;
-  }
-  size_t size() const {
-    return static_cast<size_t>(mEnd - mBegin);
-  }
-  
-private:
-  value_type mBegin;
-  value_type mEnd;
-  
-  void checkValid() const {
-    if (mBegin > mEnd) {
-      throw std::range_error("Bad range");
-    }
-  }
 };
 
 #endif

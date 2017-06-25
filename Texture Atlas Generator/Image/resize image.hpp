@@ -14,9 +14,7 @@
 //keep this in sync with stb_image_resize.c
 constexpr size_t RESIZE_TEMP_SIZE = 32 * 1024 * 1024;//32MB
 
-///Resizes an sRGB pre-multiplied alpha image
-Image resizePremulSRGB(const Image &, SizePx2);
-///Resizes a greyscale image
-Image resizeGrey(const Image &, SizePx2);
+///Resizes an sRGB alpha image
+Image resizeSRGB(const Image &, SizePx2);
 
 #endif

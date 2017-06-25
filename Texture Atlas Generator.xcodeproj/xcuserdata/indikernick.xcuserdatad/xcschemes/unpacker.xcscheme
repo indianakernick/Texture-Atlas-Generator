@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4518769F1EAAF80500A8AA13"
-               BuildableName = "packer"
-               BlueprintName = "packer"
+               BlueprintIdentifier = "45B5E8E71EFF50AE00A6A3E2"
+               BuildableName = "libUnpacker.dylib"
+               BlueprintName = "Unpacker"
                ReferencedContainer = "container:Texture Atlas Generator.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,45 +29,28 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4518769F1EAAF80500A8AA13"
-            BuildableName = "packer"
-            BlueprintName = "packer"
-            ReferencedContainer = "container:Texture Atlas Generator.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Release"
-      selectedDebuggerIdentifier = ""
-      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
-      useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/indikernick/Desktop"
+      useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4518769F1EAAF80500A8AA13"
-            BuildableName = "packer"
-            BlueprintName = "packer"
+            BlueprintIdentifier = "45B5E8E71EFF50AE00A6A3E2"
+            BuildableName = "libUnpacker.dylib"
+            BlueprintName = "Unpacker"
             ReferencedContainer = "container:Texture Atlas Generator.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
-      <CommandLineArguments>
-         <CommandLineArgument
-            argument = "font --font=&quot;Apple Color Emoji.ttc&quot; -p100 -F128512 -L128591 -o Scaled_Emoji"
-            isEnabled = "YES">
-         </CommandLineArgument>
-      </CommandLineArguments>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -77,16 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4518769F1EAAF80500A8AA13"
-            BuildableName = "packer"
-            BlueprintName = "packer"
+            BlueprintIdentifier = "45B5E8E71EFF50AE00A6A3E2"
+            BuildableName = "libUnpacker.dylib"
+            BlueprintName = "Unpacker"
             ReferencedContainer = "container:Texture Atlas Generator.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

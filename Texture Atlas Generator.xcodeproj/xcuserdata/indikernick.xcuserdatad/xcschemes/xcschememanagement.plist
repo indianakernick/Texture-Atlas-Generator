@@ -6,6 +6,13 @@
 	<dict>
 		<key>Texture Atlas Generator.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>unpacker.xcscheme</key>
+		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
@@ -13,6 +20,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>4518769F1EAAF80500A8AA13</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>45B5E8E71EFF50AE00A6A3E2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		451876A41EAAF80500A8AA13 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451876A31EAAF80500A8AA13 /* main.cpp */; };
-		451876B11EAAF89300A8AA13 /* atlasgen in CopyFiles */ = {isa = PBXBuildFile; fileRef = 451876A01EAAF80500A8AA13 /* atlasgen */; };
+		451876B11EAAF89300A8AA13 /* packer in CopyFiles */ = {isa = PBXBuildFile; fileRef = 451876A01EAAF80500A8AA13 /* packer */; };
 		451876B71EAAFB7B00A8AA13 /* stb_image_write.c in Sources */ = {isa = PBXBuildFile; fileRef = 451876B61EAAFB7B00A8AA13 /* stb_image_write.c */; };
 		451876B91EAAFB8900A8AA13 /* stb_image.c in Sources */ = {isa = PBXBuildFile; fileRef = 451876B81EAAFB8900A8AA13 /* stb_image.c */; };
 		451876BB1EAAFB9900A8AA13 /* stb_rect_pack.c in Sources */ = {isa = PBXBuildFile; fileRef = 451876BA1EAAFB9900A8AA13 /* stb_rect_pack.c */; };
@@ -28,6 +28,14 @@
 		45B5E8DD1EFBBD5A00A6A3E2 /* stb_image_resize.c in Sources */ = {isa = PBXBuildFile; fileRef = 45B5E8DC1EFBBD5A00A6A3E2 /* stb_image_resize.c */; };
 		45B5E8E01EFBBE9000A6A3E2 /* resize image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B5E8DE1EFBBE9000A6A3E2 /* resize image.cpp */; };
 		45B5E8E31EFE358700A6A3E2 /* read config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B5E8E11EFE358700A6A3E2 /* read config.cpp */; };
+		45B5E8F01EFF534100A6A3E2 /* spritesheet.c in Sources */ = {isa = PBXBuildFile; fileRef = 45B5E8EE1EFF534100A6A3E2 /* spritesheet.c */; };
+		45B5E8F11EFF534100A6A3E2 /* spritesheet.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B5E8EF1EFF534100A6A3E2 /* spritesheet.h */; };
+		45B5E8F91EFF662200A6A3E2 /* read atlas.c in Sources */ = {isa = PBXBuildFile; fileRef = 45B5E8F71EFF662200A6A3E2 /* read atlas.c */; };
+		45B5E8FA1EFF662200A6A3E2 /* read atlas.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B5E8F81EFF662200A6A3E2 /* read atlas.h */; };
+		45B5E8FB1EFF766D00A6A3E2 /* private spritesheet.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B5E8F61EFF5A9400A6A3E2 /* private spritesheet.h */; };
+		45B5E8FD1EFF76CF00A6A3E2 /* libUnpacker.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 45B5E8E81EFF50AE00A6A3E2 /* libUnpacker.dylib */; };
+		45B5E8FF1EFF76F500A6A3E2 /* spritesheet.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 45B5E8EF1EFF534100A6A3E2 /* spritesheet.h */; };
+		45B5E9001EFF76F500A6A3E2 /* read atlas.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 45B5E8F81EFF662200A6A3E2 /* read atlas.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,14 +45,35 @@
 			dstPath = /usr/local/bin;
 			dstSubfolderSpec = 0;
 			files = (
-				451876B11EAAF89300A8AA13 /* atlasgen in CopyFiles */,
+				451876B11EAAF89300A8AA13 /* packer in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		45B5E8FC1EFF76B700A6A3E2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/local/lib;
+			dstSubfolderSpec = 0;
+			files = (
+				45B5E8FD1EFF76CF00A6A3E2 /* libUnpacker.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		45B5E8FE1EFF76DF00A6A3E2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/local/include/Unpacker;
+			dstSubfolderSpec = 0;
+			files = (
+				45B5E8FF1EFF76F500A6A3E2 /* spritesheet.h in CopyFiles */,
+				45B5E9001EFF76F500A6A3E2 /* read atlas.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		451876A01EAAF80500A8AA13 /* atlasgen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = atlasgen; sourceTree = BUILT_PRODUCTS_DIR; };
+		451876A01EAAF80500A8AA13 /* packer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = packer; sourceTree = BUILT_PRODUCTS_DIR; };
 		451876A31EAAF80500A8AA13 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		451876B31EAAFB6900A8AA13 /* stb_image_write.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stb_image_write.h; sourceTree = "<group>"; };
 		451876B41EAAFB6900A8AA13 /* stb_image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
@@ -88,6 +117,12 @@
 		45B5E8DF1EFBBE9000A6A3E2 /* resize image.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "resize image.hpp"; sourceTree = "<group>"; };
 		45B5E8E11EFE358700A6A3E2 /* read config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "read config.cpp"; sourceTree = "<group>"; };
 		45B5E8E21EFE358700A6A3E2 /* read config.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "read config.hpp"; sourceTree = "<group>"; };
+		45B5E8E81EFF50AE00A6A3E2 /* libUnpacker.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libUnpacker.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		45B5E8EE1EFF534100A6A3E2 /* spritesheet.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = spritesheet.c; sourceTree = "<group>"; };
+		45B5E8EF1EFF534100A6A3E2 /* spritesheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spritesheet.h; sourceTree = "<group>"; };
+		45B5E8F61EFF5A9400A6A3E2 /* private spritesheet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "private spritesheet.h"; sourceTree = "<group>"; };
+		45B5E8F71EFF662200A6A3E2 /* read atlas.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "read atlas.c"; sourceTree = "<group>"; };
+		45B5E8F81EFF662200A6A3E2 /* read atlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "read atlas.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +134,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		45B5E8E51EFF50AE00A6A3E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -106,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				451876A21EAAF80500A8AA13 /* Texture Atlas Generator */,
+				45B5E8EC1EFF514000A6A3E2 /* Unpacker */,
 				451876A11EAAF80500A8AA13 /* Products */,
 				451876BC1EAAFC2600A8AA13 /* Frameworks */,
 			);
@@ -114,7 +157,8 @@
 		451876A11EAAF80500A8AA13 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				451876A01EAAF80500A8AA13 /* atlasgen */,
+				451876A01EAAF80500A8AA13 /* packer */,
+				45B5E8E81EFF50AE00A6A3E2 /* libUnpacker.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -200,12 +244,37 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		45B5E8EC1EFF514000A6A3E2 /* Unpacker */ = {
+			isa = PBXGroup;
+			children = (
+				45B5E8EE1EFF534100A6A3E2 /* spritesheet.c */,
+				45B5E8EF1EFF534100A6A3E2 /* spritesheet.h */,
+				45B5E8F61EFF5A9400A6A3E2 /* private spritesheet.h */,
+				45B5E8F71EFF662200A6A3E2 /* read atlas.c */,
+				45B5E8F81EFF662200A6A3E2 /* read atlas.h */,
+			);
+			path = Unpacker;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		45B5E8E61EFF50AE00A6A3E2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45B5E8F11EFF534100A6A3E2 /* spritesheet.h in Headers */,
+				45B5E8FA1EFF662200A6A3E2 /* read atlas.h in Headers */,
+				45B5E8FB1EFF766D00A6A3E2 /* private spritesheet.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		4518769F1EAAF80500A8AA13 /* atlasgen */ = {
+		4518769F1EAAF80500A8AA13 /* packer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 451876A71EAAF80500A8AA13 /* Build configuration list for PBXNativeTarget "atlasgen" */;
+			buildConfigurationList = 451876A71EAAF80500A8AA13 /* Build configuration list for PBXNativeTarget "packer" */;
 			buildPhases = (
 				4518769C1EAAF80500A8AA13 /* Sources */,
 				4518769D1EAAF80500A8AA13 /* Frameworks */,
@@ -215,10 +284,29 @@
 			);
 			dependencies = (
 			);
-			name = atlasgen;
+			name = packer;
 			productName = "Texture Atlas Generator";
-			productReference = 451876A01EAAF80500A8AA13 /* atlasgen */;
+			productReference = 451876A01EAAF80500A8AA13 /* packer */;
 			productType = "com.apple.product-type.tool";
+		};
+		45B5E8E71EFF50AE00A6A3E2 /* Unpacker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 45B5E8E91EFF50AE00A6A3E2 /* Build configuration list for PBXNativeTarget "Unpacker" */;
+			buildPhases = (
+				45B5E8E41EFF50AE00A6A3E2 /* Sources */,
+				45B5E8E51EFF50AE00A6A3E2 /* Frameworks */,
+				45B5E8E61EFF50AE00A6A3E2 /* Headers */,
+				45B5E8FC1EFF76B700A6A3E2 /* CopyFiles */,
+				45B5E8FE1EFF76DF00A6A3E2 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Unpacker;
+			productName = unpacker;
+			productReference = 45B5E8E81EFF50AE00A6A3E2 /* libUnpacker.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
 
@@ -231,6 +319,10 @@
 				TargetAttributes = {
 					4518769F1EAAF80500A8AA13 = {
 						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
+					45B5E8E71EFF50AE00A6A3E2 = {
+						CreatedOnToolsVersion = 8.3.2;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -247,7 +339,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4518769F1EAAF80500A8AA13 /* atlasgen */,
+				4518769F1EAAF80500A8AA13 /* packer */,
+				45B5E8E71EFF50AE00A6A3E2 /* Unpacker */,
 			);
 		};
 /* End PBXProject section */
@@ -276,6 +369,15 @@
 				45B5E8DD1EFBBD5A00A6A3E2 /* stb_image_resize.c in Sources */,
 				45B5E8E01EFBBE9000A6A3E2 /* resize image.cpp in Sources */,
 				45A628AE1EC4583000F5022B /* pack rects.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		45B5E8E41EFF50AE00A6A3E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45B5E8F91EFF662200A6A3E2 /* read atlas.c in Sources */,
+				45B5E8F01EFF534100A6A3E2 /* spritesheet.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,6 +557,40 @@
 			};
 			name = Release;
 		};
+		45B5E8EA1EFF50AE00A6A3E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wpedantic",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		45B5E8EB1EFF50AE00A6A3E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wpedantic",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -467,7 +603,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		451876A71EAAF80500A8AA13 /* Build configuration list for PBXNativeTarget "atlasgen" */ = {
+		451876A71EAAF80500A8AA13 /* Build configuration list for PBXNativeTarget "packer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				451876A81EAAF80500A8AA13 /* Debug */,
@@ -475,6 +611,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		45B5E8E91EFF50AE00A6A3E2 /* Build configuration list for PBXNativeTarget "Unpacker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45B5E8EA1EFF50AE00A6A3E2 /* Debug */,
+				45B5E8EB1EFF50AE00A6A3E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

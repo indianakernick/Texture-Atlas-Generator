@@ -12,7 +12,7 @@
 #include "Image/user interface.hpp"
 
 static constexpr char USAGE[] = R"(Usage:
-  atlasgen <path_to_config_file>
+  packer <path_to_config_file>
 )";
 
 ArgError::ArgError()

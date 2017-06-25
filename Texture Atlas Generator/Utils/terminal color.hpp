@@ -16,65 +16,6 @@
 //ANSI escape codes!
 
 namespace Term {
-  void cursorUp(unsigned = 1);
-  void cursorDown(unsigned = 1);
-  void cursorForward(unsigned = 1);
-  void cursorBack(unsigned = 1);
-  void cursorNextLine(unsigned = 1);
-  void cursorPrevLine(unsigned = 1);
-  void cursorHoriPos(unsigned = 1);
-  void cursorPos(unsigned = 1, unsigned = 1);
-  
-  struct CursorPos {
-    unsigned row;
-    unsigned col;
-  };
-  
-  CursorPos getCursorPos();
-  
-  void saveCursor();
-  void restoreCursor();
-  
-  void hideCursor();
-  void showCursor();
-  
-  void scrollUp(unsigned = 1);
-  void scrollDown(unsigned = 1);
-  
-  enum class Clear : uint8_t {
-    TO_END,
-    TO_BEG,
-    ALL
-  };
-  
-  void eraseDisplay(Clear = Clear::TO_END);
-  void eraseLine(Clear = Clear::TO_END);
-  
-  void videoReset();
-    
-  enum class Intensity {
-    NORMAL,
-    BOLD,
-    FAINT
-  };
-  
-  void intensity(Intensity);
-  void italic(bool);
-  void underline(bool);
-  
-  enum class Blink {
-    OFF,
-    SLOW,
-    FAST
-  };
-  
-  void blink(Blink);
-  void videoNegative(bool);
-  void conceal(bool);
-  void strikethrough(bool);
-  void primaryFont();
-  void alternativeFont(unsigned);
-  
   enum class Color : uint8_t {
     BLACK,
     RED,

@@ -40,5 +40,5 @@ void createImageAtlas(const YAML::Node &config) {
   std::vector<RectPx> rects = rectsFromImages(images);
   const SizePx length = packRects(rects, sep);
   writeImage(outputName + ".png", makeAndBlit(images, rects, length));
-  writeAtlas(outputName + ".atlasi", paths, rects, length, whitepixelNode);
+  writeAtlas(outputName + ".atlas", paths, rects, length, whitepixelNode);
 }

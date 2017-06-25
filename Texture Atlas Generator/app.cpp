@@ -9,7 +9,6 @@
 #include "app.hpp"
 
 #include <iostream>
-#include "Font/user interface.hpp"
 #include "Image/user interface.hpp"
 
 static constexpr char USAGE[] = R"(Usage:
@@ -34,13 +33,5 @@ void runApp(const std::vector<std::string> &args) {
     pathToConfig += *a;
   }
   
-  const YAML::Node config = YAML::LoadFile(pathToConfig);
-  const std::string &jobType = config["job type"].as<std::string>();
-  if (jobType == "font") {
-    createFontAtlas(config);
-  } else if (jobType == "spritesheet") {
-    createImageAtlas(config);
-  } else {
-    throw std::runtime_error("\"job type\" is an invalid value. Should be \"font\" or \"spritesheet\"");
-  }
+  createImageAtlas(YAML::LoadFile(pathToConfig));
 }

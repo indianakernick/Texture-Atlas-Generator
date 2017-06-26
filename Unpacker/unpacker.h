@@ -1,19 +1,21 @@
 //
-//  spritesheet.h
+//  unpacker.h
 //  Texture Atlas Generator
 //
-//  Created by Indi Kernick on 25/6/17.
+//  Created by Indi Kernick on 26/6/17.
 //  Copyright © 2017 Indi Kernick. All rights reserved.
 //
 
-#ifndef spritesheet_h
-#define spritesheet_h
+#ifndef unpacker_h
+#define unpacker_h
 
 #include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#pragma GCC visibility push(default)
 
 typedef int32_t PosPx;
 typedef uint32_t SizePx;
@@ -41,10 +43,10 @@ typedef struct {
 
 //8 0xFF bytes
 static const PosPx2 NO_WHITEPIXEL = {-1, -1};
-//8 0xFF bytes
-static const SizePx2 NO_SIZE = {UINT32_MAX, UINT32_MAX};
-//16 0xFF bytes
-static const RectPx NO_SPRITE = {{-1, -1}, {UINT32_MAX, UINT32_MAX}};
+//8 0x00 bytes
+static const SizePx2 NO_SIZE = {0, 0};
+//16 0x00 bytes
+static const RectPx NO_SPRITE = {{0, 0}, {0, 0}};
 
 typedef struct Spritesheet Spritesheet;
 
@@ -62,6 +64,11 @@ PosPx2 getWhitepixel(const Spritesheet *);
 
 ///Returns 1 if there is a whitepixel
 int hasWhitepixel(const Spritesheet *);
+
+Spritesheet *readAtlasFromFile(const char *);
+Spritesheet *readAtlasFromMemory(const uint8_t *, size_t);
+
+#pragma GCC visibility pop
 
 #ifdef __cplusplus
 }

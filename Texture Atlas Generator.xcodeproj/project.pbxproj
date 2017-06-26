@@ -19,6 +19,9 @@
 		451877191EADD90C00A8AA13 /* app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451877171EADD90C00A8AA13 /* app.cpp */; };
 		457DEF941EB9C170003E4275 /* user interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 457DEF921EB9C170003E4275 /* user interface.cpp */; };
 		457DEF9E1EBB18E3003E4275 /* write atlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 457DEF9C1EBB18E3003E4275 /* write atlas.cpp */; };
+		4592B4651F006E7A00D1640D /* unpacker.c in Sources */ = {isa = PBXBuildFile; fileRef = 4592B4631F006E7A00D1640D /* unpacker.c */; };
+		4592B4661F006E7A00D1640D /* unpacker.h in Headers */ = {isa = PBXBuildFile; fileRef = 4592B4641F006E7A00D1640D /* unpacker.h */; };
+		4592B4671F00708500D1640D /* unpacker.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4592B4641F006E7A00D1640D /* unpacker.h */; };
 		45A628A81EC455E000F5022B /* profiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A6289F1EC455E000F5022B /* profiler.cpp */; };
 		45A628A91EC455E000F5022B /* search dir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628A11EC455E000F5022B /* search dir.cpp */; };
 		45A628AA1EC455E000F5022B /* terminal color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628A31EC455E000F5022B /* terminal color.cpp */; };
@@ -27,14 +30,7 @@
 		45B5E6681EF65B0D00A6A3E2 /* libyaml-cpp.0.5.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B5E6671EF65B0D00A6A3E2 /* libyaml-cpp.0.5.3.dylib */; };
 		45B5E8DD1EFBBD5A00A6A3E2 /* stb_image_resize.c in Sources */ = {isa = PBXBuildFile; fileRef = 45B5E8DC1EFBBD5A00A6A3E2 /* stb_image_resize.c */; };
 		45B5E8E01EFBBE9000A6A3E2 /* resize image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B5E8DE1EFBBE9000A6A3E2 /* resize image.cpp */; };
-		45B5E8F01EFF534100A6A3E2 /* spritesheet.c in Sources */ = {isa = PBXBuildFile; fileRef = 45B5E8EE1EFF534100A6A3E2 /* spritesheet.c */; };
-		45B5E8F11EFF534100A6A3E2 /* spritesheet.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B5E8EF1EFF534100A6A3E2 /* spritesheet.h */; };
-		45B5E8F91EFF662200A6A3E2 /* read atlas.c in Sources */ = {isa = PBXBuildFile; fileRef = 45B5E8F71EFF662200A6A3E2 /* read atlas.c */; };
-		45B5E8FA1EFF662200A6A3E2 /* read atlas.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B5E8F81EFF662200A6A3E2 /* read atlas.h */; };
-		45B5E8FB1EFF766D00A6A3E2 /* private spritesheet.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B5E8F61EFF5A9400A6A3E2 /* private spritesheet.h */; };
 		45B5E8FD1EFF76CF00A6A3E2 /* libUnpacker.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 45B5E8E81EFF50AE00A6A3E2 /* libUnpacker.dylib */; };
-		45B5E8FF1EFF76F500A6A3E2 /* spritesheet.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 45B5E8EF1EFF534100A6A3E2 /* spritesheet.h */; };
-		45B5E9001EFF76F500A6A3E2 /* read atlas.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 45B5E8F81EFF662200A6A3E2 /* read atlas.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -64,8 +60,7 @@
 			dstPath = /usr/local/include/Unpacker;
 			dstSubfolderSpec = 0;
 			files = (
-				45B5E8FF1EFF76F500A6A3E2 /* spritesheet.h in CopyFiles */,
-				45B5E9001EFF76F500A6A3E2 /* read atlas.h in CopyFiles */,
+				4592B4671F00708500D1640D /* unpacker.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +89,8 @@
 		457DEF931EB9C170003E4275 /* user interface.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "user interface.hpp"; sourceTree = "<group>"; };
 		457DEF9C1EBB18E3003E4275 /* write atlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "write atlas.cpp"; sourceTree = "<group>"; };
 		457DEF9D1EBB18E3003E4275 /* write atlas.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "write atlas.hpp"; sourceTree = "<group>"; };
+		4592B4631F006E7A00D1640D /* unpacker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unpacker.c; sourceTree = "<group>"; };
+		4592B4641F006E7A00D1640D /* unpacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unpacker.h; sourceTree = "<group>"; };
 		45A6289D1EC455E000F5022B /* math.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = math.hpp; sourceTree = "<group>"; };
 		45A6289F1EC455E000F5022B /* profiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = profiler.cpp; sourceTree = "<group>"; };
 		45A628A01EC455E000F5022B /* profiler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = profiler.hpp; sourceTree = "<group>"; };
@@ -115,11 +112,6 @@
 		45B5E8DE1EFBBE9000A6A3E2 /* resize image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "resize image.cpp"; sourceTree = "<group>"; };
 		45B5E8DF1EFBBE9000A6A3E2 /* resize image.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "resize image.hpp"; sourceTree = "<group>"; };
 		45B5E8E81EFF50AE00A6A3E2 /* libUnpacker.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libUnpacker.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		45B5E8EE1EFF534100A6A3E2 /* spritesheet.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = spritesheet.c; sourceTree = "<group>"; };
-		45B5E8EF1EFF534100A6A3E2 /* spritesheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spritesheet.h; sourceTree = "<group>"; };
-		45B5E8F61EFF5A9400A6A3E2 /* private spritesheet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "private spritesheet.h"; sourceTree = "<group>"; };
-		45B5E8F71EFF662200A6A3E2 /* read atlas.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "read atlas.c"; sourceTree = "<group>"; };
-		45B5E8F81EFF662200A6A3E2 /* read atlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "read atlas.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,11 +234,8 @@
 		45B5E8EC1EFF514000A6A3E2 /* Unpacker */ = {
 			isa = PBXGroup;
 			children = (
-				45B5E8EE1EFF534100A6A3E2 /* spritesheet.c */,
-				45B5E8EF1EFF534100A6A3E2 /* spritesheet.h */,
-				45B5E8F61EFF5A9400A6A3E2 /* private spritesheet.h */,
-				45B5E8F71EFF662200A6A3E2 /* read atlas.c */,
-				45B5E8F81EFF662200A6A3E2 /* read atlas.h */,
+				4592B4631F006E7A00D1640D /* unpacker.c */,
+				4592B4641F006E7A00D1640D /* unpacker.h */,
 			);
 			path = Unpacker;
 			sourceTree = "<group>";
@@ -258,9 +247,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45B5E8F11EFF534100A6A3E2 /* spritesheet.h in Headers */,
-				45B5E8FA1EFF662200A6A3E2 /* read atlas.h in Headers */,
-				45B5E8FB1EFF766D00A6A3E2 /* private spritesheet.h in Headers */,
+				4592B4661F006E7A00D1640D /* unpacker.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,8 +357,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45B5E8F91EFF662200A6A3E2 /* read atlas.c in Sources */,
-				45B5E8F01EFF534100A6A3E2 /* spritesheet.c in Sources */,
+				4592B4651F006E7A00D1640D /* unpacker.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,6 +549,7 @@
 					"-Wall",
 					"-Wextra",
 					"-Wpedantic",
+					"-fvisibility=hidden",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -580,6 +567,7 @@
 					"-Wall",
 					"-Wextra",
 					"-Wpedantic",
+					"-fvisibility=hidden",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

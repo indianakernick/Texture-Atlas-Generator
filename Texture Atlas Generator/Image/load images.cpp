@@ -26,7 +26,7 @@ Image loadImage(const std::string &file) {
   const Image::Format format = Image::Format::RGB_ALPHA;
 
   int width, height;
-  uint8_t *data = stbi_load(file.c_str(), &width, &height, nullptr, format);
+  uint8_t *data = stbi_load(file.c_str(), &width, &height, nullptr, static_cast<int>(format));
   if (data == nullptr) {
     throw ImageLoadError(file, stbi_failure_reason());
   }
@@ -35,7 +35,7 @@ Image loadImage(const std::string &file) {
     static_cast<SizePx>(width),
     static_cast<SizePx>(height),
     format,
-    static_cast<ptrdiff_t>(width * format),
+    static_cast<ptrdiff_t>(width * static_cast<SizePx>(format)),
     data,
     stbi_image_free
   };

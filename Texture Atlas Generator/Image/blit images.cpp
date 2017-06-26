@@ -25,8 +25,8 @@ void blit(Image &dst, const Image &src, const PosPx2 srcPos) {
 
   const ptrdiff_t dstPitch = dst.pitch;
   const ptrdiff_t srcPitch = src.pitch;
-  const size_t width = src.s.x * src.format;
-  uint8_t *dstRow = dst.data.get() + srcPos.y * dstPitch + srcPos.x * src.format;
+  const size_t width = src.s.x * static_cast<SizePx>(src.format);
+  uint8_t *dstRow = dst.data.get() + srcPos.y * dstPitch + srcPos.x * static_cast<SizePx>(src.format);
   const uint8_t *srcRow = src.data.get();
   const uint8_t *const srcEnd = srcRow + srcPitch * src.s.y;
   
@@ -43,7 +43,7 @@ void convert(Image &dst, const Image &src, const Converter<UnsignedInt> converte
 
   PROFILE(Convert and copy);
   
-  assert(dst.format == sizeof(UnsignedInt));
+  assert(static_cast<SizePx>(dst.format) == sizeof(UnsignedInt));
   assert(dst.s.x == src.s.x);
   assert(dst.s.y == src.s.y);
   
@@ -75,7 +75,7 @@ void convert(Image &dst, const Converter<UnsignedInt> converter) {
   
   PROFILE(Convert in place);
   
-  assert(dst.format == sizeof(UnsignedInt));
+  assert(static_cast<SizePx>(dst.format) == sizeof(UnsignedInt));
   
   const ptrdiff_t dstStride = dst.pitch - dst.s.x * sizeof(UnsignedInt);
   

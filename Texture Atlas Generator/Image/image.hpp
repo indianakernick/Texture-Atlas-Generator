@@ -20,7 +20,7 @@ public:
   using Deleter = void (*)(void *);
   using Data = std::unique_ptr<uint8_t, Deleter>;
   
-  enum Format : SizePx {
+  enum class Format : SizePx {
     GREY       = 1,//STBI_grey
     GREY_ALPHA = 2,//STBI_grey_alpha
     RGB        = 3,//STBI_rgb

@@ -24,9 +24,9 @@ void writeImage(const std::string &file, const Image &image) {
     file.c_str(),
     image.s.x,
     image.s.y,
-    image.format,
+    static_cast<int>(image.format),
     image.data.get(),
-    static_cast<int>(image.pitch - image.s.x * image.format)
+    static_cast<int>(image.pitch - image.s.x * static_cast<SizePx>(image.format))
   );
   
   if (success == 0) {

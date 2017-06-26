@@ -177,17 +177,23 @@ Spritesheet *readAtlasFromMemory(const uint8_t *mem, const size_t size) {
   const uint8_t *const endMem = mem + size;
   
   const SizePx2 sheetSize = DEREF(SizePx2);
+  if (sheetSize.x < 1 || sheetSize.y < 1) {
+    PRINT_ERR("Negative sheet size\n");
+    return NULL;
+  }
+  
   const PosPx2 whitepixel = DEREF(PosPx2);
   if (
     whitepixel.x < -1 || whitepixel.y < -1 ||
     whitepixel.x >= (PosPx)sheetSize.x || whitepixel.y >= (PosPx)sheetSize.y
   ) {
-    PRINT_ERR("Whitepixel position out of range");
+    PRINT_ERR("Whitepixel position out of range\n");
     return NULL;
   }
+  
   SizePx numRects = DEREF(SizePx);
-  if (numRects == 0 || numRects > sheetSize.x * sheetSize.y) {
-    PRINT_ERR("Currupt atlas");
+  if (numRects < 0 || numRects > sheetSize.x * sheetSize.y) {
+    PRINT_ERR("Number of rectangles out or range\n");
     return NULL;
   }
   
@@ -195,13 +201,13 @@ Spritesheet *readAtlasFromMemory(const uint8_t *mem, const size_t size) {
   
   //+ 2 for the minimum size of a sprite name
   if (size < 20 + numRects * (sizeof(RectPx) + 2)) {
-    PRINT_ERR("Currupt atlas");
+    PRINT_ERR("Currupt atlas\n");
     return NULL;
   }
   
   Spritesheet *sheet = makeSpritesheet(numRects, sheetSize, whitepixel);
   if (sheet == NULL) {
-    PRINT_ERR("Failed to initialize Spritesheet object");
+    PRINT_ERR("Failed to initialize Spritesheet object\n");
     return NULL;
   }
   

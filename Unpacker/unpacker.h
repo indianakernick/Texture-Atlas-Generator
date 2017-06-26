@@ -18,7 +18,7 @@ extern "C" {
 #pragma GCC visibility push(default)
 
 typedef int32_t PosPx;
-typedef uint32_t SizePx;
+typedef int32_t SizePx;
 
 #pragma pack(1)
 typedef struct {

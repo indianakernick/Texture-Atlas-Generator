@@ -70,10 +70,10 @@ size_t hash(const char *str) {
 }
 
 int nullRect(const RectPx a) {
-  return a.p.x == NO_SPRITE.p.x &&
-         a.p.y == NO_SPRITE.p.y &&
-         a.s.x == NO_SPRITE.s.x &&
-         a.s.y == NO_SPRITE.s.x;
+  return a.x == NO_SPRITE.x &&
+         a.y == NO_SPRITE.y &&
+         a.w == NO_SPRITE.w &&
+         a.y == NO_SPRITE.h;
 }
 
 int insertSprite(Spritesheet *sheet, const char *name, const RectPx sprite) {

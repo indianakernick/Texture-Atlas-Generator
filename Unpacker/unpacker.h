@@ -36,8 +36,10 @@ typedef struct {
 
 #pragma pack(1)
 typedef struct {
-  PosPx2 p;
-  SizePx2 s;
+  PosPx x;
+  PosPx y;
+  SizePx w;
+  SizePx h;
 } RectPx;
 #pragma pack()
 
@@ -46,7 +48,7 @@ static const PosPx2 NO_WHITEPIXEL = {-1, -1};
 //8 0x00 bytes
 static const SizePx2 NO_SIZE = {0, 0};
 //16 0x00 bytes
-static const RectPx NO_SPRITE = {{0, 0}, {0, 0}};
+static const RectPx NO_SPRITE = {0, 0, 0, 0};
 
 typedef struct Spritesheet Spritesheet;
 

@@ -55,8 +55,10 @@ Spritesheet *makeSpritesheet(
 }
 
 void destroySpritesheet(Spritesheet *sheet) {
-  free(sheet->sprites);
-  free(sheet);
+  if (sheet != NULL) {
+    free(sheet->sprites);
+    free(sheet);
+  }
 }
 
 size_t hash(const char *str) {

@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <strings.h>
+#include <string.h>
 
 #define PRINT_ERR(...) fprintf(stderr, __VA_ARGS__)
 
@@ -33,12 +33,14 @@ Spritesheet *makeSpritesheet(
 ) {
   Spritesheet *sheet = malloc(sizeof(Spritesheet));
   if (sheet == NULL) {
-    PRINT_ERR("Failed to allocate %lu bytes of memory\n", sizeof(Spritesheet));
+    //on some systems size_t is unsigned long long and sometimes it unsigned long
+    PRINT_ERR("Failed to allocate %llu bytes of memory\n", (unsigned long long)sizeof(Spritesheet));
     return NULL;
   }
   
   sheet->sprites = malloc(numSprites * sizeof(RectPx));
   if (sheet->sprites == NULL) {
+    PRINT_ERR("Failed to allocate %llu bytes of memory\n", (unsigned long long)sizeof(Spritesheet));
     free(sheet);
     return NULL;
   }
@@ -147,7 +149,7 @@ Spritesheet *readAtlasFromFile(const char *path) {
   
   uint8_t *mem = malloc(fileSize);
   if (mem == NULL) {
-    PRINT_ERR("Failed to allocate %lu bytes of memory\n", fileSize);
+    PRINT_ERR("Failed to allocate %li bytes of memory\n", fileSize);
     fclose(file);
     return NULL;
   }
@@ -193,7 +195,7 @@ Spritesheet *readAtlasFromMemory(const uint8_t *mem, const size_t size) {
   
   SizePx numRects = DEREF(SizePx);
   if (numRects < 0 || numRects > sheetSize.x * sheetSize.y) {
-    PRINT_ERR("Number of rectangles out or range\n");
+    PRINT_ERR("Number of rectangles out of range\n");
     return NULL;
   }
   
@@ -220,7 +222,7 @@ Spritesheet *readAtlasFromMemory(const uint8_t *mem, const size_t size) {
       nameEnd++;
     }
     if (nameEnd >= endMem) {
-      PRINT_ERR("Currupt strings");
+      PRINT_ERR("Currupt strings\n");
       destroySpritesheet(sheet);
       return NULL;
     }
@@ -230,7 +232,7 @@ Spritesheet *readAtlasFromMemory(const uint8_t *mem, const size_t size) {
       (const char *)namesBegin,
       *((const RectPx *)rectsBegin)
     ) == 0) {
-      PRINT_ERR("Hash table collision");
+      PRINT_ERR("Hash table collision\n");
       destroySpritesheet(sheet);
       return NULL;
     }

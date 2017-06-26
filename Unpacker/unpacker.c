@@ -8,6 +8,15 @@
 
 #include "unpacker.h"
 
+/*
+When I first started writing the unpacker I thought C was just C++ without 
+x, y and z. Nope! C is a whole different language. Writing C is nothing like 
+writing C++. The week I wrote my first C library was the first time I used a 
+pointer to a pointer and the first time I implemented a hash table. 
+
+C is not C++ without classes.
+*/
+
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
@@ -44,13 +53,20 @@ size_t calcNumSlots(const size_t numSprites) {
   };
 
   const size_t minNumSlots = numSprites * 5;
-  //find the first prime that is greater than minNumSlots
-  const size_t *prime = PRIMES;
-  const size_t *const endPrime = PRIMES + (sizeof(PRIMES) / sizeof(size_t));
-  while (prime != endPrime && *prime < minNumSlots) {
-    prime++;
+  size_t lower = 0;
+  size_t upper = sizeof(PRIMES) / sizeof(size_t);
+  
+  while (1) {
+    const size_t mid = (upper - lower) / 2 + lower;
+    if (minNumSlots < PRIMES[mid]) {
+      upper = mid;
+    } else {
+      lower = mid;
+    }
+    if (lower == upper - 1) {
+      return PRIMES[upper - (upper == sizeof(PRIMES) / sizeof(size_t))];
+    }
   }
-  return *prime;
 }
 
 #define ALLOC(VAR, TYPE, COUNT, ...)                                            \

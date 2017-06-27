@@ -22,6 +22,13 @@ public:
   tvec2(const X x, const Y y)
     : x(static_cast<T>(x)), y(static_cast<T>(y)) {}
 
+  bool operator==(const tvec2 other) const {
+    return x == other.x && y == other.y;
+  }
+  bool operator!=(const tvec2 other) const {
+    return x != other.x || y != other.y;
+  }
+
   T x = 0;
   T y = 0;
 };

@@ -21,10 +21,10 @@ public:
   using Data = std::unique_ptr<uint8_t, Deleter>;
   
   enum class Format : SizePx {
-    GREY       = 1,//STBI_grey
-    GREY_ALPHA = 2,//STBI_grey_alpha
-    RGB        = 3,//STBI_rgb
-    RGB_ALPHA  = 4 //STBI_rgb_alpha
+    GREY       = 1, //STBI_grey
+    GREY_ALPHA = 2, //STBI_grey_alpha
+    RGB        = 3, //STBI_rgb
+    RGB_ALPHA  = 4  //STBI_rgb_alpha
   };
   
   Image() = delete;

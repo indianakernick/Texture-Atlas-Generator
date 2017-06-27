@@ -22,6 +22,7 @@
 		4592B4651F006E7A00D1640D /* unpacker.c in Sources */ = {isa = PBXBuildFile; fileRef = 4592B4631F006E7A00D1640D /* unpacker.c */; };
 		4592B4661F006E7A00D1640D /* unpacker.h in Headers */ = {isa = PBXBuildFile; fileRef = 4592B4641F006E7A00D1640D /* unpacker.h */; };
 		4592B4671F00708500D1640D /* unpacker.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4592B4641F006E7A00D1640D /* unpacker.h */; };
+		4592B4741F020DBE00D1640D /* image reference.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4592B4701F02099800D1640D /* image reference.cpp */; };
 		45A628A81EC455E000F5022B /* profiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A6289F1EC455E000F5022B /* profiler.cpp */; };
 		45A628A91EC455E000F5022B /* search dir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628A11EC455E000F5022B /* search dir.cpp */; };
 		45A628AA1EC455E000F5022B /* terminal color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628A31EC455E000F5022B /* terminal color.cpp */; };
@@ -89,6 +90,8 @@
 		457DEF9D1EBB18E3003E4275 /* write atlas.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "write atlas.hpp"; sourceTree = "<group>"; };
 		4592B4631F006E7A00D1640D /* unpacker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unpacker.c; sourceTree = "<group>"; };
 		4592B4641F006E7A00D1640D /* unpacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unpacker.h; sourceTree = "<group>"; };
+		4592B4701F02099800D1640D /* image reference.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "image reference.cpp"; sourceTree = "<group>"; };
+		4592B4711F02099800D1640D /* image reference.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "image reference.hpp"; sourceTree = "<group>"; };
 		45A6289D1EC455E000F5022B /* math.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = math.hpp; sourceTree = "<group>"; };
 		45A6289F1EC455E000F5022B /* profiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = profiler.cpp; sourceTree = "<group>"; };
 		45A628A01EC455E000F5022B /* profiler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = profiler.hpp; sourceTree = "<group>"; };
@@ -197,6 +200,8 @@
 				457DEF9D1EBB18E3003E4275 /* write atlas.hpp */,
 				457DEF921EB9C170003E4275 /* user interface.cpp */,
 				457DEF931EB9C170003E4275 /* user interface.hpp */,
+				4592B4701F02099800D1640D /* image reference.cpp */,
+				4592B4711F02099800D1640D /* image reference.hpp */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -333,6 +338,7 @@
 				451877191EADD90C00A8AA13 /* app.cpp in Sources */,
 				45A628A81EC455E000F5022B /* profiler.cpp in Sources */,
 				45A628AA1EC455E000F5022B /* terminal color.cpp in Sources */,
+				4592B4741F020DBE00D1640D /* image reference.cpp in Sources */,
 				451877011EADBAF200A8AA13 /* image.cpp in Sources */,
 				451876B71EAAFB7B00A8AA13 /* stb_image_write.c in Sources */,
 				451876B91EAAFB8900A8AA13 /* stb_image.c in Sources */,

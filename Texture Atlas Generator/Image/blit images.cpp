@@ -26,7 +26,7 @@ void blit(Image &dst, const Image &src, const PosPx2 srcPos) {
   const ptrdiff_t dstPitch = dst.pitch;
   const ptrdiff_t srcPitch = src.pitch;
   const size_t width = src.s.x * static_cast<SizePx>(src.format);
-  uint8_t *dstRow = dst.data.get() + srcPos.y * dstPitch + srcPos.x * static_cast<SizePx>(src.format);
+  uint8_t *dstRow = dst.data.get() + (srcPos.y * dstPitch + srcPos.x * static_cast<SizePx>(src.format));
   const uint8_t *srcRow = src.data.get();
   const uint8_t *const srcEnd = srcRow + srcPitch * src.s.y;
   
@@ -81,14 +81,14 @@ void convert(Image &dst, const Converter<UnsignedInt> converter) {
   
   if (dstStride == 0) {
     UnsignedInt *dstPx = reinterpret_cast<UnsignedInt *>(dst.data.get());
-    UnsignedInt *const dstEnd = reinterpret_cast<UnsignedInt *>(dst.data.get() + dst.pitch * dst.s.y);
+    UnsignedInt *const dstEnd = reinterpret_cast<UnsignedInt *>(dst.data.get() + (dst.pitch * dst.s.y));
     while (dstPx != dstEnd) {
       *dstPx = converter(*dstPx);
       dstPx++;
     }
   } else {
     uint8_t *dstPx = dst.data.get();
-    uint8_t *const dstEnd = dst.data.get() + dst.pitch * dst.s.y;
+    uint8_t *const dstEnd = dst.data.get() + (dst.pitch * dst.s.y);
     const ptrdiff_t dstWidth = dst.s.x * sizeof(UnsignedInt);
     while (dstPx != dstEnd) {
       const uint8_t *const end = dstPx + dstWidth;

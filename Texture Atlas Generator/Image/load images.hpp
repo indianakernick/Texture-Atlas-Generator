@@ -23,6 +23,7 @@ public:
   NoLoadedImagesError();
 };
 
+Image loadImage(const std::string &);
 std::vector<Image> loadImages(const std::vector<std::string> &);
 
 #endif

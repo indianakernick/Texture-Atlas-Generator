@@ -17,9 +17,14 @@ public:
   BoundsError();
 };
 
-///Create an image that refers to an area on the source image. The life of the
+///Create an image that refers to an area on another image. The life of the
 ///source should be longer that the life of the reference to prevent dangling
 ///pointers.
 Image imageRef(const Image &, RectPx);
+
+///Create an image that refers to another image. The life of the
+///source should be longer that the life of the reference to prevent dangling
+///pointers.
+Image imageRef(const Image &);
 
 #endif

@@ -28,7 +28,18 @@ Image imageRef(const Image &src, const RectPx rect) {
     rect.s.y,
     src.format,
     src.pitch,
-    src.data.get() + (rect.y * src.pitch + rect.x * static_cast<SizePx>(src.format)),
+    src.data.get() + (rect.p.y * src.pitch + rect.p.x * static_cast<SizePx>(src.format)),
+    noDelete
+  };
+}
+
+Image imageRef(const Image &src) {
+  return {
+    src.s.x,
+    src.s.y,
+    src.format,
+    src.pitch,
+    src.data.get(),
     noDelete
   };
 }

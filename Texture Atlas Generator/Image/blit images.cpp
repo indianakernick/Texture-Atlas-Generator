@@ -25,10 +25,10 @@ void blit(Image &dst, const Image &src, const VecPx srcPos) {
 
   const ptrdiff_t dstPitch = dst.pitch;
   const ptrdiff_t srcPitch = src.pitch;
-  const size_t width = src.s.x * static_cast<CoordPx>(src.format);
+  const size_t width = src.width * static_cast<CoordPx>(src.format);
   uint8_t *dstRow = dst.data.get() + (srcPos.y * dstPitch + srcPos.x * static_cast<CoordPx>(src.format));
   const uint8_t *srcRow = src.data.get();
-  const uint8_t *const srcEnd = srcRow + srcPitch * src.s.y;
+  const uint8_t *const srcEnd = srcRow + srcPitch * src.height;
   
   while (srcRow != srcEnd) {
     std::memcpy(dstRow, srcRow, width);
@@ -44,14 +44,15 @@ void convert(Image &dst, const Image &src, const Converter<UnsignedInt> converte
   PROFILE(Convert and copy);
   
   assert(static_cast<CoordPx>(dst.format) == sizeof(UnsignedInt));
-  assert(dst.s == src.s);
+  assert(dst.width == src.width);
+  assert(dst.height == src.height);
   
-  const ptrdiff_t dstStride = dst.pitch - dst.s.x * sizeof(UnsignedInt);
-  const ptrdiff_t srcStride = src.pitch - src.s.x * sizeof(UnsignedInt);
+  const ptrdiff_t dstStride = dst.pitch - dst.width * sizeof(UnsignedInt);
+  const ptrdiff_t srcStride = src.pitch - src.width * sizeof(UnsignedInt);
   uint8_t *dstRow = dst.data.get();
   const uint8_t *srcRow = src.data.get();
-  const ptrdiff_t srcWidth = src.s.x * sizeof(UnsignedInt);
-  const uint8_t *const srcEnd = srcRow + src.pitch * src.s.y;
+  const ptrdiff_t srcWidth = src.width * sizeof(UnsignedInt);
+  const uint8_t *const srcEnd = srcRow + src.pitch * src.height;
   
   while (srcRow != srcEnd) {
     const uint8_t *const end = srcRow + srcWidth;
@@ -76,19 +77,19 @@ void convert(Image &dst, const Converter<UnsignedInt> converter) {
   
   assert(static_cast<CoordPx>(dst.format) == sizeof(UnsignedInt));
   
-  const ptrdiff_t dstStride = dst.pitch - dst.s.x * sizeof(UnsignedInt);
+  const ptrdiff_t dstStride = dst.pitch - dst.width * sizeof(UnsignedInt);
   
   if (dstStride == 0) {
     UnsignedInt *dstPx = reinterpret_cast<UnsignedInt *>(dst.data.get());
-    UnsignedInt *const dstEnd = reinterpret_cast<UnsignedInt *>(dst.data.get() + (dst.pitch * dst.s.y));
+    UnsignedInt *const dstEnd = reinterpret_cast<UnsignedInt *>(dst.data.get() + (dst.pitch * dst.height));
     while (dstPx != dstEnd) {
       *dstPx = converter(*dstPx);
       dstPx++;
     }
   } else {
     uint8_t *dstPx = dst.data.get();
-    uint8_t *const dstEnd = dst.data.get() + (dst.pitch * dst.s.y);
-    const ptrdiff_t dstWidth = dst.s.x * sizeof(UnsignedInt);
+    uint8_t *const dstEnd = dst.data.get() + (dst.pitch * dst.height);
+    const ptrdiff_t dstWidth = dst.width * sizeof(UnsignedInt);
     while (dstPx != dstEnd) {
       const uint8_t *const end = dstPx + dstWidth;
       while (dstPx != end) {

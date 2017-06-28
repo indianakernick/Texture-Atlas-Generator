@@ -11,7 +11,6 @@
 
 #include <vector>
 #include "image.hpp"
-#include "../Utils/types.hpp"
 #include "../Utils/range.hpp"
 
 class FormatError : public std::runtime_error {

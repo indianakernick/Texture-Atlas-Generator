@@ -33,9 +33,10 @@ public:
   Image(CoordPx, CoordPx, Format, ptrdiff_t, uint8_t *, Deleter);
   
   Data data;
-  ptrdiff_t pitch;                  //number of bytes between (x, y) and (x, y+1)
-  VecPx s;                          //area of pixels
-  Format format = Format::RGB_ALPHA;//bytes per pixel
+  ptrdiff_t pitch;   //number of bytes between (x, y) and (x, y+1)
+  CoordPx width;     //width in pixels
+  CoordPx height;    //height in pixels
+  Format format;     //bytes per pixel
 };
 
 #endif

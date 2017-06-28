@@ -31,7 +31,8 @@ void noDelete(void *) {}
 Image::Image(const CoordPx width, const CoordPx height, const Format format)
   : data(defaultNew(width, height, format), defaultDelete),
     pitch(width * static_cast<CoordPx>(format)),
-    s(width, height),
+    width(width),
+    height(height),
     format(format) {
   assert(width > 0);
   assert(height > 0);
@@ -51,7 +52,8 @@ Image::Image(
   const Deleter deleter
 ) : data(data, deleter),
     pitch(pitch),
-    s(width, height),
+    width(width),
+    height(height),
     format(format) {
   assert(width > 0);
   assert(height > 0);

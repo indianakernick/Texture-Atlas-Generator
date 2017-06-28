@@ -22,7 +22,7 @@ void writeAtlas(
   const std::string &,
   const std::vector<std::string> &,
   const std::vector<RectPx> &,
-  SizePx,
+  CoordPx,
   bool
 );
 

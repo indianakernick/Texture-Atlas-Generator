@@ -13,7 +13,7 @@
 #include "../Utils/profiler.hpp"
 #include <experimental/string_view>
 
-static const PosPx2 NO_WHITEPIXEL = {-1, -1};
+static const VecPx NO_WHITEPIXEL = {-1, -1};
 
 AtlasWriteError::AtlasWriteError(const char *msg)
   : std::runtime_error(std::string("Failed to write atlas: ") + msg) {}
@@ -43,11 +43,11 @@ void write(std::FILE *const file, const void *ptr, const size_t size) {
   }
 }
 
-PosPx2 getWhitepixel(const RectPx lastRect, const bool hasWhitepixel) {
+VecPx getWhitepixel(const RectPx lastRect, const bool hasWhitepixel) {
   if (hasWhitepixel) {
     return {
-      lastRect.p.x + (lastRect.s.x - 1) / 2,
-      lastRect.p.y + (lastRect.s.y - 1) / 2
+      lastRect.x + (lastRect.w - 1) / 2,
+      lastRect.y + (lastRect.h - 1) / 2
     };
   } else {
     return NO_WHITEPIXEL;
@@ -66,7 +66,7 @@ void writeAtlas(
   const std::string &output,
   const std::vector<std::string> &paths,
   const std::vector<RectPx> &rects,
-  const SizePx size,
+  const CoordPx size,
   const bool hasWhitepixel
 ) {
   PROFILE(writeAtlas);
@@ -75,13 +75,13 @@ void writeAtlas(
   
   File file = openFile(output.c_str());
   
-  const SizePx2 sizeVec = {size, size};
+  const VecPx sizeVec = {size, size};
   write(file.get(), &sizeVec, sizeof(sizeVec));
   
-  const PosPx2 whitepixel = getWhitepixel(rects.back(), hasWhitepixel);
+  const VecPx whitepixel = getWhitepixel(rects.back(), hasWhitepixel);
   write(file.get(), &whitepixel, sizeof(whitepixel));
   
-  const SizePx numSprites = static_cast<SizePx>(paths.size());
+  const CoordPx numSprites = static_cast<CoordPx>(paths.size());
   write(file.get(), &numSprites, sizeof(numSprites));
   
   write(file.get(), rects.data(), (rects.size() - hasWhitepixel) * sizeof(RectPx));

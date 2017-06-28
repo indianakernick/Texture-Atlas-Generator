@@ -17,6 +17,6 @@ public:
   RectPackError();
 };
 
-SizePx packRects(std::vector<RectPx> &, SizePx);
+CoordPx packRects(std::vector<RectPx> &, CoordPx);
 
 #endif

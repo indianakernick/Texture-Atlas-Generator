@@ -16,7 +16,7 @@
 FormatError::FormatError()
   : std::runtime_error("Cannot blit images of different formats") {}
 
-void blit(Image &dst, const Image &src, const PosPx2 srcPos) {
+void blit(Image &dst, const Image &src, const VecPx srcPos) {
   PROFILE(blit);
   
   if (dst.format != src.format) {
@@ -25,8 +25,8 @@ void blit(Image &dst, const Image &src, const PosPx2 srcPos) {
 
   const ptrdiff_t dstPitch = dst.pitch;
   const ptrdiff_t srcPitch = src.pitch;
-  const size_t width = src.s.x * static_cast<SizePx>(src.format);
-  uint8_t *dstRow = dst.data.get() + (srcPos.y * dstPitch + srcPos.x * static_cast<SizePx>(src.format));
+  const size_t width = src.s.x * static_cast<CoordPx>(src.format);
+  uint8_t *dstRow = dst.data.get() + (srcPos.y * dstPitch + srcPos.x * static_cast<CoordPx>(src.format));
   const uint8_t *srcRow = src.data.get();
   const uint8_t *const srcEnd = srcRow + srcPitch * src.s.y;
   
@@ -43,9 +43,8 @@ void convert(Image &dst, const Image &src, const Converter<UnsignedInt> converte
 
   PROFILE(Convert and copy);
   
-  assert(static_cast<SizePx>(dst.format) == sizeof(UnsignedInt));
-  assert(dst.s.x == src.s.x);
-  assert(dst.s.y == src.s.y);
+  assert(static_cast<CoordPx>(dst.format) == sizeof(UnsignedInt));
+  assert(dst.s == src.s);
   
   const ptrdiff_t dstStride = dst.pitch - dst.s.x * sizeof(UnsignedInt);
   const ptrdiff_t srcStride = src.pitch - src.s.x * sizeof(UnsignedInt);
@@ -75,7 +74,7 @@ void convert(Image &dst, const Converter<UnsignedInt> converter) {
   
   PROFILE(Convert in place);
   
-  assert(static_cast<SizePx>(dst.format) == sizeof(UnsignedInt));
+  assert(static_cast<CoordPx>(dst.format) == sizeof(UnsignedInt));
   
   const ptrdiff_t dstStride = dst.pitch - dst.s.x * sizeof(UnsignedInt);
   
@@ -104,7 +103,7 @@ void convert(Image &dst, const Converter<UnsignedInt> converter) {
 
 template void convert<uint32_t>(Image &, Converter<uint32_t>);
 
-Image makeBlitDst(const SizePx length, const Image::Format format) {
+Image makeBlitDst(const CoordPx length, const Image::Format format) {
   return {length, length, format, 0};
 }
 
@@ -127,16 +126,16 @@ void blitImages(Image &image, const Range<const Image *> images, const Range<con
   }
 
   for (size_t i = 0; i != images.size(); i++) {
-    blit(image, images[i], rects[i].p);
+    blit(image, images[i], {rects[i].x, rects[i].y});
   }
 }
 
-Image makeAndBlit(Range<const Image *> images, Range<const RectPx *> rects, SizePx length) {
+Image makeAndBlit(Range<const Image *> images, Range<const RectPx *> rects, const CoordPx length) {
   Image image = makeBlitDst(length, images.size() ? images.front().format : Image::Format::GREY);
   blitImages(image, images, rects);
   return image;
 }
 
-Image makeAndBlit(const std::vector<Image> &images, const std::vector<RectPx> &rects, SizePx length) {
+Image makeAndBlit(const std::vector<Image> &images, const std::vector<RectPx> &rects, const CoordPx length) {
   return makeAndBlit(makeRange(images), makeRange(rects), length);
 }

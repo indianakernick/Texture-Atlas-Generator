@@ -22,16 +22,16 @@ public:
 template <typename UnsignedInt>
 using Converter = UnsignedInt(*)(const UnsignedInt);
 
-void blit(Image &, const Image &, PosPx2 = {0, 0});
+void blit(Image &, const Image &, VecPx = {0, 0});
 
 template <typename UnsignedInt>
 void convert(Image &, const Image &, Converter<UnsignedInt>);
 template <typename UnsignedInt>
 void convert(Image &, Converter<UnsignedInt>);
 
-Image makeBlitDst(SizePx, Image::Format);
+Image makeBlitDst(CoordPx, Image::Format);
 void blitImages(Image &, Range<const Image *>, Range<const RectPx *>);
-Image makeAndBlit(Range<const Image *>, Range<const RectPx *>, SizePx);
-Image makeAndBlit(const std::vector<Image> &, const std::vector<RectPx> &, SizePx);
+Image makeAndBlit(Range<const Image *>, Range<const RectPx *>, CoordPx);
+Image makeAndBlit(const std::vector<Image> &, const std::vector<RectPx> &, CoordPx);
 
 #endif

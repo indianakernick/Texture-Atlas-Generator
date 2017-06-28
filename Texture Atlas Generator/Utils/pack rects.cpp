@@ -17,17 +17,17 @@
 RectPackError::RectPackError()
   : std::runtime_error("Failed to pack rectangles") {}
 
-SizePx calcArea(const std::vector<RectPx> &rects, const SizePx sep) {
-  SizePx area = 0;
+CoordPx calcArea(const std::vector<RectPx> &rects, const CoordPx sep) {
+  CoordPx area = 0;
   for (auto i = rects.cbegin(); i != rects.cend(); ++i) {
-    area += (i->s.x + sep) * (i->s.y + sep);
+    area += (i->w + sep) * (i->h + sep);
   }
   return area;
 }
 
-SizePx calcLength(SizePx area) {
-  const SizePx length = static_cast<SizePx>(std::ceil(std::sqrt(area)));
-  const SizePx ceiledLength = ceilToPowerOf2(length);
+CoordPx calcLength(CoordPx area) {
+  const CoordPx length = static_cast<CoordPx>(std::ceil(std::sqrt(area)));
+  const CoordPx ceiledLength = ceilToPowerOf2(length);
   if (static_cast<float>(length) / ceiledLength > 0.90f) {
     return ceiledLength * 2;
   } else {
@@ -35,15 +35,15 @@ SizePx calcLength(SizePx area) {
   }
 }
 
-std::vector<stbrp_rect> fillStbRects(const std::vector<RectPx> &rects, const SizePx sep) {
+std::vector<stbrp_rect> fillStbRects(const std::vector<RectPx> &rects, const CoordPx sep) {
   PROFILE(fillRects);
   
   std::vector<stbrp_rect> stbRects(rects.size());
   
   for (size_t i = 0; i != rects.size(); i++) {
     stbRects[i].id = static_cast<int>(i);
-    stbRects[i].w = static_cast<stbrp_coord>(rects[i].s.x + sep);
-    stbRects[i].h = static_cast<stbrp_coord>(rects[i].s.y + sep);
+    stbRects[i].w = static_cast<stbrp_coord>(rects[i].w + sep);
+    stbRects[i].h = static_cast<stbrp_coord>(rects[i].h + sep);
     stbRects[i].was_packed = 0;
   }
   
@@ -52,8 +52,8 @@ std::vector<stbrp_rect> fillStbRects(const std::vector<RectPx> &rects, const Siz
 
 std::vector<stbrp_rect> packRects(
   const std::vector<RectPx> &rects,
-  const SizePx length,
-  const SizePx sep
+  const CoordPx length,
+  const CoordPx sep
 ) {
   PROFILE(packRects helper);
 
@@ -69,7 +69,7 @@ std::vector<stbrp_rect> packRects(
   return stbRects;
 }
 
-SizePx packRects(std::vector<RectPx> &rects, const SizePx sep) {
+CoordPx packRects(std::vector<RectPx> &rects, const CoordPx sep) {
   PROFILE(packRects);
 
   std::cout << "Packing rectangles\n";
@@ -78,12 +78,12 @@ SizePx packRects(std::vector<RectPx> &rects, const SizePx sep) {
     return 0;
   }
   
-  const SizePx length = calcLength(calcArea(rects, sep));
+  const CoordPx length = calcLength(calcArea(rects, sep));
   std::vector<stbrp_rect> stbRects = packRects(rects, length, sep);
   
   for (size_t i = 0; i != rects.size(); i++) {
-    rects[i].p.x = stbRects[i].x;
-    rects[i].p.y = stbRects[i].y;
+    rects[i].x = stbRects[i].x;
+    rects[i].y = stbRects[i].y;
   }
   
   return length;

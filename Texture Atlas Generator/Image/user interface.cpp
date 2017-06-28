@@ -20,7 +20,7 @@
 
 static const std::string DEFAULT_INPUT = ".";
 static const std::string DEFAULT_OUTPUT = "output";
-static const SizePx DEFAULT_SEP = 1;
+static const CoordPx DEFAULT_SEP = 1;
 
 template <typename ValueType>
 ValueType getOptional(const YAML::Node &node, const ValueType &def) {
@@ -36,18 +36,18 @@ void createImageAtlas(const YAML::Node &config) {
   
   const std::string inputFolder = getOptional(config["input"], DEFAULT_INPUT);
   const std::string outputName = getOptional(config["output"], DEFAULT_OUTPUT);
-  const SizePx sep = getOptional(config["sep"], DEFAULT_SEP);
+  const CoordPx sep = getOptional(config["sep"], DEFAULT_SEP);
   const YAML::Node &whitepixelNode = config["whitepixel"];
 
   std::remove((outputName + ".png").c_str());
   const std::vector<std::string> paths(findFiles(inputFolder, extIsImage));
   std::vector<Image> images = loadImages(paths);
   if (whitepixelNode) {
-    const SizePx size = 1 + whitepixelNode.as<SizePx>() * 2;
+    const CoordPx size = 1 + whitepixelNode.as<CoordPx>() * 2;
     images.emplace_back(size, size, images.back().format, 255);
   }
   std::vector<RectPx> rects = rectsFromImages(images);
-  const SizePx length = packRects(rects, sep);
+  const CoordPx length = packRects(rects, sep);
   writeImage(outputName + ".png", makeAndBlit(images, rects, length));
   writeAtlas(outputName + ".atlas", paths, rects, length, whitepixelNode);
 }

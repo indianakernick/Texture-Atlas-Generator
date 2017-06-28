@@ -110,7 +110,6 @@
 		45A628A21EC455E000F5022B /* search dir.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "search dir.hpp"; sourceTree = "<group>"; };
 		45A628A31EC455E000F5022B /* terminal color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "terminal color.cpp"; sourceTree = "<group>"; };
 		45A628A41EC455E000F5022B /* terminal color.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "terminal color.hpp"; sourceTree = "<group>"; };
-		45A628A51EC455E000F5022B /* vector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vector.hpp; sourceTree = "<group>"; };
 		45A628AC1EC4583000F5022B /* pack rects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "pack rects.cpp"; sourceTree = "<group>"; };
 		45A628AD1EC4583000F5022B /* pack rects.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "pack rects.hpp"; sourceTree = "<group>"; };
 		45A628AF1EC4588600F5022B /* types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
@@ -218,11 +217,10 @@
 		45A6289C1EC4558500F5022B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				45A628AF1EC4588600F5022B /* types.hpp */,
 				45A6289D1EC455E000F5022B /* math.hpp */,
 				45A628A11EC455E000F5022B /* search dir.cpp */,
 				45A628A21EC455E000F5022B /* search dir.hpp */,
-				45A628A51EC455E000F5022B /* vector.hpp */,
-				45A628AF1EC4588600F5022B /* types.hpp */,
 				45A628AC1EC4583000F5022B /* pack rects.cpp */,
 				45A628AD1EC4583000F5022B /* pack rects.hpp */,
 				45A628A31EC455E000F5022B /* terminal color.cpp */,

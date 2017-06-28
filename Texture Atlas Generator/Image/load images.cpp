@@ -32,10 +32,10 @@ Image loadImage(const std::string &file) {
   }
   
   return {
-    static_cast<SizePx>(width),
-    static_cast<SizePx>(height),
+    static_cast<CoordPx>(width),
+    static_cast<CoordPx>(height),
     format,
-    static_cast<ptrdiff_t>(width * static_cast<SizePx>(format)),
+    static_cast<ptrdiff_t>(width * static_cast<CoordPx>(format)),
     data,
     stbi_image_free
   };

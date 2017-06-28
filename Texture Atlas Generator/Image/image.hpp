@@ -20,7 +20,7 @@ public:
   using Deleter = void (*)(void *);
   using Data = std::unique_ptr<uint8_t, Deleter>;
   
-  enum class Format : SizePx {
+  enum class Format : CoordPx {
     GREY       = 1, //STBI_grey
     GREY_ALPHA = 2, //STBI_grey_alpha
     RGB        = 3, //STBI_rgb
@@ -28,13 +28,13 @@ public:
   };
   
   Image() = delete;
-  Image(SizePx, SizePx, Format);
-  Image(SizePx, SizePx, Format, uint8_t);
-  Image(SizePx, SizePx, Format, ptrdiff_t, uint8_t *, Deleter);
+  Image(CoordPx, CoordPx, Format);
+  Image(CoordPx, CoordPx, Format, uint8_t);
+  Image(CoordPx, CoordPx, Format, ptrdiff_t, uint8_t *, Deleter);
   
   Data data;
   ptrdiff_t pitch;                  //number of bytes between (x, y) and (x, y+1)
-  SizePx2 s;                        //area of pixels
+  VecPx s;                          //area of pixels
   Format format = Format::RGB_ALPHA;//bytes per pixel
 };
 

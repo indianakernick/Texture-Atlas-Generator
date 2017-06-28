@@ -33,20 +33,24 @@ public:
   
   static const PosPx2 NO_WHITEPIXEL;
   
-  Spritesheet() = default;
+  Spritesheet();
+  Spritesheet(const Spritesheet &) = delete;
   Spritesheet(Spritesheet &&) = default;
   ~Spritesheet() = default;
+  
+  Spritesheet &operator=(const Spritesheet &) = delete;
+  Spritesheet &operator=(Spritesheet &&) = default;
   
   bool hasWhitepixel() const;
   PosPx2 getWhitepixel() const;
   RectPx getSprite(const std::string &) const;
-  
-  Image image;
+  const Image &getImage() const;
   
 private:
   explicit Spritesheet(Image &&);
 
   std::unordered_map<std::string, RectPx> sprites;
+  Image image;
   PosPx2 whitepixel;
 };
 

@@ -22,6 +22,9 @@ AtlasReadError::AtlasReadError(const char *msg)
 AtlasReadError::AtlasReadError(const std::exception &exception)
   : std::runtime_error(exception.what()) {}
 
+Spritesheet::Spritesheet()
+  : image(1, 1, Image::Format::GREY, 0, nullptr, noDelete) {}
+
 bool Spritesheet::hasWhitepixel() const {
   return whitepixel != NO_WHITEPIXEL;
 }
@@ -37,6 +40,10 @@ RectPx Spritesheet::getSprite(const std::string &name) const {
   } else {
     return iter->second;
   }
+}
+
+const Image &Spritesheet::getImage() const {
+  return image;
 }
 
 Spritesheet::Spritesheet(Image &&image)

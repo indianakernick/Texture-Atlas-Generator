@@ -8,10 +8,11 @@
 
 #include "unpacker.hpp"
 
+#include <vector>
 #include <fstream>
 #include "load images.hpp"
 
-const PosPx2 Spritesheet::NO_WHITEPIXEL = {-1, -1};
+const VecPx Spritesheet::NO_WHITEPIXEL = {-1, -1};
 
 SpriteNotFound::SpriteNotFound()
   : std::range_error("Sprite was not found") {}
@@ -29,7 +30,7 @@ bool Spritesheet::hasWhitepixel() const {
   return whitepixel != NO_WHITEPIXEL;
 }
 
-PosPx2 Spritesheet::getWhitepixel() const {
+VecPx Spritesheet::getWhitepixel() const {
   return whitepixel;
 }
 
@@ -64,17 +65,17 @@ Spritesheet makeSpritesheet(const std::string &atlasPath, const std::string &ima
   atlasFile.exceptions(std::fstream::eofbit | std::fstream::failbit | std::fstream::badbit);
   Spritesheet sheet(loadImage(imagePath));
   
-  const SizePx2 size = read<SizePx2>(atlasFile);
+  const VecPx size = read<VecPx>(atlasFile);
   if (size.x < 1 || size.y < 1) {
     throw AtlasReadError("Size is out of range");
   }
   
-  sheet.whitepixel = read<PosPx2>(atlasFile);
+  sheet.whitepixel = read<VecPx>(atlasFile);
   if (sheet.whitepixel.x < -1 || sheet.whitepixel.y < -1) {
     throw AtlasReadError("Whitepixel is out of range");
   }
   
-  SizePx numSprites = read<SizePx>(atlasFile);
+  CoordPx numSprites = read<CoordPx>(atlasFile);
   if (numSprites < 1) {
     throw AtlasReadError("Number of sprites is out of range");
   }
@@ -85,12 +86,12 @@ Spritesheet makeSpritesheet(const std::string &atlasPath, const std::string &ima
   while (numSprites--) {
     const RectPx rect = read<RectPx>(atlasFile);
     if (
-      rect.p.x < 0 ||
-      rect.p.y < 0 ||
-      rect.s.x < 1 ||
-      rect.s.y < 1 ||
-      rect.p.x + rect.s.x < size.x ||
-      rect.p.y + rect.s.y < size.y
+      rect.x < 0 ||
+      rect.y < 0 ||
+      rect.w < 1 ||
+      rect.h < 1 ||
+      rect.x + rect.w < size.x ||
+      rect.y + rect.h < size.y
     ) {
       throw AtlasReadError("Rectangle out of range");
     }

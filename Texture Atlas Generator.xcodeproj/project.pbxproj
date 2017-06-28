@@ -29,6 +29,7 @@
 		4592B48A1F03595200D1640D /* stb_image.c in Sources */ = {isa = PBXBuildFile; fileRef = 4592B4881F03595200D1640D /* stb_image.c */; };
 		4592B48B1F03595200D1640D /* stb_image.h in Headers */ = {isa = PBXBuildFile; fileRef = 4592B4891F03595200D1640D /* stb_image.h */; };
 		4592B48C1F036AC400D1640D /* image.hpp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4592B4811F0358F200D1640D /* image.hpp */; };
+		4592B4901F0474F600D1640D /* types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4592B48F1F0474F600D1640D /* types.hpp */; };
 		45A628A81EC455E000F5022B /* profiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A6289F1EC455E000F5022B /* profiler.cpp */; };
 		45A628A91EC455E000F5022B /* search dir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628A11EC455E000F5022B /* search dir.cpp */; };
 		45A628AA1EC455E000F5022B /* terminal color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628A31EC455E000F5022B /* terminal color.cpp */; };
@@ -103,6 +104,7 @@
 		4592B4831F0358F200D1640D /* load images.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "load images.hpp"; sourceTree = "<group>"; };
 		4592B4881F03595200D1640D /* stb_image.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_image.c; sourceTree = "<group>"; };
 		4592B4891F03595200D1640D /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
+		4592B48F1F0474F600D1640D /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
 		45A6289D1EC455E000F5022B /* math.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = math.hpp; sourceTree = "<group>"; };
 		45A6289F1EC455E000F5022B /* profiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = profiler.cpp; sourceTree = "<group>"; };
 		45A628A01EC455E000F5022B /* profiler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = profiler.hpp; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 		45B5E8EC1EFF514000A6A3E2 /* Unpacker */ = {
 			isa = PBXGroup;
 			children = (
+				4592B48F1F0474F600D1640D /* types.hpp */,
 				4592B4801F0358F200D1640D /* image.cpp */,
 				4592B4811F0358F200D1640D /* image.hpp */,
 				4592B4821F0358F200D1640D /* load images.cpp */,
@@ -259,6 +262,7 @@
 				4592B4851F0358F200D1640D /* image.hpp in Headers */,
 				4592B4871F0358F200D1640D /* load images.hpp in Headers */,
 				4592B4781F020E5D00D1640D /* unpacker.hpp in Headers */,
+				4592B4901F0474F600D1640D /* types.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

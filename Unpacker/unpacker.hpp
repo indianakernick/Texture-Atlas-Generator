@@ -31,7 +31,7 @@ public:
   //only the factory function can make spritesheets
   friend Spritesheet makeSpritesheet(const std::string &, const std::string &);
   
-  static const PosPx2 NO_WHITEPIXEL;
+  static const VecPx NO_WHITEPIXEL;
   
   Spritesheet();
   Spritesheet(const Spritesheet &) = delete;
@@ -42,7 +42,7 @@ public:
   Spritesheet &operator=(Spritesheet &&) = default;
   
   bool hasWhitepixel() const;
-  PosPx2 getWhitepixel() const;
+  VecPx getWhitepixel() const;
   RectPx getSprite(const std::string &) const;
   const Image &getImage() const;
   
@@ -51,7 +51,7 @@ private:
 
   std::unordered_map<std::string, RectPx> sprites;
   Image image;
-  PosPx2 whitepixel;
+  VecPx whitepixel;
 };
 
 Spritesheet makeSpritesheet(const std::string &, const std::string &);

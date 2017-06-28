@@ -6,10 +6,9 @@
 //  Copyright © 2017 Indi Kernick. All rights reserved.
 //
 
-#ifndef unpacker__load_images_hpp
-#define unpacker__load_images_hpp
+#ifndef unpacker_load_images_hpp
+#define unpacker_load_images_hpp
 
-#include <vector>
 #include <string>
 #include "image.hpp"
 
@@ -18,12 +17,6 @@ public:
   ImageLoadError(const std::string &, const std::string &);
 };
 
-class NoLoadedImagesError final : public std::runtime_error {
-public:
-  NoLoadedImagesError();
-};
-
 Image loadImage(const std::string &);
-std::vector<Image> loadImages(const std::vector<std::string> &);
 
 #endif

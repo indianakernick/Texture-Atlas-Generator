@@ -15,7 +15,7 @@ DirSearchError::DirSearchError()
   : std::runtime_error("Failed to search for files in this directory") {}
 
 NoSupportedFilesError::NoSupportedFilesError()
-  : std::runtime_error("There are no supported image files in this directory") {}
+  : std::runtime_error("There are no supported files in this directory") {}
 
 bool extIsImage(const StringView ext) {
   static const StringView EXTS[] = {
@@ -32,7 +32,10 @@ StringView getExt(const StringView path) {
   if (lastDot >= path.size() - 1) {
     return {"", 0};
   } else {
-    return {path.data() + lastDot + 1, path.size() - lastDot - 1};
+    return {
+      path.data() + (lastDot + 1),
+      path.size() - (lastDot + 1)
+    };
   }
 }
 

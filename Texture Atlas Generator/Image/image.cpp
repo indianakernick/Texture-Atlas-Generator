@@ -29,18 +29,18 @@ void noDelete(void *) {}
 //so the memory has to be allocated with malloc
 
 Image::Image(const CoordPx width, const CoordPx height, const Format format)
-  : data(defaultNew(width, height, format), defaultDelete),
-    pitch(width * static_cast<CoordPx>(format)),
-    width(width),
-    height(height),
-    format(format) {
+  : mData(defaultNew(width, height, format), defaultDelete),
+    mPitch(width * static_cast<CoordPx>(format)),
+    mWidth(width),
+    mHeight(height),
+    mFormat(format) {
   assert(width > 0);
   assert(height > 0);
 }
 
 Image::Image(const CoordPx width, const CoordPx height, const Format format, const uint8_t byte)
   : Image(width, height, format) {
-  std::memset(data.get(), byte, width * height * static_cast<CoordPx>(format));
+  std::memset(mData.get(), byte, height * mPitch);
 }
 
 Image::Image(
@@ -50,11 +50,59 @@ Image::Image(
   const ptrdiff_t pitch,
   uint8_t *const data,
   const Deleter deleter
-) : data(data, deleter),
-    pitch(pitch),
-    width(width),
-    height(height),
-    format(format) {
+) : mData(data, deleter),
+    mPitch(pitch),
+    mWidth(width),
+    mHeight(height),
+    mFormat(format) {
   assert(width > 0);
   assert(height > 0);
+}
+
+uint8_t *Image::data() {
+  return mData.get();
+}
+
+uint8_t *Image::data(const VecPx pos) {
+  return mData.get() + (pos.y * mPitch + pos.x * static_cast<ptrdiff_t>(mFormat));
+}
+
+uint8_t *Image::dataEnd() {
+  return mData.get() + (mHeight * mPitch);
+}
+
+const uint8_t *Image::data() const {
+  return mData.get();
+}
+
+const uint8_t *Image::data(const VecPx pos) const {
+  return mData.get() + (pos.y * mPitch + pos.x * static_cast<ptrdiff_t>(mFormat));
+}
+
+const uint8_t *Image::dataEnd() const {
+  return mData.get() + (mHeight * mPitch);
+}
+
+ptrdiff_t Image::pitch() const {
+  return mPitch;
+}
+
+ptrdiff_t Image::stride() const {
+  return mPitch - mWidth * static_cast<ptrdiff_t>(mFormat);
+}
+
+CoordPx Image::width() const {
+  return mWidth;
+}
+
+ptrdiff_t Image::widthBytes() const {
+  return mWidth * static_cast<ptrdiff_t>(mFormat);
+}
+
+CoordPx Image::height() const {
+  return mHeight;
+}
+
+Image::Format Image::format() const {
+  return mFormat;
 }

@@ -31,12 +31,33 @@ public:
   Image(CoordPx, CoordPx, Format);
   Image(CoordPx, CoordPx, Format, uint8_t);
   Image(CoordPx, CoordPx, Format, ptrdiff_t, uint8_t *, Deleter);
+  Image(Image &&) = default;
   
-  Data data;
-  ptrdiff_t pitch;   //number of bytes between (x, y) and (x, y+1)
-  CoordPx width;     //width in pixels
-  CoordPx height;    //height in pixels
-  Format format;     //bytes per pixel
+  Image &operator=(Image &&) = default;
+
+  uint8_t *data();
+  uint8_t *data(VecPx);
+  uint8_t *dataEnd();
+  
+  const uint8_t *data() const;
+  const uint8_t *data(VecPx) const;
+  const uint8_t *dataEnd() const;
+
+  ptrdiff_t pitch() const;
+  ptrdiff_t stride() const;
+  
+  CoordPx width() const;
+  ptrdiff_t widthBytes() const;
+  CoordPx height() const;
+  
+  Format format() const;
+
+private:
+  Data mData;
+  ptrdiff_t mPitch;   //number of bytes between (x, y) and (x, y+1)
+  CoordPx mWidth;     //width in pixels
+  CoordPx mHeight;    //height in pixels
+  Format mFormat;     //bytes per pixel
 };
 
 #endif

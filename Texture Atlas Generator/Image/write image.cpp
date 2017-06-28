@@ -22,11 +22,11 @@ void writeImage(const std::string &file, const Image &image) {
   
   const int success = stbi_write_png(
     file.c_str(),
-    image.width,
-    image.height,
-    static_cast<int>(image.format),
-    image.data.get(),
-    static_cast<int>(image.pitch - image.width * static_cast<CoordPx>(image.format))
+    image.width(),
+    image.height(),
+    static_cast<int>(image.format()),
+    image.data(),
+    static_cast<int>(image.stride())
   );
   
   if (success == 0) {

@@ -19,16 +19,16 @@ FormatError::FormatError()
 void blit(Image &dst, const Image &src, const VecPx srcPos) {
   PROFILE(blit);
   
-  if (dst.format != src.format) {
+  if (dst.format() != src.format()) {
     throw FormatError();
   }
 
-  const ptrdiff_t dstPitch = dst.pitch;
-  const ptrdiff_t srcPitch = src.pitch;
-  const size_t width = src.width * static_cast<CoordPx>(src.format);
-  uint8_t *dstRow = dst.data.get() + (srcPos.y * dstPitch + srcPos.x * static_cast<CoordPx>(src.format));
-  const uint8_t *srcRow = src.data.get();
-  const uint8_t *const srcEnd = srcRow + srcPitch * src.height;
+  const ptrdiff_t dstPitch = dst.pitch();
+  const ptrdiff_t srcPitch = src.pitch();
+  const size_t width = src.widthBytes();
+  uint8_t *dstRow = dst.data(srcPos);
+  const uint8_t *srcRow = src.data();
+  const uint8_t *const srcEnd = src.dataEnd();
   
   while (srcRow != srcEnd) {
     std::memcpy(dstRow, srcRow, width);
@@ -43,16 +43,16 @@ void convert(Image &dst, const Image &src, const Converter<UnsignedInt> converte
 
   PROFILE(Convert and copy);
   
-  assert(static_cast<CoordPx>(dst.format) == sizeof(UnsignedInt));
-  assert(dst.width == src.width);
-  assert(dst.height == src.height);
+  assert(static_cast<CoordPx>(dst.format()) == sizeof(UnsignedInt));
+  assert(dst.width() == src.width());
+  assert(dst.height() == src.height());
   
-  const ptrdiff_t dstStride = dst.pitch - dst.width * sizeof(UnsignedInt);
-  const ptrdiff_t srcStride = src.pitch - src.width * sizeof(UnsignedInt);
-  uint8_t *dstRow = dst.data.get();
-  const uint8_t *srcRow = src.data.get();
-  const ptrdiff_t srcWidth = src.width * sizeof(UnsignedInt);
-  const uint8_t *const srcEnd = srcRow + src.pitch * src.height;
+  const ptrdiff_t dstStride = dst.stride();
+  const ptrdiff_t srcStride = src.stride();
+  uint8_t *dstRow = dst.data();
+  const uint8_t *srcRow = src.data();
+  const ptrdiff_t srcWidth = src.widthBytes();
+  const uint8_t *const srcEnd = src.dataEnd();
   
   while (srcRow != srcEnd) {
     const uint8_t *const end = srcRow + srcWidth;
@@ -75,21 +75,21 @@ void convert(Image &dst, const Converter<UnsignedInt> converter) {
   
   PROFILE(Convert in place);
   
-  assert(static_cast<CoordPx>(dst.format) == sizeof(UnsignedInt));
+  assert(static_cast<CoordPx>(dst.format()) == sizeof(UnsignedInt));
   
-  const ptrdiff_t dstStride = dst.pitch - dst.width * sizeof(UnsignedInt);
+  const ptrdiff_t dstStride = dst.stride();
   
   if (dstStride == 0) {
-    UnsignedInt *dstPx = reinterpret_cast<UnsignedInt *>(dst.data.get());
-    UnsignedInt *const dstEnd = reinterpret_cast<UnsignedInt *>(dst.data.get() + (dst.pitch * dst.height));
+    UnsignedInt *dstPx = reinterpret_cast<UnsignedInt *>(dst.data());
+    UnsignedInt *const dstEnd = reinterpret_cast<UnsignedInt *>(dst.dataEnd());
     while (dstPx != dstEnd) {
       *dstPx = converter(*dstPx);
       dstPx++;
     }
   } else {
-    uint8_t *dstPx = dst.data.get();
-    uint8_t *const dstEnd = dst.data.get() + (dst.pitch * dst.height);
-    const ptrdiff_t dstWidth = dst.width * sizeof(UnsignedInt);
+    uint8_t *dstPx = dst.data();
+    uint8_t *const dstEnd = dst.dataEnd();
+    const ptrdiff_t dstWidth = dst.widthBytes();
     while (dstPx != dstEnd) {
       const uint8_t *const end = dstPx + dstWidth;
       while (dstPx != end) {
@@ -119,9 +119,9 @@ void blitImages(Image &image, const Range<const Image *> images, const Range<con
     return;
   }
   
-  const Image::Format imageFormat = image.format;
+  const Image::Format imageFormat = image.format();
   for (const Image *i = images.cbegin(); i != images.cend(); i++) {
-    if (i->format != imageFormat) {
+    if (i->format() != imageFormat) {
       throw FormatError();
     }
   }
@@ -132,7 +132,7 @@ void blitImages(Image &image, const Range<const Image *> images, const Range<con
 }
 
 Image makeAndBlit(Range<const Image *> images, Range<const RectPx *> rects, const CoordPx length) {
-  Image image = makeBlitDst(length, images.size() ? images.front().format : Image::Format::GREY);
+  Image image = makeBlitDst(length, images.size() ? images.front().format() : Image::Format::GREY);
   blitImages(image, images, rects);
   return image;
 }

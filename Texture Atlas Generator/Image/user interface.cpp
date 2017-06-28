@@ -44,7 +44,7 @@ void createImageAtlas(const YAML::Node &config) {
   std::vector<Image> images = loadImages(paths);
   if (whitepixelNode) {
     const CoordPx size = 1 + whitepixelNode.as<CoordPx>() * 2;
-    images.emplace_back(size, size, images.back().format, 255);
+    images.emplace_back(size, size, images.back().format(), 255);
   }
   std::vector<RectPx> rects = rectsFromImages(images);
   const CoordPx length = packRects(rects, sep);

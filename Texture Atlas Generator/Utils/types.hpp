@@ -38,8 +38,6 @@ struct Rect {
   using scalar = T;
 
   Rect() = default;
-  Rect(const Vec2<T> p, const Vec2<T> s)
-    : x(p.x), y(p.y), w(s.x), h(s.y) {}
   template <typename X, typename Y, typename W, typename H>
   Rect(const X x, const Y y, const W w, const H h)
     : x(static_cast<T>(x)),

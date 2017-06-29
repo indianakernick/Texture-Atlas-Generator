@@ -16,6 +16,8 @@
 #include "types.hpp"
 #endif
 
+#pragma GCC visibility push(default)
+
 void defaultDelete(void *);
 void noDelete(void *);
 
@@ -63,5 +65,7 @@ private:
   CoordPx mHeight;    //height in pixels
   Format mFormat;     //bytes per pixel
 };
+
+#pragma GCC visibility pop
 
 #endif

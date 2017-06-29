@@ -48,7 +48,7 @@ int main(int, const char **) {
   
   try {
     //Spritesheet is move only so this is a move-assign
-    myImages = makeSpritesheet("my images.png", "my images.atlas");
+    myImages = makeSpritesheet("my images.atlas", "my images.png");
   } catch (AtlasReadError &e) {
     std::cout << e.what() << '\n';
     return 1;

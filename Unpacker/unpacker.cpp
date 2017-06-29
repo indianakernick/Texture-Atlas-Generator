@@ -90,8 +90,8 @@ Spritesheet makeSpritesheet(const std::string &atlasPath, const std::string &ima
       rect.y < 0 ||
       rect.w < 1 ||
       rect.h < 1 ||
-      rect.x + rect.w < size.x ||
-      rect.y + rect.h < size.y
+      rect.x + rect.w > size.x ||
+      rect.y + rect.h > size.y
     ) {
       throw AtlasReadError("Rectangle out of range");
     }

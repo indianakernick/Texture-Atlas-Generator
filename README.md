@@ -37,50 +37,52 @@ You can look in [image.hpp](Unpacker/image.hpp) and [unpacker.hpp](Unpacker/unpa
 
 Here is a complete example for loading a spritesheet called `my images.png` and an atlas called `my images.atlas`.
 
-    #include <Unpacker/unpacker.hpp>
-    
-    int main(int, const char **) {
-      Spritesheet myImages;
-      
-      try {
-        //Spritesheet is move only so this is a move-assign
-        myImages = makeSpritesheet("my images.png", "my images.atlas");
-      } catch (AtlasReadError &e) {
-        std::cout << e.what() << '\n';
-        return 1;
-      }
-      
-      if (myImages.hasWhitepixel()) {
-        const PosPx2 whitepx = myImages.getWhitepixel();
-        std::cout << "Whitepixel is (" << whitepx.x << ", " << whitepx.y << ")\n";
-      } else {
-        //getWhitepixel will return Spritesheet::NO_WHITEPIXEL if there isn't one
-        std::cout << "There is no whitepixel\n";
-      }
-      
-      try {
-        const RectPx mySprite = myImages.getSprite("my sprite");
-        std::cout << "Position of \"my sprite\" is (" << mySprite.p.x << ", " << mySprite.p.y << ")\n";
-        std::cout << "Size     of \"my sprite\" is (" << mySprite.s.x << ", " << mySprite.s.y << ")\n";
-      } catch (SpriteNotFound &e) {
-        std::cout << "There is no sprite called \"my sprite\"\n";
-      }
-      
-      const Image &image = myImages.getImage();
-      std::cout << "Size is (" << image.s.x << ", " << image.s.y << ")\n";
-      
-      //this is usually width * bytes per pixel
-      std::cout << "Pitch is " << image.pitch << '\n';
-      
-      //this is usually 4
-      std::cout << "Bytes per pixel is " << static_cast<SizePx>(image.format) << '\n';
-      
-      //data points to the top left pixel of the image (0, 0). 
-      //Add pitch to the pointer to get (0, 1)
-      std::cout << "Pointer to pixel data is " << image.data.get() << '\n';
-      
-      return 0;
-    }
+```c++
+#include <Unpacker/unpacker.hpp>
+
+int main(int, const char **) {
+  Spritesheet myImages;
+  
+  try {
+    //Spritesheet is move only so this is a move-assign
+    myImages = makeSpritesheet("my images.png", "my images.atlas");
+  } catch (AtlasReadError &e) {
+    std::cout << e.what() << '\n';
+    return 1;
+  }
+  
+  if (myImages.hasWhitepixel()) {
+    const VecPx whitepx = myImages.getWhitepixel();
+    std::cout << "Whitepixel is (" << whitepx.x << ", " << whitepx.y << ")\n";
+  } else {
+    //getWhitepixel will return Spritesheet::NO_WHITEPIXEL if there isn't one
+    std::cout << "There is no whitepixel\n";
+  }
+  
+  try {
+    const RectPx mySprite = myImages.getSprite("my sprite");
+    std::cout << "Position of \"my sprite\" is (" << mySprite.x << ", " << mySprite.y << ")\n";
+    std::cout << "Size     of \"my sprite\" is (" << mySprite.w << ", " << mySprite.h << ")\n";
+  } catch (SpriteNotFound &e) {
+    std::cout << "There is no sprite called \"my sprite\"\n";
+  }
+  
+  const Image &image = myImages.getImage();
+  std::cout << "Size is (" << image.width() << ", " << image.height() << ")\n";
+  
+  //this is usually width * bytes per pixel
+  std::cout << "Pitch is " << image.pitch() << '\n';
+  
+  //this is usually 4
+  std::cout << "Bytes per pixel is " << static_cast<CoordPx>(image.format()) << '\n';
+  
+  //data points to the top left pixel of the image (0, 0). 
+  //Add pitch to the pointer to get (0, 1)
+  std::cout << "Pointer to pixel data is " << image.data() << '\n';
+  
+  return 0;
+}
+```
 
 ## How do I contribute?
 Check out [CONTRIBUTING.md](CONTRIBUTING.md) to see what you can do. Then see if there's an item in the [ROAD_MAP.md](ROAD_MAP.md) that you can complete.

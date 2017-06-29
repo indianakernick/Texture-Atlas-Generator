@@ -6,11 +6,15 @@
 //  Copyright © 2017 Indi Kernick. All rights reserved.
 //
 
-#ifndef unpacker_image_hpp
-#define unpacker_image_hpp
+#ifndef image_image_hpp
+#define image_image_hpp
 
 #include <memory>
+#ifdef BUILDING_PACKER
+#include "../Utils/types.hpp"
+#else
 #include "types.hpp"
+#endif
 
 void defaultDelete(void *);
 void noDelete(void *);

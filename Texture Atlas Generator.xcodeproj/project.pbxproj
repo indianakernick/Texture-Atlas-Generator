@@ -276,6 +276,7 @@
 				4518769C1EAAF80500A8AA13 /* Sources */,
 				4518769D1EAAF80500A8AA13 /* Frameworks */,
 				4518769E1EAAF80500A8AA13 /* CopyFiles */,
+				4592B4921F04786E00D1640D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -341,6 +342,22 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4592B4921F04786E00D1640D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "src=\"Texture Atlas Generator\"\ndst=\"Unpacker\"\n\nditto \"$src/Utils/types.hpp\" \"$dst/types.hpp\"\nditto \"$src/Image/image.cpp\" \"$dst/image.cpp\"\nditto \"$src/Image/image.hpp\" \"$dst/image.hpp\"\nditto \"$src/Image/load images.cpp\" \"$dst/load images.cpp\"\nditto \"$src/Image/load images.hpp\" \"$dst/load images.hpp\"\nditto \"$src/Libraries/stb_image.c\" \"$dst/stb_image.c\"\nditto \"$src/Libraries/stb_image.h\" \"$dst/stb_image.h\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4518769C1EAAF80500A8AA13 /* Sources */ = {
@@ -478,7 +495,10 @@
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = NO;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
 				GCC_C_LANGUAGE_STANDARD = c11;
-				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DEBUG,
+					BUILDING_PACKER,
+				);
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
@@ -520,7 +540,10 @@
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = NO;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
 				GCC_C_LANGUAGE_STANDARD = c11;
-				GCC_PREPROCESSOR_DEFINITIONS = RELEASE;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					RELEASE,
+					BUILDING_PACKER,
+				);
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;

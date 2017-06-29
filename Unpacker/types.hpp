@@ -6,8 +6,8 @@
 //  Copyright © 2017 Indi Kernick. All rights reserved.
 //
 
-#ifndef types_hpp
-#define types_hpp
+#ifndef utils_types_hpp
+#define utils_types_hpp
 
 #pragma pack(1)
 template <typename T>

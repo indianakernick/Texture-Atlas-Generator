@@ -1,2 +1,2 @@
-Libraries/* linguist-vendored
-Unpacker/stb_* linguist-vendored
+Libraries/* linguist-vendored=true
+Unpacker/stb_* linguist-vendored=true

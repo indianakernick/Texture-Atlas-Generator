@@ -1,2 +1,2 @@
-Libraries/* linguist-vendored=true
-Unpacker/stb_* linguist-vendored=true
+*.c linguist-vendored=true
+*.h linguist-vendored=true

@@ -29,7 +29,10 @@ See [ROAD_MAP.md](ROAD_MAP.md) for a list of planned features.
 6. To check that the library was installed correctly
    1. Open Finder
    2. Press (⌘ + ⇧ + G) and type `/usr/local/`
-   3. In `lib` you should find `libUnpacker.dylib` and in `include/Unpacker` you should find `image.hpp` and `unpacker.hpp`
+   3. In `lib` you should find `libUnpacker.dylib` and in `include/Unpacker` you should find 
+      *  `types.hpp`
+      *  `image.hpp`
+      *  `unpacker.hpp`
 
 ## How do I use the Unpacker
 

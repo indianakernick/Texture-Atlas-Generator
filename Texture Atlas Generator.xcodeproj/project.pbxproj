@@ -30,6 +30,7 @@
 		4592B48B1F03595200D1640D /* stb_image.h in Headers */ = {isa = PBXBuildFile; fileRef = 4592B4891F03595200D1640D /* stb_image.h */; };
 		4592B48C1F036AC400D1640D /* image.hpp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4592B4811F0358F200D1640D /* image.hpp */; };
 		4592B4901F0474F600D1640D /* types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4592B48F1F0474F600D1640D /* types.hpp */; };
+		4592B4931F047F0900D1640D /* types.hpp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4592B48F1F0474F600D1640D /* types.hpp */; };
 		45A628A81EC455E000F5022B /* profiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A6289F1EC455E000F5022B /* profiler.cpp */; };
 		45A628A91EC455E000F5022B /* search dir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628A11EC455E000F5022B /* search dir.cpp */; };
 		45A628AA1EC455E000F5022B /* terminal color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628A31EC455E000F5022B /* terminal color.cpp */; };
@@ -66,6 +67,7 @@
 			dstPath = /usr/local/include/Unpacker;
 			dstSubfolderSpec = 0;
 			files = (
+				4592B4931F047F0900D1640D /* types.hpp in CopyFiles */,
 				4592B48C1F036AC400D1640D /* image.hpp in CopyFiles */,
 				4592B47D1F02224F00D1640D /* unpacker.hpp in CopyFiles */,
 			);

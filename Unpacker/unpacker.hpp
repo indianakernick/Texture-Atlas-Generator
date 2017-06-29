@@ -54,7 +54,7 @@ private:
   VecPx whitepixel;
 };
 
-Spritesheet makeSpritesheet(const std::string &, const std::string &);
+Spritesheet makeSpritesheet(const std::string &atlas, const std::string &image);
 
 #pragma GCC visibility pop
 

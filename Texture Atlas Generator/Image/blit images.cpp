@@ -9,7 +9,7 @@
 #include "blit images.hpp"
 
 #include <cassert>
-#include <iostream>
+#include "../Utils/logger.hpp"
 #include "../Utils/profiler.hpp"
 #include "../Utils/make range from vector.hpp"
 
@@ -113,7 +113,7 @@ void blitImages(Image &image, const Range<const Image *> images, const Range<con
   
   PROFILE(blitImages);
   
-  std::cout << "Copying smaller images onto larger image\n";
+  Logger::get() << "Copying smaller images onto larger image\n";
   
   if (images.size() == 0) {
     return;

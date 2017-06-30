@@ -31,6 +31,7 @@
 		4592B48C1F036AC400D1640D /* image.hpp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4592B4811F0358F200D1640D /* image.hpp */; };
 		4592B4901F0474F600D1640D /* types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4592B48F1F0474F600D1640D /* types.hpp */; };
 		4592B4931F047F0900D1640D /* types.hpp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4592B48F1F0474F600D1640D /* types.hpp */; };
+		4592B49A1F05CF2B00D1640D /* logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4592B4981F05CF2B00D1640D /* logger.cpp */; };
 		45A628A81EC455E000F5022B /* profiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A6289F1EC455E000F5022B /* profiler.cpp */; };
 		45A628A91EC455E000F5022B /* search dir.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628A11EC455E000F5022B /* search dir.cpp */; };
 		45A628AA1EC455E000F5022B /* terminal color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A628A31EC455E000F5022B /* terminal color.cpp */; };
@@ -107,6 +108,8 @@
 		4592B4881F03595200D1640D /* stb_image.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_image.c; sourceTree = "<group>"; };
 		4592B4891F03595200D1640D /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		4592B48F1F0474F600D1640D /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
+		4592B4981F05CF2B00D1640D /* logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logger.cpp; sourceTree = "<group>"; };
+		4592B4991F05CF2B00D1640D /* logger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = logger.hpp; sourceTree = "<group>"; };
 		45A6289D1EC455E000F5022B /* math.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = math.hpp; sourceTree = "<group>"; };
 		45A6289F1EC455E000F5022B /* profiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = profiler.cpp; sourceTree = "<group>"; };
 		45A628A01EC455E000F5022B /* profiler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = profiler.hpp; sourceTree = "<group>"; };
@@ -233,6 +236,8 @@
 				45A628A01EC455E000F5022B /* profiler.hpp */,
 				45A628B41EC67C4D00F5022B /* range.hpp */,
 				45A628B61EC6E3E000F5022B /* make range from vector.hpp */,
+				4592B4981F05CF2B00D1640D /* logger.cpp */,
+				4592B4991F05CF2B00D1640D /* logger.hpp */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -379,6 +384,7 @@
 				45A628AA1EC455E000F5022B /* terminal color.cpp in Sources */,
 				451877011EADBAF200A8AA13 /* image.cpp in Sources */,
 				451876B71EAAFB7B00A8AA13 /* stb_image_write.c in Sources */,
+				4592B49A1F05CF2B00D1640D /* logger.cpp in Sources */,
 				451876B91EAAFB8900A8AA13 /* stb_image.c in Sources */,
 				451877061EADBAF200A8AA13 /* write image.cpp in Sources */,
 				45A628AE1EC4583000F5022B /* pack rects.cpp in Sources */,

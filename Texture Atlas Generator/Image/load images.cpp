@@ -8,10 +8,9 @@
 
 #include "load images.hpp"
 
-#include <iostream>
-
 #ifdef BUILDING_PACKER
 
+#include "../Utils/logger.hpp"
 #include "../Utils/profiler.hpp"
 #include "../Libraries/stb_image.h"
 
@@ -51,7 +50,9 @@ ImageLoadError::ImageLoadError(const std::string &file, const std::string &reaso
 Image loadImage(const std::string &file) {
   PROFILE(loadImage);
 
-  std::cout << "Loading image \"" << file << "\"\n";
+  #ifdef BUILDING_PACKER
+  Logger::get() << "Loading image \"" << file << "\"\n";
+  #endif
 
   const Image::Format format = Image::Format::RGB_ALPHA;
 

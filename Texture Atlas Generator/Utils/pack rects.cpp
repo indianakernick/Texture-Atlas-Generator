@@ -9,7 +9,7 @@
 #include "pack rects.hpp"
 
 #include <cmath>
-#include <iostream>
+#include "logger.hpp"
 #include "math.hpp"
 #include "profiler.hpp"
 #include "../Libraries/stb_rect_pack.h"
@@ -72,7 +72,7 @@ std::vector<stbrp_rect> packRects(
 CoordPx packRects(std::vector<RectPx> &rects, const CoordPx sep) {
   PROFILE(packRects);
 
-  std::cout << "Packing rectangles\n";
+  Logger::get() << "Packing rectangles\n";
   
   if (rects.size() == 0) {
     return 0;

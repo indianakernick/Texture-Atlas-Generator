@@ -9,7 +9,7 @@
 #include "write atlas.hpp"
 
 #include <cstdio>
-#include <iostream>
+#include "../Utils/logger.hpp"
 #include "../Utils/profiler.hpp"
 #include <experimental/string_view>
 
@@ -71,7 +71,7 @@ void writeAtlas(
 ) {
   PROFILE(writeAtlas);
 
-  std::cout << "Writing atlas to file \"" << output << "\"\n";
+  Logger::get() << "Writing atlas to file \"" << output << "\"\n";
   
   File file = openFile(output.c_str());
   

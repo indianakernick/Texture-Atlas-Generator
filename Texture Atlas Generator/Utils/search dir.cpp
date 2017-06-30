@@ -9,7 +9,7 @@
 #include "search dir.hpp"
 
 #include <dirent.h>
-#include <iostream>
+#include "logger.hpp"
 
 DirSearchError::DirSearchError()
   : std::runtime_error("Failed to search for files in this directory") {}
@@ -40,7 +40,7 @@ StringView getExt(const StringView path) {
 }
 
 std::vector<std::string> findFiles(const std::string &path, const SearchPred pred) {
-  std::cout << "Searching directory \"" << path << "\"\n";
+  Logger::get() << "Searching directory \"" << path << "\"\n";
   
   std::vector<std::string> files;
   

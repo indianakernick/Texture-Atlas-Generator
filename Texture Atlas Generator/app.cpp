@@ -8,12 +8,17 @@
 
 #include "app.hpp"
 
-#include <iostream>
+#include "Utils/logger.hpp"
 #include "Image/user interface.hpp"
 
 static constexpr char USAGE[] = R"(Usage:
-  packer <path_to_config_file>
+  packer [--silent] <path_to_config_file>
+
+Options:
+  --silent      Suppress status messages but not error messages
 )";
+
+static constexpr size_t NUM_OPTIONS = 1;
 
 ArgError::ArgError()
   : std::runtime_error("Invalid arguments") {}
@@ -27,11 +32,17 @@ void runApp(const std::vector<std::string> &args) {
     throw ArgError();
   }
   
-  std::string pathToConfig = args[1];
-  for (auto a = args.cbegin() + 2; a != args.cend(); ++a) {
-    pathToConfig += ' ';
-    pathToConfig += *a;
+  LogOutput output = LogOutput::COUT;
+  size_t nextIndex = 1;
+  size_t options = NUM_OPTIONS;
+  
+  while (options-- && args[nextIndex][0] == '-') {
+    if (args[nextIndex] == "--silent") {
+      output = LogOutput::SILENT;
+    }
+    nextIndex++;
   }
   
-  createImageAtlas(YAML::LoadFile(pathToConfig));
+  Logger::init(output);
+  createImageAtlas(YAML::LoadFile(args[nextIndex]));
 }

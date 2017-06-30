@@ -8,7 +8,7 @@
 
 #include "write image.hpp"
 
-#include <iostream>
+#include "../Utils/logger.hpp"
 #include "../Utils/profiler.hpp"
 #include "../Libraries/stb_image_write.h"
 
@@ -18,7 +18,7 @@ ImageWriteError::ImageWriteError()
 void writeImage(const std::string &file, const Image &image) {
   PROFILE(writeImage);
   
-  std::cout << "Writing image to file \"" << file << "\"\n";
+  Logger::get() << "Writing image to file \"" << file << "\"\n";
   
   const int success = stbi_write_png(
     file.c_str(),

@@ -38,9 +38,18 @@ void createImageAtlas(const YAML::Node &config) {
   const std::string outputName = getOptional(config["output"], DEFAULT_OUTPUT);
   const CoordPx sep = getOptional(config["sep"], DEFAULT_SEP);
   const YAML::Node &whitepixelNode = config["whitepixel"];
+  const bool recursive = getOptional(config["recursive"], false);
+  const size_t maxDepth = getOptional<size_t>(
+    config["max resursive depth"],
+    std::numeric_limits<size_t>::max()
+  );
 
   std::remove((outputName + ".png").c_str());
-  const std::vector<std::string> paths(findFiles(inputFolder, extIsImage));
+  const std::vector<std::string> paths(
+    recursive
+    ? findFilesRec(inputFolder, extIsImage, maxDepth)
+    : findFiles(inputFolder, extIsImage)
+  );
   std::vector<Image> images = loadImages(paths);
   if (whitepixelNode) {
     const CoordPx size = 1 + whitepixelNode.as<CoordPx>() * 2;

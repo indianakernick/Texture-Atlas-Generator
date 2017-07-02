@@ -2,6 +2,14 @@
 # A path to the folder where the images will be taken.
 input: "."
 
+# Whether or not the directory should be searched recursively
+recursive: NO
+
+# The maximum recursive depth for a recursive directory search. A depth of 1
+# means search only this directory, a depth of 2 means search this and child
+# directories, etc
+max recursive depth: 4
+
 # The name of the output files. In this example the output files will be named
 # "Spritesheet.atlas" and "Spritesheet.png"
 output: "Spritesheet"

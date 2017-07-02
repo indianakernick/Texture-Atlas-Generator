@@ -28,5 +28,6 @@ using SearchPred = bool(*)(StringView);
 
 bool extIsImage(StringView);
 std::vector<std::string> findFiles(const std::string &, SearchPred);
+std::vector<std::string> findFilesRec(const std::string &, SearchPred, size_t);
 
 #endif

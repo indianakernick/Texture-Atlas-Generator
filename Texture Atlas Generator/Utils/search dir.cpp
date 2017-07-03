@@ -50,9 +50,11 @@ std::vector<std::string> findFiles(
   std::unique_ptr<DIR, int(*)(DIR *)> dir(opendir(path.c_str()), closedir);
   if (dir) {
     while (const dirent *entry = readdir(dir.get())) {
-      const StringView ext = getExt(entry->d_name);
-      if (ext.size() && pred(ext)) {
-        files.emplace_back(path + '/' + entry->d_name);
+      if (entry->d_type == DT_REG) {
+        const StringView ext = getExt(entry->d_name);
+        if (ext.size() && pred(ext)) {
+          files.emplace_back(path + '/' + entry->d_name);
+        }
       }
     }
   } else {
@@ -83,7 +85,7 @@ void findFilesRecHelper(
     while (const dirent *entry = readdir(dir.get())) {
       if (entry->d_type == DT_DIR) {
         findFilesRecHelper(path, pred, maxDepth - 1, files);
-      } else {
+      } else if (entry->d_type == DT_REG) {
         const StringView ext = getExt(entry->d_name);
         if (ext.size() && pred(ext)) {
           files.emplace_back(path + '/' + entry->d_name);

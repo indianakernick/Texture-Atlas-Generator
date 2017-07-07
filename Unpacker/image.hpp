@@ -14,6 +14,8 @@
 #include "../Utils/types.hpp"
 #else
 #include "types.hpp"
+#pragma GCC visibility push(default)
+namespace Unpack {
 #endif
 
 void defaultDelete(void *);
@@ -63,5 +65,10 @@ private:
   CoordPx mHeight;    //height in pixels
   Format mFormat;     //bytes per pixel
 };
+
+#if !defined(BUILDING_PACKER)
+} //namespace Unpack
+#pragma GCC visibility pop
+#endif
 
 #endif

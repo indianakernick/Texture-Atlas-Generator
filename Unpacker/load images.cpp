@@ -41,6 +41,7 @@ std::vector<Image> loadImages(const std::vector<std::string> &files) {
 
 #define PROFILE(...)
 #include "stb_image.h"
+using namespace Unpack;
 
 #endif
 

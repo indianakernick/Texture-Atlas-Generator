@@ -15,46 +15,48 @@
 
 #pragma GCC visibility push(default)
 
-class SpriteNotFound final : public std::range_error {
-public:
-  SpriteNotFound();
-};
+namespace Unpack {
+  class SpriteNotFound final : public std::range_error {
+  public:
+    SpriteNotFound();
+  };
 
-class AtlasReadError final : public std::runtime_error {
-public:
-  explicit AtlasReadError(const char *);
-  explicit AtlasReadError(const std::exception &);
-};
+  class AtlasReadError final : public std::runtime_error {
+  public:
+    explicit AtlasReadError(const char *);
+    explicit AtlasReadError(const std::exception &);
+  };
 
-class Spritesheet {
-public:
-  //only the factory function can make spritesheets
-  friend Spritesheet makeSpritesheet(const std::string &, const std::string &);
-  
-  static const VecPx NO_WHITEPIXEL;
-  
-  Spritesheet();
-  Spritesheet(const Spritesheet &) = delete;
-  Spritesheet(Spritesheet &&) = default;
-  ~Spritesheet() = default;
-  
-  Spritesheet &operator=(const Spritesheet &) = delete;
-  Spritesheet &operator=(Spritesheet &&) = default;
-  
-  bool hasWhitepixel() const;
-  VecPx getWhitepixel() const;
-  RectPx getSprite(const std::string &) const;
-  const Image &getImage() const;
-  
-private:
-  explicit Spritesheet(Image &&);
+  class Spritesheet {
+  public:
+    //only the factory function can make spritesheets
+    friend Spritesheet makeSpritesheet(const std::string &, const std::string &);
+    
+    static const VecPx NO_WHITEPIXEL;
+    
+    Spritesheet();
+    Spritesheet(const Spritesheet &) = delete;
+    Spritesheet(Spritesheet &&) = default;
+    ~Spritesheet() = default;
+    
+    Spritesheet &operator=(const Spritesheet &) = delete;
+    Spritesheet &operator=(Spritesheet &&) = default;
+    
+    bool hasWhitepixel() const;
+    VecPx getWhitepixel() const;
+    RectPx getSprite(const std::string &) const;
+    const Image &getImage() const;
+    
+  private:
+    explicit Spritesheet(Image &&);
 
-  std::unordered_map<std::string, RectPx> sprites;
-  Image image;
-  VecPx whitepixel;
-};
+    std::unordered_map<std::string, RectPx> sprites;
+    Image image;
+    VecPx whitepixel;
+  };
 
-Spritesheet makeSpritesheet(const std::string &atlas, const std::string &image);
+  Spritesheet makeSpritesheet(const std::string &atlas, const std::string &image);
+}
 
 #pragma GCC visibility pop
 

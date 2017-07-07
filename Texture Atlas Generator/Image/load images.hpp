@@ -30,6 +30,10 @@ public:
   ImageLoadError(const std::string &, const std::string &);
 };
 
+#ifdef BUILDING_PACKER
 Image loadImage(const std::string &);
+#else
+Unpack::Image loadImage(const std::string &);
+#endif
 
 #endif

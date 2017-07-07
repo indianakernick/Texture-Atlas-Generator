@@ -12,6 +12,8 @@
 #include <fstream>
 #include "load images.hpp"
 
+using namespace Unpack;
+
 const VecPx Spritesheet::NO_WHITEPIXEL = {-1, -1};
 
 SpriteNotFound::SpriteNotFound()
@@ -57,7 +59,7 @@ DataType read(std::ifstream &file) {
   return data;
 }
 
-Spritesheet makeSpritesheet(const std::string &atlasPath, const std::string &imagePath) try {
+Spritesheet Unpack::makeSpritesheet(const std::string &atlasPath, const std::string &imagePath) try {
   std::ifstream atlasFile(atlasPath, std::fstream::binary);
   if (!atlasFile.is_open()) {
     throw AtlasReadError("Failed to open file");

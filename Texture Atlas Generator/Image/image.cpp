@@ -11,6 +11,21 @@
 #include <cstdlib>
 #include <cassert>
 
+#if !defined(BUILDING_PACKER)
+using namespace Unpack;
+void Unpack::defaultDelete(void *ptr) {
+  std::free(ptr);
+}
+
+void Unpack::noDelete(void *) {}
+#else
+void defaultDelete(void *ptr) {
+  std::free(ptr);
+}
+
+void noDelete(void *) {}
+#endif
+
 uint8_t *defaultNew(const CoordPx width, const CoordPx height, const Image::Format format) {
   assert(width > 0);
   assert(height > 0);
@@ -18,12 +33,6 @@ uint8_t *defaultNew(const CoordPx width, const CoordPx height, const Image::Form
     std::malloc(width * height * static_cast<CoordPx>(format))
   );
 }
-
-void defaultDelete(void *ptr) {
-  std::free(ptr);
-}
-
-void noDelete(void *) {}
 
 //stb_image_write calls realloc on the pointer stored in the image
 //so the memory has to be allocated with malloc

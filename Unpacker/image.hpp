@@ -13,9 +13,9 @@
 #ifdef BUILDING_PACKER
 #include "../Utils/types.hpp"
 #else
-#include "types.hpp"
 #pragma GCC visibility push(default)
 namespace Unpack {
+#include "types.hpp"
 #endif
 
 void defaultDelete(void *);

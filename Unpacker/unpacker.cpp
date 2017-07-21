@@ -39,9 +39,12 @@ VecPx Spritesheet::getWhitepixel() const {
 RectPx Spritesheet::getSprite(const std::experimental::string_view name) const {
   //I really wish there was a way to avoid this memory allocation.
   //But removing the memory allocation won't change the API
-  
-  auto iter = sprites.find(name.to_string());
-  if (iter == sprites.end()) {
+  return getSprite(name.to_string());
+}
+
+RectPx Spritesheet::getSprite(const std::string &name) const {
+  auto iter = sprites.find(name);
+  if (iter == sprites.cend()) {
     throw SpriteNotFound();
   } else {
     return iter->second;

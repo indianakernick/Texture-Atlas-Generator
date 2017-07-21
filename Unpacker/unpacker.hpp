@@ -46,6 +46,7 @@ namespace Unpack {
     bool hasWhitepixel() const;
     VecPx getWhitepixel() const;
     RectPx getSprite(std::experimental::string_view) const;
+    RectPx getSprite(const std::string &) const;
     const Image &getImage() const;
     
   private:

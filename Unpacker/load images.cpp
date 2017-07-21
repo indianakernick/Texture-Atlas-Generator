@@ -45,10 +45,12 @@ using namespace Unpack;
 
 #endif
 
-ImageLoadError::ImageLoadError(const std::string &file, const std::string &reason)
-  : std::runtime_error("Failed to load image: \"" + file + "\": " + reason) {}
+ImageLoadError::ImageLoadError(
+  const std::experimental::string_view file,
+  const std::experimental::string_view reason
+) : std::runtime_error(std::string("Failed to load image: \"") + file.data() + "\": " + reason.data()) {}
 
-Image loadImage(const std::string &file) {
+Image loadImage(const std::experimental::string_view file) {
   PROFILE(loadImage);
 
   #ifdef BUILDING_PACKER
@@ -58,7 +60,7 @@ Image loadImage(const std::string &file) {
   const Image::Format format = Image::Format::RGB_ALPHA;
 
   int width, height;
-  uint8_t *data = stbi_load(file.c_str(), &width, &height, nullptr, static_cast<int>(format));
+  uint8_t *data = stbi_load(file.data(), &width, &height, nullptr, static_cast<int>(format));
   if (data == nullptr) {
     throw ImageLoadError(file, stbi_failure_reason());
   }

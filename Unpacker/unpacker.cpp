@@ -36,8 +36,11 @@ VecPx Spritesheet::getWhitepixel() const {
   return whitepixel;
 }
 
-RectPx Spritesheet::getSprite(const std::string &name) const {
-  auto iter = sprites.find(name);
+RectPx Spritesheet::getSprite(const std::experimental::string_view name) const {
+  //I really wish there was a way to avoid this memory allocation.
+  //But removing the memory allocation won't change the API
+  
+  auto iter = sprites.find(name.to_string());
   if (iter == sprites.end()) {
     throw SpriteNotFound();
   } else {
@@ -59,8 +62,11 @@ DataType read(std::ifstream &file) {
   return data;
 }
 
-Spritesheet Unpack::makeSpritesheet(const std::string &atlasPath, const std::string &imagePath) try {
-  std::ifstream atlasFile(atlasPath, std::fstream::binary);
+Spritesheet Unpack::makeSpritesheet(
+  const std::experimental::string_view atlasPath,
+  const std::experimental::string_view imagePath
+) try {
+  std::ifstream atlasFile(atlasPath.data(), std::fstream::binary);
   if (!atlasFile.is_open()) {
     throw AtlasReadError("Failed to open file");
   }

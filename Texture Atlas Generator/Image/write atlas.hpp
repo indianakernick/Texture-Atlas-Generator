@@ -11,6 +11,7 @@
 
 #include <vector>
 #include "image.hpp"
+#include <experimental/string_view>
 
 class AtlasWriteError final : public std::runtime_error {
 public:
@@ -19,7 +20,7 @@ public:
 };
 
 void writeAtlas(
-  const std::string &,
+  std::experimental::string_view,
   const std::vector<std::string> &,
   const std::vector<RectPx> &,
   CoordPx,

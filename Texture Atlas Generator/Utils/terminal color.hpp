@@ -9,14 +9,10 @@
 #ifndef engine_utils_terminal_color_hpp
 #define engine_utils_terminal_color_hpp
 
-#include <cstdio>
 #include <cstdint>
-#include <cassert>
-
-//ANSI escape codes!
 
 namespace Term {
-  enum class Color : uint8_t {
+  enum class Color : unsigned {
     BLACK,
     RED,
     GREEN,

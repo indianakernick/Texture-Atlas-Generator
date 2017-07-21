@@ -10,8 +10,9 @@
 #define unpacker_unpacker_hpp
 
 #include <string>
-#include <unordered_map>
 #include "image.hpp"
+#include <unordered_map>
+#include <experimental/string_view>
 
 #pragma GCC visibility push(default)
 
@@ -30,7 +31,7 @@ namespace Unpack {
   class Spritesheet {
   public:
     //only the factory function can make spritesheets
-    friend Spritesheet makeSpritesheet(const std::string &, const std::string &);
+    friend Spritesheet makeSpritesheet(std::experimental::string_view, std::experimental::string_view);
     
     static const VecPx NO_WHITEPIXEL;
     
@@ -44,7 +45,7 @@ namespace Unpack {
     
     bool hasWhitepixel() const;
     VecPx getWhitepixel() const;
-    RectPx getSprite(const std::string &) const;
+    RectPx getSprite(std::experimental::string_view) const;
     const Image &getImage() const;
     
   private:
@@ -55,7 +56,7 @@ namespace Unpack {
     VecPx whitepixel;
   };
 
-  Spritesheet makeSpritesheet(const std::string &atlas, const std::string &image);
+  Spritesheet makeSpritesheet(std::experimental::string_view atlas, std::experimental::string_view image);
 }
 
 #pragma GCC visibility pop

@@ -11,7 +11,6 @@
 #include <cstdio>
 #include "../Utils/logger.hpp"
 #include "../Utils/profiler.hpp"
-#include <experimental/string_view>
 
 static const VecPx NO_WHITEPIXEL = {-1, -1};
 
@@ -28,8 +27,8 @@ std::experimental::string_view getImageName(const std::string &path) {
 
 using File = std::unique_ptr<std::FILE, int(*)(std::FILE *)>;
 
-File openFile(const char *path) {
-  std::FILE *const file = std::fopen(path, "wb");
+File openFile(std::experimental::string_view path) {
+  std::FILE *const file = std::fopen(path.data(), "wb");
   if (file == nullptr) {
     throw AtlasWriteError("Could not open output file");
   } else {
@@ -63,7 +62,7 @@ VecPx getWhitepixel(const RectPx lastRect, const bool hasWhitepixel) {
 */
 
 void writeAtlas(
-  const std::string &output,
+  const std::experimental::string_view output,
   const std::vector<std::string> &paths,
   const std::vector<RectPx> &rects,
   const CoordPx size,
@@ -73,7 +72,7 @@ void writeAtlas(
 
   Logger::get() << "Writing atlas to file \"" << output << "\"\n";
   
-  File file = openFile(output.c_str());
+  File file = openFile(output);
   
   const VecPx sizeVec = {size, size};
   write(file.get(), &sizeVec, sizeof(sizeVec));

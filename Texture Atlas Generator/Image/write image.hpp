@@ -9,14 +9,14 @@
 #ifndef image_write_image_hpp
 #define image_write_image_hpp
 
-#include <string>
 #include "image.hpp"
+#include <experimental/string_view>
 
 class ImageWriteError final : public std::runtime_error {
 public:
   ImageWriteError();
 };
 
-void writeImage(const std::string &, const Image &);
+void writeImage(std::experimental::string_view, const Image &);
 
 #endif

@@ -8,6 +8,8 @@
 
 #include "terminal color.hpp"
 
+#include <cstdio>
+
 #define ESC "\x1B["
 
 void Term::textColor(const Color color) {

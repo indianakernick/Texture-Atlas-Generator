@@ -15,13 +15,13 @@
 ImageWriteError::ImageWriteError()
   : std::runtime_error("Failed to write image to file") {}
 
-void writeImage(const std::string &file, const Image &image) {
+void writeImage(const std::experimental::string_view file, const Image &image) {
   PROFILE(writeImage);
   
   Logger::get() << "Writing image to file \"" << file << "\"\n";
   
   const int success = stbi_write_png(
-    file.c_str(),
+    file.data(),
     image.width(),
     image.height(),
     static_cast<int>(image.format()),

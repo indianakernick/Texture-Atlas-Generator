@@ -11,13 +11,13 @@
 
 #include <vector>
 #include "image.hpp"
-#include "../Utils/range.hpp"
 
 class FormatError : public std::runtime_error {
 public:
   FormatError();
 };
 
+//Converter currently isn't used but it might be useful in future
 template <typename UnsignedInt>
 using Converter = UnsignedInt(*)(const UnsignedInt);
 
@@ -29,8 +29,7 @@ template <typename UnsignedInt>
 void convert(Image &, Converter<UnsignedInt>);
 
 Image makeBlitDst(CoordPx, Image::Format);
-void blitImages(Image &, Range<const Image *>, Range<const RectPx *>);
-Image makeAndBlit(Range<const Image *>, Range<const RectPx *>, CoordPx);
+void blitImages(Image &, const std::vector<Image> &, const std::vector<RectPx> &);
 Image makeAndBlit(const std::vector<Image> &, const std::vector<RectPx> &, CoordPx);
 
 #endif

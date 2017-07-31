@@ -122,8 +122,6 @@
 		45A628AF1EC4588600F5022B /* types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
 		45A628B01EC45D8400F5022B /* rects from images.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "rects from images.cpp"; sourceTree = "<group>"; };
 		45A628B11EC45D8400F5022B /* rects from images.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "rects from images.hpp"; sourceTree = "<group>"; };
-		45A628B41EC67C4D00F5022B /* range.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = range.hpp; sourceTree = "<group>"; };
-		45A628B61EC6E3E000F5022B /* make range from vector.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "make range from vector.hpp"; sourceTree = "<group>"; };
 		45B5E6671EF65B0D00A6A3E2 /* libyaml-cpp.0.5.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libyaml-cpp.0.5.3.dylib"; path = "../../../../../../usr/local/Cellar/yaml-cpp/0.5.3/lib/libyaml-cpp.0.5.3.dylib"; sourceTree = "<group>"; };
 		45B5E8E81EFF50AE00A6A3E2 /* libUnpacker.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libUnpacker.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -234,8 +232,6 @@
 				45A628A41EC455E000F5022B /* terminal color.hpp */,
 				45A6289F1EC455E000F5022B /* profiler.cpp */,
 				45A628A01EC455E000F5022B /* profiler.hpp */,
-				45A628B41EC67C4D00F5022B /* range.hpp */,
-				45A628B61EC6E3E000F5022B /* make range from vector.hpp */,
 				4592B4981F05CF2B00D1640D /* logger.cpp */,
 				4592B4991F05CF2B00D1640D /* logger.hpp */,
 			);

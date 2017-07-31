@@ -11,7 +11,6 @@
 #include <cassert>
 #include "../Utils/logger.hpp"
 #include "../Utils/profiler.hpp"
-#include "../Utils/make range from vector.hpp"
 
 FormatError::FormatError()
   : std::runtime_error("Cannot blit images of different formats") {}
@@ -67,7 +66,8 @@ void convert(Image &dst, const Image &src, const Converter<UnsignedInt> converte
   }
 }
 
-template void convert<uint32_t>(Image &, const Image &, Converter<uint32_t>);
+//not needed at the moment
+//template void convert<uint32_t>(Image &, const Image &, Converter<uint32_t>);
 
 template <typename UnsignedInt>
 void convert(Image &dst, const Converter<UnsignedInt> converter) {
@@ -102,13 +102,14 @@ void convert(Image &dst, const Converter<UnsignedInt> converter) {
   }
 }
 
-template void convert<uint32_t>(Image &, Converter<uint32_t>);
+//not needed at the moment
+//template void convert<uint32_t>(Image &, Converter<uint32_t>);
 
 Image makeBlitDst(const CoordPx length, const Image::Format format) {
   return {length, length, format, 0};
 }
 
-void blitImages(Image &image, const Range<const Image *> images, const Range<const RectPx *> rects) {
+void blitImages(Image &image, const std::vector<Image> &images, const std::vector<RectPx> &rects) {
   assert(images.size() == rects.size());
   
   PROFILE(blitImages);
@@ -120,7 +121,7 @@ void blitImages(Image &image, const Range<const Image *> images, const Range<con
   }
   
   const Image::Format imageFormat = image.format();
-  for (const Image *i = images.cbegin(); i != images.cend(); i++) {
+  for (auto i = images.cbegin(); i != images.cend(); i++) {
     if (i->format() != imageFormat) {
       throw FormatError();
     }
@@ -131,12 +132,8 @@ void blitImages(Image &image, const Range<const Image *> images, const Range<con
   }
 }
 
-Image makeAndBlit(Range<const Image *> images, Range<const RectPx *> rects, const CoordPx length) {
+Image makeAndBlit(const std::vector<Image> &images, const std::vector<RectPx> &rects, const CoordPx length) {
   Image image = makeBlitDst(length, images.size() ? images.front().format() : Image::Format::GREY);
   blitImages(image, images, rects);
   return image;
-}
-
-Image makeAndBlit(const std::vector<Image> &images, const std::vector<RectPx> &rects, const CoordPx length) {
-  return makeAndBlit(makeRange(images), makeRange(rects), length);
 }

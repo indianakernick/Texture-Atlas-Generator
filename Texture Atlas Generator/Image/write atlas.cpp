@@ -8,7 +8,7 @@
 
 #include "write atlas.hpp"
 
-#include <cstdio>
+#include <fstream>
 #include "../Utils/logger.hpp"
 #include "../Utils/profiler.hpp"
 
@@ -20,26 +20,12 @@ AtlasWriteError::AtlasWriteError(const char *msg)
 AtlasWriteError::AtlasWriteError(const std::string &msg)
   : std::runtime_error("Failed to write atlas: " + msg) {}
 
+AtlasWriteError::AtlasWriteError(const std::exception &exception)
+  : std::runtime_error(exception.what()) {}
+
 std::experimental::string_view getImageName(const std::string &path) {
   const size_t lastSlash = path.find_last_of('/');
   return {path.c_str() + lastSlash + 1, path.find_last_of('.') - lastSlash - 1};
-}
-
-using File = std::unique_ptr<std::FILE, int(*)(std::FILE *)>;
-
-File openFile(std::experimental::string_view path) {
-  std::FILE *const file = std::fopen(path.data(), "wb");
-  if (file == nullptr) {
-    throw AtlasWriteError("Could not open output file");
-  } else {
-    return {file, std::fclose};
-  }
-}
-
-void write(std::FILE *const file, const void *ptr, const size_t size) {
-  if (std::fwrite(ptr, size, 1, file) == 0) {
-    throw AtlasWriteError("Could not write to file");
-  }
 }
 
 VecPx getWhitepixel(const RectPx lastRect, const bool hasWhitepixel) {
@@ -67,23 +53,27 @@ void writeAtlas(
   const std::vector<RectPx> &rects,
   const CoordPx size,
   const bool hasWhitepixel
-) {
+) try {
   PROFILE(writeAtlas);
 
   Logger::get() << "Writing atlas to file \"" << output << "\"\n";
   
-  File file = openFile(output);
+  std::ofstream file(output.data(), std::fstream::binary);
+  if (!file.is_open()) {
+    throw AtlasWriteError("Could not open output file");
+  }
+  file.exceptions(std::fstream::eofbit | std::fstream::failbit | std::fstream::badbit);
   
   const VecPx sizeVec = {size, size};
-  write(file.get(), &sizeVec, sizeof(sizeVec));
+  file.write(reinterpret_cast<const char *>(&sizeVec), sizeof(sizeVec));
   
   const VecPx whitepixel = getWhitepixel(rects.back(), hasWhitepixel);
-  write(file.get(), &whitepixel, sizeof(whitepixel));
+  file.write(reinterpret_cast<const char *>(&whitepixel), sizeof(whitepixel));
   
   const CoordPx numSprites = static_cast<CoordPx>(paths.size());
-  write(file.get(), &numSprites, sizeof(numSprites));
+  file.write(reinterpret_cast<const char *>(&numSprites), sizeof(numSprites));
   
-  write(file.get(), rects.data(), (rects.size() - hasWhitepixel) * sizeof(RectPx));
+  file.write(reinterpret_cast<const char *>(rects.data()), (rects.size() - hasWhitepixel) * sizeof(RectPx));
   
   std::vector<std::experimental::string_view> names;
   for (auto p = paths.cbegin(); p != paths.cend(); ++p) {
@@ -97,11 +87,13 @@ void writeAtlas(
   }
   
   for (auto n = names.cbegin(); n != names.cend(); ++n) {
-    write(file.get(), n->data(), n->size());
-    if (std::fputc(0, file.get()) == EOF) {
-      throw AtlasWriteError("Could not write null terminator");
-    }
+    file.write(n->data(), n->size());
+    file.put(0);
   }
   
-  std::fflush(file.get());
+  file.flush();
+} catch (AtlasWriteError &) {
+  throw;
+} catch (std::exception &e) {
+  throw AtlasWriteError(e);
 }

@@ -17,6 +17,7 @@ class AtlasWriteError final : public std::runtime_error {
 public:
   explicit AtlasWriteError(const char *);
   explicit AtlasWriteError(const std::string &);
+  explicit AtlasWriteError(const std::exception &);
 };
 
 void writeAtlas(

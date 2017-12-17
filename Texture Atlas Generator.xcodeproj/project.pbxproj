@@ -17,6 +17,7 @@
 		451877031EADBAF200A8AA13 /* blit images.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451876F91EADBAF200A8AA13 /* blit images.cpp */; };
 		451877061EADBAF200A8AA13 /* write image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451876FF1EADBAF200A8AA13 /* write image.cpp */; };
 		451877191EADD90C00A8AA13 /* app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451877171EADD90C00A8AA13 /* app.cpp */; };
+		454D03E11FE629F800D3E560 /* sort by frame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 454D03DF1FE629F800D3E560 /* sort by frame.cpp */; };
 		457DEF941EB9C170003E4275 /* user interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 457DEF921EB9C170003E4275 /* user interface.cpp */; };
 		457DEF9E1EBB18E3003E4275 /* write atlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 457DEF9C1EBB18E3003E4275 /* write atlas.cpp */; };
 		4592B4771F020E5D00D1640D /* unpacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4592B4751F020E5D00D1640D /* unpacker.cpp */; };
@@ -105,6 +106,8 @@
 		451877001EADBAF200A8AA13 /* write image.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "write image.hpp"; sourceTree = "<group>"; };
 		451877171EADD90C00A8AA13 /* app.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = app.cpp; sourceTree = "<group>"; };
 		451877181EADD90C00A8AA13 /* app.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = app.hpp; sourceTree = "<group>"; };
+		454D03DF1FE629F800D3E560 /* sort by frame.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "sort by frame.cpp"; sourceTree = "<group>"; };
+		454D03E01FE629F800D3E560 /* sort by frame.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "sort by frame.hpp"; sourceTree = "<group>"; };
 		457DEF921EB9C170003E4275 /* user interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "user interface.cpp"; sourceTree = "<group>"; };
 		457DEF931EB9C170003E4275 /* user interface.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "user interface.hpp"; sourceTree = "<group>"; };
 		457DEF9C1EBB18E3003E4275 /* write atlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "write atlas.cpp"; sourceTree = "<group>"; };
@@ -244,6 +247,8 @@
 				45A628A01EC455E000F5022B /* profiler.hpp */,
 				4592B4981F05CF2B00D1640D /* logger.cpp */,
 				4592B4991F05CF2B00D1640D /* logger.hpp */,
+				454D03DF1FE629F800D3E560 /* sort by frame.cpp */,
+				454D03E01FE629F800D3E560 /* sort by frame.hpp */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -380,6 +385,7 @@
 			files = (
 				451876BB1EAAFB9900A8AA13 /* stb_rect_pack.c in Sources */,
 				451877021EADBAF200A8AA13 /* load images.cpp in Sources */,
+				454D03E11FE629F800D3E560 /* sort by frame.cpp in Sources */,
 				457DEF9E1EBB18E3003E4275 /* write atlas.cpp in Sources */,
 				45A628B21EC45D8400F5022B /* rects from images.cpp in Sources */,
 				45A628A91EC455E000F5022B /* search dir.cpp in Sources */,

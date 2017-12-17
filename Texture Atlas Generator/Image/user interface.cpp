@@ -13,6 +13,7 @@
 #include "blit images.hpp"
 #include "write image.hpp"
 #include "write atlas.hpp"
+#include "sort by frame.hpp"
 #include "rects from images.hpp"
 #include "../Utils/profiler.hpp"
 #include "../Utils/pack rects.hpp"
@@ -45,11 +46,12 @@ void createImageAtlas(const YAML::Node &config) {
   );
 
   std::remove((outputName + ".png").c_str());
-  const std::vector<std::string> paths(
+  std::vector<std::string> paths(
     recursive
     ? findFilesRec(inputFolder, extIsImage, maxDepth)
     : findFiles(inputFolder, extIsImage)
   );
+  sortByFrame(paths);
   std::vector<Image> images = loadImages(paths);
   if (whitepixelNode) {
     const CoordPx size = 1 + whitepixelNode.as<CoordPx>() * 2;

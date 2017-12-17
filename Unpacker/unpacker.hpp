@@ -10,9 +10,10 @@
 #define unpacker_unpacker_hpp
 
 #include <string>
+#include <vector>
 #include "image.hpp"
+#include <string_view>
 #include <unordered_map>
-#include <experimental/string_view>
 
 #pragma GCC visibility push(default)
 
@@ -27,11 +28,14 @@ namespace Unpack {
     explicit AtlasReadError(const char *);
     explicit AtlasReadError(const std::exception &);
   };
+  
+  using SpriteID = uint32_t;
+  static constexpr SpriteID NULL_SPRITE = std::numeric_limits<SpriteID>::max();
 
   class Spritesheet {
   public:
     //only the factory function can make spritesheets
-    friend Spritesheet makeSpritesheet(std::experimental::string_view, std::experimental::string_view);
+    friend Spritesheet makeSpritesheet(std::string_view, std::string_view);
     
     static const VecPx NO_WHITEPIXEL;
     
@@ -43,21 +47,27 @@ namespace Unpack {
     Spritesheet &operator=(const Spritesheet &) = delete;
     Spritesheet &operator=(Spritesheet &&) = default;
     
+    /// Returns NULL_SPRITE if the name is invalid
+    SpriteID getIDfromName(std::string_view) const;
+    
     bool hasWhitepixel() const;
     VecPx getWhitepixel() const;
-    RectPx getSprite(std::experimental::string_view) const;
-    RectPx getSprite(const std::string &) const;
+    
+    /// Throws std::out_of_range if SpriteID is invalid
+    RectPx getSprite(SpriteID) const;
+    /// Returns a reference to a member of this object
     const Image &getImage() const;
     
   private:
     explicit Spritesheet(Image &&);
 
-    std::unordered_map<std::string, RectPx> sprites;
+    std::unordered_map<std::string, SpriteID> spriteNames;
+    std::vector<RectPx> sprites;
     Image image;
     VecPx whitepixel;
   };
 
-  Spritesheet makeSpritesheet(std::experimental::string_view atlas, std::experimental::string_view image);
+  Spritesheet makeSpritesheet(std::string_view atlas, std::string_view image);
 }
 
 #pragma GCC visibility pop

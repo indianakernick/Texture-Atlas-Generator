@@ -11,7 +11,7 @@
 
 #include <string>
 #include "image.hpp"
-#include <experimental/string_view>
+#include <string_view>
 
 #ifdef BUILDING_PACKER
 
@@ -28,13 +28,13 @@ std::vector<Image> loadImages(const std::vector<std::string> &);
 
 class ImageLoadError final : public std::runtime_error {
 public:
-  ImageLoadError(std::experimental::string_view, std::experimental::string_view);
+  ImageLoadError(std::string_view, std::string_view);
 };
 
 #ifdef BUILDING_PACKER
-Image loadImage(std::experimental::string_view);
+Image loadImage(std::string_view);
 #else
-Unpack::Image loadImage(std::experimental::string_view);
+Unpack::Image loadImage(std::string_view);
 #endif
 
 #endif

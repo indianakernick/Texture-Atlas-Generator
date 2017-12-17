@@ -16,9 +16,6 @@ using namespace Unpack;
 
 const VecPx Spritesheet::NO_WHITEPIXEL = {-1, -1};
 
-SpriteNotFound::SpriteNotFound()
-  : std::range_error("Sprite was not found") {}
-
 AtlasReadError::AtlasReadError(const char *msg)
   : std::runtime_error(std::string("Atlas read error: ") + msg) {}
 
@@ -28,6 +25,15 @@ AtlasReadError::AtlasReadError(const std::exception &exception)
 Spritesheet::Spritesheet()
   : image(1, 1, Image::Format::GREY, 0, nullptr, noDelete) {}
 
+SpriteID Spritesheet::getIDfromName(const std::string_view name) const {
+  auto iter = spriteNames.find(std::string(name));
+  if (iter == spriteNames.cend()) {
+    return NULL_SPRITE;
+  } else {
+    return iter->second;
+  }
+}
+
 bool Spritesheet::hasWhitepixel() const {
   return whitepixel != NO_WHITEPIXEL;
 }
@@ -36,19 +42,8 @@ VecPx Spritesheet::getWhitepixel() const {
   return whitepixel;
 }
 
-RectPx Spritesheet::getSprite(const std::experimental::string_view name) const {
-  //I really wish there was a way to avoid this memory allocation.
-  //But removing the memory allocation won't change the API
-  return getSprite(name.to_string());
-}
-
-RectPx Spritesheet::getSprite(const std::string &name) const {
-  auto iter = sprites.find(name);
-  if (iter == sprites.cend()) {
-    throw SpriteNotFound();
-  } else {
-    return iter->second;
-  }
+RectPx Spritesheet::getSprite(const SpriteID sprite) const {
+  return sprites.at(sprite);
 }
 
 const Image &Spritesheet::getImage() const {
@@ -66,8 +61,8 @@ DataType read(std::ifstream &file) {
 }
 
 Spritesheet Unpack::makeSpritesheet(
-  const std::experimental::string_view atlasPath,
-  const std::experimental::string_view imagePath
+  const std::string_view atlasPath,
+  const std::string_view imagePath
 ) try {
   std::ifstream atlasFile(atlasPath.data(), std::fstream::binary);
   if (!atlasFile.is_open()) {
@@ -114,11 +109,13 @@ Spritesheet Unpack::makeSpritesheet(
     while (char c = atlasFile.get()) {
       name.push_back(c);
     }
-    const bool inserted = sheet.sprites.emplace(name, rectangles[s]).second;
+    const bool inserted = sheet.spriteNames.emplace(name, s).second;
     if (not inserted) {
       throw AtlasReadError("More than one sprite have the same name");
     }
   }
+  
+  sheet.sprites = std::move(rectangles);
   
   return sheet;
 } catch (AtlasReadError &) {

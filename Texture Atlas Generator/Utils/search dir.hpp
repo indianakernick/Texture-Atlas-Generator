@@ -11,7 +11,7 @@
 
 #include <vector>
 #include <string>
-#include <experimental/string_view>
+#include <string_view>
 
 class DirSearchError final : public std::runtime_error {
 public:
@@ -23,11 +23,10 @@ public:
   NoSupportedFilesError();
 };
 
-using StringView = std::experimental::string_view;
-using SearchPred = bool(*)(StringView);
+using SearchPred = bool(*)(std::string_view);
 
-bool extIsImage(StringView);
-std::vector<std::string> findFiles(StringView, SearchPred);
-std::vector<std::string> findFilesRec(StringView, SearchPred, size_t);
+bool extIsImage(std::string_view);
+std::vector<std::string> findFiles(std::string_view, SearchPred);
+std::vector<std::string> findFilesRec(std::string_view, SearchPred, size_t);
 
 #endif

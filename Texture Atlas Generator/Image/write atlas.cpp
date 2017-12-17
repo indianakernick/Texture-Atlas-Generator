@@ -23,7 +23,7 @@ AtlasWriteError::AtlasWriteError(const std::string &msg)
 AtlasWriteError::AtlasWriteError(const std::exception &exception)
   : std::runtime_error(exception.what()) {}
 
-std::experimental::string_view getImageName(const std::string &path) {
+std::string_view getImageName(const std::string &path) {
   const size_t lastSlash = path.find_last_of('/');
   return {path.c_str() + lastSlash + 1, path.find_last_of('.') - lastSlash - 1};
 }
@@ -48,7 +48,7 @@ VecPx getWhitepixel(const RectPx lastRect, const bool hasWhitepixel) {
 */
 
 void writeAtlas(
-  const std::experimental::string_view output,
+  const std::string_view output,
   const std::vector<std::string> &paths,
   const std::vector<RectPx> &rects,
   const CoordPx size,
@@ -75,12 +75,12 @@ void writeAtlas(
   
   file.write(reinterpret_cast<const char *>(rects.data()), (rects.size() - hasWhitepixel) * sizeof(RectPx));
   
-  std::vector<std::experimental::string_view> names;
+  std::vector<std::string_view> names;
   for (auto p = paths.cbegin(); p != paths.cend(); ++p) {
-    const std::experimental::string_view name = getImageName(*p);
+    const std::string_view name = getImageName(*p);
     for (auto n = names.cbegin(); n != names.cend(); ++n) {
       if (*n == name) {
-        throw AtlasWriteError("Two images have the same name \"" + name.to_string() + "\"");
+        throw AtlasWriteError("Two images have the same name \"" + std::string(name) + "\"");
       }
     }
     names.push_back(name);

@@ -17,17 +17,17 @@ DirSearchError::DirSearchError()
 NoSupportedFilesError::NoSupportedFilesError()
   : std::runtime_error("There are no supported files in this directory") {}
 
-bool extIsImage(const StringView ext) {
-  static const StringView EXTS[] = {
+bool extIsImage(const std::string_view ext) {
+  static const std::string_view EXTS[] = {
     "jpg", "jpeg", "png", "bmp", "psd", "tga", "gif", "hdr", "pic", "pgm", "ppm"
   };
   
-  return std::any_of(std::cbegin(EXTS), std::cend(EXTS), [ext](const StringView thisExt) {
+  return std::any_of(std::cbegin(EXTS), std::cend(EXTS), [ext](const std::string_view thisExt) {
     return ext == thisExt;
   });
 }
 
-StringView getExt(const StringView path) {
+std::string_view getExt(const std::string_view path) {
   const size_t lastDot = path.find_last_of('.');
   if (lastDot >= path.size() - 1) {
     return {"", 0};
@@ -40,7 +40,7 @@ StringView getExt(const StringView path) {
 }
 
 std::vector<std::string> findFiles(
-  const StringView path,
+  const std::string_view path,
   const SearchPred pred
 ) {
   Logger::get() << "Searching directory \"" << path << "\"\n";
@@ -51,7 +51,7 @@ std::vector<std::string> findFiles(
   if (dir) {
     while (const dirent *entry = readdir(dir.get())) {
       if (entry->d_type == DT_REG) {
-        const StringView ext = getExt(entry->d_name);
+        const std::string_view ext = getExt(entry->d_name);
         if (ext.size() && pred(ext)) {
           files.emplace_back(std::string(path) + '/' + entry->d_name);
         }
@@ -69,7 +69,7 @@ std::vector<std::string> findFiles(
 }
 
 void findFilesRecHelper(
-  const StringView path,
+  const std::string_view path,
   const SearchPred pred,
   const size_t maxDepth,
   std::vector<std::string> &files
@@ -86,7 +86,7 @@ void findFilesRecHelper(
       if (entry->d_type == DT_DIR) {
         findFilesRecHelper(path, pred, maxDepth - 1, files);
       } else if (entry->d_type == DT_REG) {
-        const StringView ext = getExt(entry->d_name);
+        const std::string_view ext = getExt(entry->d_name);
         if (ext.size() && pred(ext)) {
           files.emplace_back(std::string(path) + '/' + entry->d_name);
         }
@@ -98,7 +98,7 @@ void findFilesRecHelper(
 }
 
 std::vector<std::string> findFilesRec(
-  const StringView path,
+  const std::string_view path,
   const SearchPred pred,
   const size_t maxDepth
 ) {

@@ -46,11 +46,11 @@ using namespace Unpack;
 #endif
 
 ImageLoadError::ImageLoadError(
-  const std::experimental::string_view file,
-  const std::experimental::string_view reason
+  const std::string_view file,
+  const std::string_view reason
 ) : std::runtime_error(std::string("Failed to load image: \"") + file.data() + "\": " + reason.data()) {}
 
-Image loadImage(const std::experimental::string_view file) {
+Image loadImage(const std::string_view file) {
   PROFILE(loadImage);
 
   #ifdef BUILDING_PACKER

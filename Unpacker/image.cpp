@@ -92,12 +92,16 @@ const uint8_t *Image::dataEnd() const {
   return mData.get() + (mHeight * mPitch);
 }
 
+size_t Image::size() const {
+  return std::abs(mHeight * mPitch);
+}
+
 ptrdiff_t Image::pitch() const {
   return mPitch;
 }
 
-ptrdiff_t Image::stride() const {
-  return mPitch - mWidth * static_cast<ptrdiff_t>(mFormat);
+ptrdiff_t Image::padding() const {
+  return mPitch - widthBytes();
 }
 
 CoordPx Image::width() const {

@@ -49,8 +49,9 @@ public:
   const uint8_t *data(VecPx) const;
   const uint8_t *dataEnd() const;
 
+  size_t size() const;
   ptrdiff_t pitch() const;
-  ptrdiff_t stride() const;
+  ptrdiff_t padding() const;
   
   CoordPx width() const;
   ptrdiff_t widthBytes() const;

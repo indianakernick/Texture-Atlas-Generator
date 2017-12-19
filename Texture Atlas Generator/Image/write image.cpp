@@ -26,7 +26,7 @@ void writeImage(const std::string_view file, const Image &image) {
     image.height(),
     static_cast<int>(image.format()),
     image.data(),
-    static_cast<int>(image.stride())
+    static_cast<int>(image.pitch())
   );
   
   if (success == 0) {

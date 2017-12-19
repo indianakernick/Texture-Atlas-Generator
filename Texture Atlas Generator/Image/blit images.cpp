@@ -46,8 +46,8 @@ void convert(Image &dst, const Image &src, const Converter<UnsignedInt> converte
   assert(dst.width() == src.width());
   assert(dst.height() == src.height());
   
-  const ptrdiff_t dstStride = dst.stride();
-  const ptrdiff_t srcStride = src.stride();
+  const ptrdiff_t dstPadding = dst.padding();
+  const ptrdiff_t srcPadding = src.padding();
   uint8_t *dstRow = dst.data();
   const uint8_t *srcRow = src.data();
   const ptrdiff_t srcWidth = src.widthBytes();
@@ -61,8 +61,8 @@ void convert(Image &dst, const Image &src, const Converter<UnsignedInt> converte
       dstRow += sizeof(UnsignedInt);
       srcRow += sizeof(UnsignedInt);
     }
-    dstRow += dstStride;
-    srcRow += srcStride;
+    dstRow += dstPadding;
+    srcRow += srcPadding;
   }
 }
 
@@ -77,9 +77,9 @@ void convert(Image &dst, const Converter<UnsignedInt> converter) {
   
   assert(static_cast<CoordPx>(dst.format()) == sizeof(UnsignedInt));
   
-  const ptrdiff_t dstStride = dst.stride();
+  const ptrdiff_t dstPadding = dst.padding();
   
-  if (dstStride == 0) {
+  if (dstPadding == 0) {
     UnsignedInt *dstPx = reinterpret_cast<UnsignedInt *>(dst.data());
     UnsignedInt *const dstEnd = reinterpret_cast<UnsignedInt *>(dst.dataEnd());
     while (dstPx != dstEnd) {
@@ -97,7 +97,7 @@ void convert(Image &dst, const Converter<UnsignedInt> converter) {
           converter(*reinterpret_cast<const UnsignedInt *>(dstPx));
         dstPx += sizeof(UnsignedInt);
       }
-      dstPx += dstStride;
+      dstPx += dstPadding;
     }
   }
 }

@@ -13,7 +13,6 @@
 #include <vector>
 #include <string_view>
 #include <unordered_map>
-#include <Surface/load.hpp>
 
 #pragma GCC visibility push(default)
 

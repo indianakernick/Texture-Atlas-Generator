@@ -40,7 +40,6 @@
 		45B32E9F1FF388EB007BA7F4 /* unpacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4592B4751F020E5D00D1640D /* unpacker.cpp */; };
 		45B32EA61FF389A6007BA7F4 /* unpacker.hpp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4592B4761F020E5D00D1640D /* unpacker.hpp */; };
 		45B32EA81FF38B16007BA7F4 /* libUnpacker.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = 45B32E941FF38827007BA7F4 /* libUnpacker.a */; };
-		45B32EAB1FF3929D007BA7F4 /* libSurface.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B32EAA1FF3929D007BA7F4 /* libSurface.a */; };
 		45B5E6681EF65B0D00A6A3E2 /* libyaml-cpp.0.5.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B5E6671EF65B0D00A6A3E2 /* libyaml-cpp.0.5.3.dylib */; };
 /* End PBXBuildFile section */
 
@@ -146,7 +145,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45B32EAB1FF3929D007BA7F4 /* libSurface.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -626,7 +624,7 @@
 					"-Wno-documentation",
 					"-std=c++1z",
 				);
-				OTHER_LDFLAGS = /usr/local/lib/libSurface.a;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -654,7 +652,7 @@
 					"-Wno-documentation",
 					"-std=c++1z",
 				);
-				OTHER_LDFLAGS = /usr/local/lib/libSurface.a;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

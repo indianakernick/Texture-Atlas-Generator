@@ -8,15 +8,13 @@
 
 #include "unpacker.hpp"
 
-#include <vector>
 #include <fstream>
-#include <Surface/load.hpp>
 
 using namespace Unpack;
 
 const VecPx Spritesheet::NO_WHITEPIXEL = {-1, -1};
 
-AtlasReadError::AtlasReadError(const char *msg)
+AtlasReadError::AtlasReadError(const char *const msg)
   : std::runtime_error(std::string("Atlas read error: ") + msg) {}
 
 AtlasReadError::AtlasReadError(const std::exception &exception)

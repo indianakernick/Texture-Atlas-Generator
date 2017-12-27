@@ -9,14 +9,9 @@
 #ifndef image_write_image_hpp
 #define image_write_image_hpp
 
-#include "image.hpp"
 #include <string_view>
+#include <Surface/surface.hpp>
 
-class ImageWriteError final : public std::runtime_error {
-public:
-  ImageWriteError();
-};
-
-void writeImage(std::string_view, const Image &);
+void writeImage(std::string_view, const Surface &);
 
 #endif

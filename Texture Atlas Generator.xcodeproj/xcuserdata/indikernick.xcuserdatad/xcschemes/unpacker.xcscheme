@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "45B5E8E71EFF50AE00A6A3E2"
-               BuildableName = "libUnpacker.dylib"
+               BlueprintIdentifier = "45B32E931FF38827007BA7F4"
+               BuildableName = "libUnpacker.a"
                BlueprintName = "Unpacker"
                ReferencedContainer = "container:Texture Atlas Generator.xcodeproj">
             </BuildableReference>
@@ -47,8 +47,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45B5E8E71EFF50AE00A6A3E2"
-            BuildableName = "libUnpacker.dylib"
+            BlueprintIdentifier = "45B32E931FF38827007BA7F4"
+            BuildableName = "libUnpacker.a"
             BlueprintName = "Unpacker"
             ReferencedContainer = "container:Texture Atlas Generator.xcodeproj">
          </BuildableReference>
@@ -65,8 +65,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45B5E8E71EFF50AE00A6A3E2"
-            BuildableName = "libUnpacker.dylib"
+            BlueprintIdentifier = "45B32E931FF38827007BA7F4"
+            BuildableName = "libUnpacker.a"
             BlueprintName = "Unpacker"
             ReferencedContainer = "container:Texture Atlas Generator.xcodeproj">
          </BuildableReference>

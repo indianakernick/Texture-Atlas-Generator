@@ -9,9 +9,8 @@
 #include "pack rects.hpp"
 
 #include <cmath>
-#include "logger.hpp"
 #include "math.hpp"
-#include "profiler.hpp"
+#include "logger.hpp"
 #include "../Libraries/stb_rect_pack.h"
 
 RectPackError::RectPackError()
@@ -36,8 +35,6 @@ CoordPx calcLength(CoordPx area) {
 }
 
 std::vector<stbrp_rect> fillStbRects(const std::vector<RectPx> &rects, const CoordPx sep) {
-  PROFILE(fillRects);
-  
   std::vector<stbrp_rect> stbRects(rects.size());
   
   for (size_t i = 0; i != rects.size(); i++) {
@@ -55,8 +52,6 @@ std::vector<stbrp_rect> packRects(
   const CoordPx length,
   const CoordPx sep
 ) {
-  PROFILE(packRects helper);
-
   std::vector<stbrp_node> stbNodes(length);
   std::vector<stbrp_rect> stbRects = fillStbRects(rects, sep);
   
@@ -70,8 +65,6 @@ std::vector<stbrp_rect> packRects(
 }
 
 CoordPx packRects(std::vector<RectPx> &rects, const CoordPx sep) {
-  PROFILE(packRects);
-
   Logger::get() << "Packing rectangles\n";
   
   if (rects.size() == 0) {

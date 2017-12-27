@@ -8,7 +8,6 @@
 
 #include "app.hpp"
 #include <iostream>
-#include "Utils/profiler.hpp"
 
 int main(int argc, const char *argv[]) {
   const std::vector<std::string> args(argv, argv + argc);
@@ -26,8 +25,6 @@ int main(int argc, const char *argv[]) {
   //In debug builds, the debugger will pause at the throwing of an uncaught exception
   runApp(args);
   #endif
-  
-  PROFILER_INFO(stdout);
   
   return EXIT_SUCCESS;
 }

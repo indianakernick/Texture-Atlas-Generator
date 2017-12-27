@@ -10,7 +10,7 @@
 
 #include <vector>
 #include <fstream>
-#include "load images.hpp"
+#include <Surface/load.hpp>
 
 using namespace Unpack;
 
@@ -21,9 +21,6 @@ AtlasReadError::AtlasReadError(const char *msg)
 
 AtlasReadError::AtlasReadError(const std::exception &exception)
   : std::runtime_error(exception.what()) {}
-
-Spritesheet::Spritesheet()
-  : image(1, 1, Image::Format::GREY, 0, nullptr, noDelete) {}
 
 SpriteID Spritesheet::getIDfromName(const std::string_view name) const {
   auto iter = spriteNames.find(std::string(name));
@@ -46,11 +43,11 @@ RectPx Spritesheet::getSprite(const SpriteID sprite) const {
   return sprites.at(sprite);
 }
 
-const Image &Spritesheet::getImage() const {
+const Surface &Spritesheet::getImage() const {
   return image;
 }
 
-Spritesheet::Spritesheet(Image &&image)
+Spritesheet::Spritesheet(Surface &&image)
   : image(std::move(image)) {}
 
 template <typename DataType>
@@ -69,7 +66,7 @@ Spritesheet Unpack::makeSpritesheet(
     throw AtlasReadError("Failed to open file");
   }
   atlasFile.exceptions(std::fstream::eofbit | std::fstream::failbit | std::fstream::badbit);
-  Spritesheet sheet(loadImage(imagePath));
+  Spritesheet sheet(loadSurface(imagePath));
   
   const VecPx size = read<VecPx>(atlasFile);
   if (size.x < 1 || size.y < 1) {

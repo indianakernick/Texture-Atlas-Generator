@@ -9,32 +9,16 @@
 #ifndef image_load_images_hpp
 #define image_load_images_hpp
 
-#include <string>
-#include "image.hpp"
-#include <string_view>
-
-#ifdef BUILDING_PACKER
-
 #include <vector>
+#include <string>
+#include <string_view>
+#include <Surface/surface.hpp>
 
 class NoLoadedImagesError final : public std::runtime_error {
 public:
   NoLoadedImagesError();
 };
 
-std::vector<Image> loadImages(const std::vector<std::string> &);
-
-#endif
-
-class ImageLoadError final : public std::runtime_error {
-public:
-  ImageLoadError(std::string_view, std::string_view);
-};
-
-#ifdef BUILDING_PACKER
-Image loadImage(std::string_view);
-#else
-Unpack::Image loadImage(std::string_view);
-#endif
+std::vector<Surface> loadImages(const std::vector<std::string> &);
 
 #endif

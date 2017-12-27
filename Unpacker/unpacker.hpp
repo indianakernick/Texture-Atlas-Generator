@@ -11,13 +11,15 @@
 
 #include <string>
 #include <vector>
-#include "image.hpp"
 #include <string_view>
 #include <unordered_map>
+#include <Surface/surface.hpp>
 
 #pragma GCC visibility push(default)
 
 namespace Unpack {
+  #include "types.hpp"
+
   class SpriteNotFound final : public std::range_error {
   public:
     SpriteNotFound();
@@ -39,12 +41,10 @@ namespace Unpack {
     
     static const VecPx NO_WHITEPIXEL;
     
-    Spritesheet();
-    Spritesheet(const Spritesheet &) = delete;
+    Spritesheet() = default;
     Spritesheet(Spritesheet &&) = default;
     ~Spritesheet() = default;
     
-    Spritesheet &operator=(const Spritesheet &) = delete;
     Spritesheet &operator=(Spritesheet &&) = default;
     
     /// Returns NULL_SPRITE if the name is invalid
@@ -56,14 +56,14 @@ namespace Unpack {
     /// Throws std::out_of_range if SpriteID is invalid
     RectPx getSprite(SpriteID) const;
     /// Returns a reference to a member of this object
-    const Image &getImage() const;
+    const Surface &getImage() const;
     
   private:
-    explicit Spritesheet(Image &&);
+    explicit Spritesheet(Surface &&);
 
     std::unordered_map<std::string, SpriteID> spriteNames;
     std::vector<RectPx> sprites;
-    Image image;
+    Surface image;
     VecPx whitepixel;
   };
 

@@ -10,7 +10,6 @@
 
 #include <fstream>
 #include "../Utils/logger.hpp"
-#include "../Utils/profiler.hpp"
 
 static const VecPx NO_WHITEPIXEL = {-1, -1};
 
@@ -54,8 +53,6 @@ void writeAtlas(
   const CoordPx size,
   const bool hasWhitepixel
 ) try {
-  PROFILE(writeAtlas);
-
   Logger::get() << "Writing atlas to file \"" << output << "\"\n";
   
   std::ofstream file(output.data(), std::fstream::binary);

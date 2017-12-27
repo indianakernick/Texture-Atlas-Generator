@@ -10,7 +10,7 @@
 #define image_write_atlas_hpp
 
 #include <vector>
-#include "image.hpp"
+#include "types.hpp"
 #include <string_view>
 
 class AtlasWriteError final : public std::runtime_error {

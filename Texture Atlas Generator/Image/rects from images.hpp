@@ -10,9 +10,10 @@
 #define rects_from_images_hpp
 
 #include <vector>
-#include "image.hpp"
+#include "types.hpp"
+#include <Surface/surface.hpp>
 
-std::vector<RectPx> rectsFromImages(const std::vector<Image> &);
-void rectsFromImages(const std::vector<Image> &, std::vector<RectPx> &);
+std::vector<RectPx> rectsFromImages(const std::vector<Surface> &);
+void rectsFromImages(const std::vector<Surface> &, std::vector<RectPx> &);
 
 #endif

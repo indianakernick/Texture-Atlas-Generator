@@ -15,7 +15,6 @@
 #include "write atlas.hpp"
 #include "sort by frame.hpp"
 #include "rects from images.hpp"
-#include "../Utils/profiler.hpp"
 #include "../Utils/pack rects.hpp"
 #include "../Utils/search dir.hpp"
 
@@ -33,8 +32,6 @@ ValueType getOptional(const YAML::Node &node, const ValueType &def) {
 }
 
 void createImageAtlas(const YAML::Node &config) {
-  PROFILE(createImageAtlas);
-  
   const std::string inputFolder = getOptional(config["input"], DEFAULT_INPUT);
   const std::string outputName = getOptional(config["output"], DEFAULT_OUTPUT);
   const CoordPx sep = getOptional(config["sep"], DEFAULT_SEP);
@@ -52,10 +49,10 @@ void createImageAtlas(const YAML::Node &config) {
     : findFiles(inputFolder, extIsImage)
   );
   sortByFrame(paths);
-  std::vector<Image> images = loadImages(paths);
+  std::vector<Surface> images = loadImages(paths);
   if (whitepixelNode) {
     const CoordPx size = 1 + whitepixelNode.as<CoordPx>() * 2;
-    images.emplace_back(size, size, images.back().format(), 255);
+    images.emplace_back(size, size, images.back().bytesPerPixel(), 255);
   }
   std::vector<RectPx> rects = rectsFromImages(images);
   const CoordPx length = packRects(rects, sep);

@@ -8,13 +8,13 @@
 
 #include "rects from images.hpp"
 
-std::vector<RectPx> rectsFromImages(const std::vector<Image> &images) {
+std::vector<RectPx> rectsFromImages(const std::vector<Surface> &images) {
   std::vector<RectPx> rects;
   rectsFromImages(images, rects);
   return rects;
 }
 
-void rectsFromImages(const std::vector<Image> &images, std::vector<RectPx> &rects) {
+void rectsFromImages(const std::vector<Surface> &images, std::vector<RectPx> &rects) {
   rects.reserve(rects.size() + images.size());
   for (auto i = images.cbegin(); i != images.cend(); i++) {
     rects.emplace_back(0, 0, i->width(), i->height());

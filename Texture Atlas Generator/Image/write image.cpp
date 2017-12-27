@@ -8,28 +8,11 @@
 
 #include "write image.hpp"
 
+#include <Surface/write.hpp>
 #include "../Utils/logger.hpp"
-#include "../Utils/profiler.hpp"
-#include "../Libraries/stb_image_write.h"
 
-ImageWriteError::ImageWriteError()
-  : std::runtime_error("Failed to write image to file") {}
-
-void writeImage(const std::string_view file, const Image &image) {
-  PROFILE(writeImage);
-  
+void writeImage(const std::string_view file, const Surface &image) {
   Logger::get() << "Writing image to file \"" << file << "\"\n";
   
-  const int success = stbi_write_png(
-    file.data(),
-    image.width(),
-    image.height(),
-    static_cast<int>(image.format()),
-    image.data(),
-    static_cast<int>(image.pitch())
-  );
-  
-  if (success == 0) {
-    throw ImageWriteError();
-  }
+  writeSurface(file, image);
 }

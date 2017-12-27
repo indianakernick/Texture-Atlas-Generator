@@ -13,12 +13,19 @@
 #include <vector>
 #include <string_view>
 #include <unordered_map>
-#include <Surface/surface.hpp>
+#include <Surface/load.hpp>
 
 #pragma GCC visibility push(default)
 
 namespace Unpack {
-  #include "types.hpp"
+  using CoordPx = int32_t;
+  
+  struct VecPx {
+    CoordPx x, y;
+  };
+  struct RectPx {
+    CoordPx x, y, w, h;
+  };
 
   class SpriteNotFound final : public std::range_error {
   public:
@@ -32,42 +39,39 @@ namespace Unpack {
   };
   
   using SpriteID = uint32_t;
-  static constexpr SpriteID NULL_SPRITE = std::numeric_limits<SpriteID>::max();
+  constexpr SpriteID NULL_SPRITE = std::numeric_limits<SpriteID>::max();
 
   class Spritesheet {
   public:
     //only the factory function can make spritesheets
-    friend Spritesheet makeSpritesheet(std::string_view, std::string_view);
+    friend Spritesheet makeSpritesheet(std::string_view);
     
     static const VecPx NO_WHITEPIXEL;
     
     Spritesheet() = default;
-    Spritesheet(Spritesheet &&) = default;
     ~Spritesheet() = default;
-    
+    Spritesheet(Spritesheet &&) = default;
     Spritesheet &operator=(Spritesheet &&) = default;
     
     /// Returns NULL_SPRITE if the name is invalid
     SpriteID getIDfromName(std::string_view) const;
     
+    /// Throws std::out_of_range if SpriteID is invalid
+    RectPx getSprite(SpriteID) const;
+    
     bool hasWhitepixel() const;
     VecPx getWhitepixel() const;
     
-    /// Throws std::out_of_range if SpriteID is invalid
-    RectPx getSprite(SpriteID) const;
-    /// Returns a reference to a member of this object
-    const Surface &getImage() const;
+    VecPx getSize() const;
     
   private:
-    explicit Spritesheet(Surface &&);
-
     std::unordered_map<std::string, SpriteID> spriteNames;
     std::vector<RectPx> sprites;
-    Surface image;
     VecPx whitepixel;
+    VecPx size;
   };
 
-  Spritesheet makeSpritesheet(std::string_view atlas, std::string_view image);
+  Spritesheet makeSpritesheet(std::string_view);
 }
 
 #pragma GCC visibility pop

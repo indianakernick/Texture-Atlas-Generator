@@ -31,24 +31,21 @@ SpriteID Spritesheet::getIDfromName(const std::string_view name) const {
   }
 }
 
+RectPx Spritesheet::getSprite(const SpriteID sprite) const {
+  return sprites.at(sprite);
+}
+
 bool Spritesheet::hasWhitepixel() const {
-  return whitepixel != NO_WHITEPIXEL;
+  return whitepixel.x != NO_WHITEPIXEL.x || whitepixel.y != NO_WHITEPIXEL.y;
 }
 
 VecPx Spritesheet::getWhitepixel() const {
   return whitepixel;
 }
 
-RectPx Spritesheet::getSprite(const SpriteID sprite) const {
-  return sprites.at(sprite);
+VecPx Spritesheet::getSize() const {
+  return size;
 }
-
-const Surface &Spritesheet::getImage() const {
-  return image;
-}
-
-Spritesheet::Spritesheet(Surface &&image)
-  : image(std::move(image)) {}
 
 template <typename DataType>
 DataType read(std::ifstream &file) {
@@ -57,19 +54,16 @@ DataType read(std::ifstream &file) {
   return data;
 }
 
-Spritesheet Unpack::makeSpritesheet(
-  const std::string_view atlasPath,
-  const std::string_view imagePath
-) try {
+Spritesheet Unpack::makeSpritesheet(const std::string_view atlasPath) try {
   std::ifstream atlasFile(atlasPath.data(), std::fstream::binary);
   if (!atlasFile.is_open()) {
     throw AtlasReadError("Failed to open file");
   }
-  atlasFile.exceptions(std::fstream::eofbit | std::fstream::failbit | std::fstream::badbit);
-  Spritesheet sheet(loadSurface(imagePath));
+  atlasFile.exceptions(0xFFFFFFFF);
+  Spritesheet sheet;
   
-  const VecPx size = read<VecPx>(atlasFile);
-  if (size.x < 1 || size.y < 1) {
+  sheet.size = read<VecPx>(atlasFile);
+  if (sheet.size.x < 1 || sheet.size.y < 1) {
     throw AtlasReadError("Size is out of range");
   }
   
@@ -83,8 +77,7 @@ Spritesheet Unpack::makeSpritesheet(
     throw AtlasReadError("Number of sprites is out of range");
   }
   
-  std::vector<RectPx> rectangles;
-  rectangles.reserve(numSprites);
+  sheet.sprites.reserve(numSprites);
   
   while (numSprites--) {
     const RectPx rect = read<RectPx>(atlasFile);
@@ -93,26 +86,24 @@ Spritesheet Unpack::makeSpritesheet(
       rect.y < 0 ||
       rect.w < 1 ||
       rect.h < 1 ||
-      rect.x + rect.w > size.x ||
-      rect.y + rect.h > size.y
+      rect.x + rect.w > sheet.size.x ||
+      rect.y + rect.h > sheet.size.y
     ) {
       throw AtlasReadError("Rectangle out of range");
     }
-    rectangles.push_back(rect);
+    sheet.sprites.push_back(rect);
   }
   
-  for (size_t s = 0; s != rectangles.size(); s++) {
+  for (size_t s = 0; s != sheet.sprites.size(); ++s) {
     std::string name;
-    while (char c = atlasFile.get()) {
+    while (const char c = atlasFile.get()) {
       name.push_back(c);
     }
     const bool inserted = sheet.spriteNames.emplace(name, s).second;
-    if (not inserted) {
+    if (!inserted) {
       throw AtlasReadError("More than one sprite have the same name");
     }
   }
-  
-  sheet.sprites = std::move(rectangles);
   
   return sheet;
 } catch (AtlasReadError &) {

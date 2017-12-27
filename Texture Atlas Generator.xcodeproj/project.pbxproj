@@ -76,7 +76,7 @@
 		45B32EA41FF38979007BA7F4 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/local/include/Unpack;
+			dstPath = /usr/local/include/Unpacker;
 			dstSubfolderSpec = 0;
 			files = (
 				45B32EA51FF389A6007BA7F4 /* types.hpp in CopyFiles */,
@@ -378,7 +378,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "cp Texture\\ Atlas\\ Generator/Utils/types.hpp Unpacker/types.hpp";
+			shellScript = "cp Texture\\ Atlas\\ Generator/Utils/types.hpp Unpacker/types.hpp\nrm -dfR /usr/local/include/Unpacker";
 		};
 /* End PBXShellScriptBuildPhase section */
 

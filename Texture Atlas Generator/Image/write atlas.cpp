@@ -9,9 +9,8 @@
 #include "write atlas.hpp"
 
 #include <fstream>
+#include <json.hpp>
 #include "../Utils/logger.hpp"
-
-static const VecPx NO_WHITEPIXEL = {-1, -1};
 
 AtlasWriteError::AtlasWriteError(const char *msg)
   : std::runtime_error(std::string("Failed to write atlas: ") + msg) {}
@@ -27,24 +26,22 @@ std::string_view getImageName(const std::string &path) {
   return {path.c_str() + lastSlash + 1, path.find_last_of('.') - lastSlash - 1};
 }
 
-VecPx getWhitepixel(const RectPx lastRect, const bool hasWhitepixel) {
-  if (hasWhitepixel) {
-    return {
-      lastRect.x + (lastRect.w - 1) / 2,
-      lastRect.y + (lastRect.h - 1) / 2
-    };
-  } else {
-    return NO_WHITEPIXEL;
-  }
+VecPx getWhitepixel(const RectPx lastRect) {
+  return {
+    lastRect.x + (lastRect.w - 1) / 2,
+    lastRect.y + (lastRect.h - 1) / 2
+  };
 }
 
-/*
-0 ~ 8       Width and height of sheet
-8 ~ 16      X and Y of whitepixel
-16 ~ 20     Number of rectangles
-20 ~ 20+n*4 Rectangles X, Y, W, H
-20+n*4 +    Null-terminated ASCII string names
-*/
+using nlohmann::json;
+
+void to_json(json &json, const VecPx vec) {
+  json = {vec.x, vec.y};
+}
+
+void to_json(json &json, const RectPx rect) {
+  json = {rect.x, rect.y, rect.w, rect.h};
+}
 
 void writeAtlas(
   const std::string_view output,
@@ -55,40 +52,35 @@ void writeAtlas(
 ) try {
   Logger::get() << "Writing atlas to file \"" << output << "\"\n";
   
-  std::ofstream file(output.data(), std::fstream::binary);
-  if (!file.is_open()) {
-    throw AtlasWriteError("Could not open output file");
+  json doc;
+  
+  doc.emplace("size", json::array({size, size}));
+  
+  if (hasWhitepixel) {
+    doc.emplace("whitepixel", getWhitepixel(rects.back()));
   }
-  file.exceptions(std::fstream::eofbit | std::fstream::failbit | std::fstream::badbit);
   
-  const VecPx sizeVec = {size, size};
-  file.write(reinterpret_cast<const char *>(&sizeVec), sizeof(sizeVec));
-  
-  const VecPx whitepixel = getWhitepixel(rects.back(), hasWhitepixel);
-  file.write(reinterpret_cast<const char *>(&whitepixel), sizeof(whitepixel));
-  
-  const CoordPx numSprites = static_cast<CoordPx>(paths.size());
-  file.write(reinterpret_cast<const char *>(&numSprites), sizeof(numSprites));
-  
-  file.write(reinterpret_cast<const char *>(rects.data()), (rects.size() - hasWhitepixel) * sizeof(RectPx));
+  json &rectsNode = doc["rects"];
+  rectsNode = json::array();
   
   std::vector<std::string_view> names;
-  for (auto p = paths.cbegin(); p != paths.cend(); ++p) {
-    const std::string_view name = getImageName(*p);
+  for (size_t p = 0; p != paths.size(); ++p) {
+    const std::string_view name = getImageName(paths[p]);
     for (auto n = names.cbegin(); n != names.cend(); ++n) {
       if (*n == name) {
         throw AtlasWriteError("Two images have the same name \"" + std::string(name) + "\"");
       }
     }
     names.push_back(name);
+    
+    rectsNode.emplace_back(json::array({std::string(name), rects[p]}));
   }
   
-  for (auto n = names.cbegin(); n != names.cend(); ++n) {
-    file.write(n->data(), n->size());
-    file.put(0);
+  std::ofstream file(output.data(), std::fstream::binary);
+  if (!file.is_open()) {
+    throw AtlasWriteError("Could not open output file");
   }
-  
-  file.flush();
+  file << doc;
 } catch (AtlasWriteError &) {
   throw;
 } catch (std::exception &e) {

@@ -8,7 +8,6 @@
 
 #include "user interface.hpp"
 
-#include <yaml-cpp/yaml.h>
 #include "load images.hpp"
 #include "blit images.hpp"
 #include "write image.hpp"
@@ -18,27 +17,31 @@
 #include "../Utils/pack rects.hpp"
 #include "../Utils/search dir.hpp"
 
-static const std::string DEFAULT_INPUT = ".";
-static const std::string DEFAULT_OUTPUT = "output";
-static const CoordPx DEFAULT_SEP = 1;
+const std::string DEFAULT_INPUT = ".";
+const std::string DEFAULT_OUTPUT = "output";
+const CoordPx DEFAULT_SEP = 1;
+
+using nlohmann::json;
 
 template <typename ValueType>
-ValueType getOptional(const YAML::Node &node, const ValueType &def) {
-  if (node) {
-    return node.as<ValueType>();
-  } else {
+ValueType getOptional(const json &node, const char *key, const ValueType &def) {
+  const auto iter = node.find(key);
+  if (iter == node.end()) {
     return def;
+  } else {
+    return iter->get<ValueType>();
   }
 }
 
-void createImageAtlas(const YAML::Node &config) {
-  const std::string inputFolder = getOptional(config["input"], DEFAULT_INPUT);
-  const std::string outputName = getOptional(config["output"], DEFAULT_OUTPUT);
-  const CoordPx sep = getOptional(config["sep"], DEFAULT_SEP);
-  const YAML::Node &whitepixelNode = config["whitepixel"];
-  const bool recursive = getOptional(config["recursive"], false);
-  const size_t maxDepth = getOptional<size_t>(
-    config["max resursive depth"],
+void createImageAtlas(const json &config) {
+  const std::string inputFolder = getOptional(config, "input", DEFAULT_INPUT);
+  const std::string outputName = getOptional(config, "output", DEFAULT_OUTPUT);
+  const CoordPx sep = getOptional(config, "sep", DEFAULT_SEP);
+  const auto whitepixelIter = config.find("whitepixel");
+  const bool recursive = getOptional(config, "recursive", false);
+  const size_t maxDepth = getOptional(
+    config,
+    "max resursive depth",
     std::numeric_limits<size_t>::max()
   );
 
@@ -49,13 +52,16 @@ void createImageAtlas(const YAML::Node &config) {
     : findFiles(inputFolder, extIsImage)
   );
   sortByFrame(paths);
+  
   std::vector<Surface> images = loadImages(paths);
-  if (whitepixelNode) {
-    const CoordPx size = 1 + whitepixelNode.as<CoordPx>() * 2;
+  const bool hasWhitepixel = whitepixelIter != config.end();
+  if (hasWhitepixel) {
+    const CoordPx size = 1 + whitepixelIter->get<CoordPx>() * 2;
     images.emplace_back(size, size, images.back().bytesPerPixel(), 255);
   }
   std::vector<RectPx> rects = rectsFromImages(images);
   const CoordPx length = packRects(rects, sep);
+  
   writeImage(outputName + ".png", makeAndBlit(images, rects, length));
-  writeAtlas(outputName + ".atlas", paths, rects, length, whitepixelNode);
+  writeAtlas(outputName + ".atlas", paths, rects, length, hasWhitepixel);
 }

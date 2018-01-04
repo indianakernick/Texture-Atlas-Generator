@@ -14,8 +14,6 @@
 #include <string_view>
 #include <unordered_map>
 
-#pragma GCC visibility push(default)
-
 namespace Unpack {
   using CoordPx = int32_t;
   
@@ -45,7 +43,7 @@ namespace Unpack {
     //only the factory function can make spritesheets
     friend Spritesheet makeSpritesheet(std::string_view);
     
-    static const VecPx NO_WHITEPIXEL;
+    static constexpr VecPx NO_WHITEPIXEL = {-1, -1};
     
     Spritesheet() = default;
     ~Spritesheet() = default;
@@ -73,6 +71,6 @@ namespace Unpack {
   Spritesheet makeSpritesheet(std::string_view);
 }
 
-#pragma GCC visibility pop
+#include "unpacker.inl"
 
 #endif

@@ -8,17 +8,20 @@
 
 #include "app.hpp"
 
+#include <fstream>
 #include "Utils/logger.hpp"
 #include "Image/user interface.hpp"
 
-static constexpr char USAGE[] = R"(Usage:
+using nlohmann::json;
+
+constexpr char USAGE[] = R"(Usage:
   packer [--silent] <path_to_config_file>
 
 Options:
   --silent      Suppress status messages but not error messages
 )";
 
-static constexpr size_t NUM_OPTIONS = 1;
+constexpr size_t NUM_OPTIONS = 1;
 
 ArgError::ArgError()
   : std::runtime_error("Invalid arguments") {}
@@ -44,5 +47,8 @@ void runApp(const std::vector<std::string> &args) {
   }
   
   Logger::init(output);
-  createImageAtlas(YAML::LoadFile(args[nextIndex]));
+  std::fstream file(args[nextIndex]);
+  json config;
+  file >> config;
+  createImageAtlas(config);
 }

@@ -9,8 +9,8 @@
 #ifndef image_user_interface_hpp
 #define image_user_interface_hpp
 
-#include <yaml-cpp/yaml.h>
+#include "json.hpp"
 
-void createImageAtlas(const YAML::Node &);
+void createImageAtlas(const nlohmann::json &);
 
 #endif

@@ -27,7 +27,7 @@ CoordPx calcArea(const std::vector<RectPx> &rects, const CoordPx sep) {
 CoordPx calcLength(CoordPx area) {
   const CoordPx length = static_cast<CoordPx>(std::ceil(std::sqrt(area)));
   const CoordPx ceiledLength = ceilToPowerOf2(length);
-  if (static_cast<float>(length) / ceiledLength > 0.90f) {
+  if (static_cast<float>(length) / ceiledLength > 0.95f) {
     return ceiledLength * 2;
   } else {
     return ceiledLength;
@@ -49,17 +49,26 @@ std::vector<stbrp_rect> fillStbRects(const std::vector<RectPx> &rects, const Coo
 
 std::vector<stbrp_rect> packRects(
   const std::vector<RectPx> &rects,
-  const CoordPx length,
+  CoordPx length,
   const CoordPx sep
 ) {
   std::vector<stbrp_node> stbNodes(length);
   std::vector<stbrp_rect> stbRects = fillStbRects(rects, sep);
   
-  stbrp_context ctx;
-  stbrp_init_target(&ctx, length, length, stbNodes.data(), static_cast<int>(stbNodes.size()));
-  if (stbrp_pack_rects(&ctx, stbRects.data(), static_cast<int>(stbRects.size())) == 0) {
-    throw RectPackError();
-  }
+  int success;
+  int retries = 0;
+  do {
+    if (retries == 4) {
+      throw RectPackError();
+    }
+  
+    stbrp_context ctx;
+    stbrp_init_target(&ctx, length, length, stbNodes.data(), static_cast<int>(stbNodes.size()));
+    success = stbrp_pack_rects(&ctx, stbRects.data(), static_cast<int>(stbRects.size()));
+    
+    length *= 2;
+    ++retries;
+  } while (success == 0);
   
   return stbRects;
 }

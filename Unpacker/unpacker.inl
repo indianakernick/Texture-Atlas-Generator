@@ -83,19 +83,14 @@ inline Unpack::Spritesheet Unpack::makeSpritesheet(const std::string_view atlasP
     sheet.whitepixel = Spritesheet::NO_WHITEPIXEL;
   }
   
-  const nlohmann::json &rects = doc.at("rects");
-  const size_t numSprites = rects.size();
-  sheet.sprites.reserve(numSprites);
+  sheet.sprites = doc.at("rects").get<decltype(sheet.sprites)>();
+  sheet.spriteNames = doc.at("names").get<decltype(sheet.spriteNames)>();
   
-  for (size_t s = 0; s != numSprites; ++s) {
-    const nlohmann::json &pair = rects.at(s);
-    const std::string &name = pair.at(0).get_ref<const std::string &>();
-    const bool inserted = sheet.spriteNames.emplace(name, s).second;
-    if (!inserted) {
-      throw AtlasReadError("More than one sprite have the same name");
-    }
-    
-    const RectPx rect = pair.at(1).get<RectPx>();
+  if (sheet.sprites.size() != sheet.spriteNames.size()) {
+    throw AtlasReadError("There must be one name for each rectagle");
+  }
+  
+  for (const RectPx rect : sheet.sprites) {
     if (
       rect.x < 0 ||
       rect.y < 0 ||
@@ -106,7 +101,6 @@ inline Unpack::Spritesheet Unpack::makeSpritesheet(const std::string_view atlasP
     ) {
       throw AtlasReadError("Rectangle out of range");
     }
-    sheet.sprites.push_back(rect);
   }
   
   return sheet;

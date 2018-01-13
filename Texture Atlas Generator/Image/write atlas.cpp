@@ -62,18 +62,17 @@ void writeAtlas(
   
   json &rectsNode = doc["rects"];
   rectsNode = json::array();
+  for (const RectPx &rect : rects) {
+    rectsNode.emplace_back(rect);
+  }
   
-  std::vector<std::string_view> names;
+  json &namesNode = doc["names"];
+  namesNode = json::object();
   for (size_t p = 0; p != paths.size(); ++p) {
     const std::string_view name = getImageName(paths[p]);
-    for (auto n = names.cbegin(); n != names.cend(); ++n) {
-      if (*n == name) {
-        throw AtlasWriteError("Two images have the same name \"" + std::string(name) + "\"");
-      }
+    if (!namesNode.emplace(name, p).second) {
+      throw AtlasWriteError("Two images have the same name \"" + std::string(name) + "\"");
     }
-    names.push_back(name);
-    
-    rectsNode.emplace_back(json::array({std::string(name), rects[p]}));
   }
   
   std::ofstream file(output.data(), std::fstream::binary);

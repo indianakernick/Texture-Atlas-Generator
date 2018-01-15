@@ -50,9 +50,10 @@ namespace {
       if (passedDot) {
         if (std::isdigit(c)) {
           if (gotFrameNum) {
-            frameEnd = i + 1;
+            frameBegin = i;
           } else {
             frameBegin = i;
+            frameEnd = i + 1;
             gotFrameNum = true;
           }
         } else {

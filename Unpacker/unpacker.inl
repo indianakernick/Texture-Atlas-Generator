@@ -87,7 +87,7 @@ inline Unpack::Spritesheet Unpack::makeSpritesheet(const std::string_view atlasP
   sheet.spriteNames = doc.at("names").get<decltype(sheet.spriteNames)>();
   
   if (sheet.sprites.size() != sheet.spriteNames.size()) {
-    throw AtlasReadError("There must be one name for each rectagle");
+    throw AtlasReadError("There must be one name for each rectangle");
   }
   
   for (const RectPx rect : sheet.sprites) {
@@ -99,7 +99,7 @@ inline Unpack::Spritesheet Unpack::makeSpritesheet(const std::string_view atlasP
       rect.x + rect.w > sheet.size.x ||
       rect.y + rect.h > sheet.size.y
     ) {
-      throw AtlasReadError("Rectangle out of range");
+      throw AtlasReadError("Rectangle is out of range");
     }
   }
   

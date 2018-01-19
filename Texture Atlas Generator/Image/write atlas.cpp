@@ -62,8 +62,9 @@ void writeAtlas(
   
   json &rectsNode = doc["rects"];
   rectsNode = json::array();
-  for (const RectPx &rect : rects) {
-    rectsNode.emplace_back(rect);
+  const auto end = rects.cend() - hasWhitepixel;
+  for (auto r = rects.cbegin(); r != end; ++r) {
+    rectsNode.emplace_back(*r);
   }
   
   json &namesNode = doc["names"];

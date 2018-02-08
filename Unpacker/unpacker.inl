@@ -9,7 +9,7 @@
 #include "unpacker.hpp"
 
 #include <fstream>
-#include <json.hpp>
+#include <nlohmann/json.hpp>
 
 inline Unpack::AtlasReadError::AtlasReadError(const char *const msg)
   : std::runtime_error(std::string("Atlas read error: ") + msg) {}

@@ -9,7 +9,7 @@
 #include "write atlas.hpp"
 
 #include <fstream>
-#include <json.hpp>
+#include <nlohmann/json.hpp>
 #include "../Utils/logger.hpp"
 
 AtlasWriteError::AtlasWriteError(const char *msg)

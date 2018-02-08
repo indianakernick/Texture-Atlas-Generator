@@ -9,7 +9,7 @@
 #ifndef image_user_interface_hpp
 #define image_user_interface_hpp
 
-#include "json.hpp"
+#include <nlohmann/json.hpp>
 
 void createImageAtlas(const nlohmann::json &);
 

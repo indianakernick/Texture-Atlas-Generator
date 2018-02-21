@@ -99,16 +99,6 @@
 		45B5E6671EF65B0D00A6A3E2 /* libyaml-cpp.0.5.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libyaml-cpp.0.5.3.dylib"; path = "../../../../../../usr/local/Cellar/yaml-cpp/0.5.3/lib/libyaml-cpp.0.5.3.dylib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFrameworksBuildPhase section */
-		4518769D1EAAF80500A8AA13 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
 /* Begin PBXGroup section */
 		451876971EAAF80500A8AA13 = {
 			isa = PBXGroup;
@@ -216,7 +206,6 @@
 			buildConfigurationList = 451876A71EAAF80500A8AA13 /* Build configuration list for PBXNativeTarget "packer" */;
 			buildPhases = (
 				4518769C1EAAF80500A8AA13 /* Sources */,
-				4518769D1EAAF80500A8AA13 /* Frameworks */,
 				4518769E1EAAF80500A8AA13 /* CopyFiles */,
 				4592B4921F04786E00D1640D /* ShellScript */,
 			);
@@ -469,7 +458,7 @@
 					"-Wextra-semi",
 					"-std=c++1z",
 				);
-				OTHER_LDFLAGS = /usr/local/lib/libSurface.a;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -510,7 +499,7 @@
 					"-Wextra-semi",
 					"-std=c++1z",
 				);
-				OTHER_LDFLAGS = /usr/local/lib/libSurface.a;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
